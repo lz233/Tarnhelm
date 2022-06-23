@@ -9,7 +9,10 @@ interface RuleDao {
     fun insert(vararg rules: Rule)
 
     @Query("SELECT * FROM rule")
-    fun getAll():List<Rule>
+    fun getAll():MutableList<Rule>
+
+    @Query("SELECT  count(*) FROM rule")
+    fun getCount():Int
 
     @Delete
     fun delete(rule: Rule)
