@@ -18,6 +18,9 @@ class App : Application() {
         lateinit var ruleDao: RuleDao
         lateinit var clipboard: ClipboardManager
         const val TAG = "Tarnhelm"
+
+        @JvmStatic
+        fun isXposedActive(): Boolean = false
     }
 
     override fun onCreate() {
