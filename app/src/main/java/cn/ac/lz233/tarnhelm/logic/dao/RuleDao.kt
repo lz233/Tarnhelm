@@ -9,10 +9,13 @@ interface RuleDao {
     fun insert(vararg rules: Rule)
 
     @Query("SELECT * FROM rule")
-    fun getAll():MutableList<Rule>
+    fun getAll(): MutableList<Rule>
 
     @Query("SELECT count(*) FROM rule")
-    fun getCount():Int
+    fun getCount(): Int
+
+    @Query("SELECT max(id) FROM rule")
+    fun getMaxId(): Int
 
     @Delete
     fun delete(rule: Rule)

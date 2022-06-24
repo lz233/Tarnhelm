@@ -34,7 +34,7 @@ class RulesActivity : BaseActivity() {
                 .setView(dialogBinding.root)
                 .setPositiveButton("OK") { _, _ ->
                     val item = Rule(
-                        App.ruleDao.getCount(),
+                        App.ruleDao.getMaxId() + 1,
                         dialogBinding.descriptionEditText.text.toString(),
                         dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
@@ -51,7 +51,7 @@ class RulesActivity : BaseActivity() {
                 try {
                     val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
                     val item = Rule(
-                        App.ruleDao.getCount(),
+                        App.ruleDao.getMaxId() + 1,
                         ruleJSONObject.getString("a"),
                         ruleJSONObject.getJSONArray("b").toString(),
                         ruleJSONObject.getJSONArray("c").toString(),

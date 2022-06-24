@@ -86,13 +86,11 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
                 App.ruleDao.delete(rule)
                 rulesList.removeAt(position)
                 notifyItemRemoved(position)
-                //LogUtil.d(position)
-                //LogUtil.d(itemCount - position)
                 notifyItemRangeChanged(position - 1, itemCount - position + 1)
                 dialog.dismiss()
             }
         }
-        holder.descriptionContentTextView.text = rule.description
+        holder.descriptionContentTextView.text = "${rule.description} (${rule.id})"
         holder.regexContentTextView.text = JSONArray(rule.regexArray).toMultiString()
         holder.replacementContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
         holder.authorContentTextView.text = rule.author
