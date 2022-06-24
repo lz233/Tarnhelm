@@ -1,10 +1,12 @@
 package cn.ac.lz233.tarnhelm.ui.main
 
 import android.os.Bundle
-import androidx.core.view.WindowCompat
+import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
+import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
@@ -16,5 +18,13 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
+        binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        launch {
+            binding.rulesSummaryTextView.text = "has ${App.ruleDao.getCount()} rule(s)"
+        }
     }
 }

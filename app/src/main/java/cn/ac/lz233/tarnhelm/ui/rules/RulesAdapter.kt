@@ -80,7 +80,7 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
                 dialog.dismiss()
             }
         }
-        holder.descriptionContentTextView.text = "${rule.description} (${rule.id})"
+        holder.descriptionContentTextView.text = rule.description
         holder.regexContentTextView.text = JSONArray(rule.regexArray).toMultiString()
         holder.replacementContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
         holder.authorContentTextView.text = rule.author

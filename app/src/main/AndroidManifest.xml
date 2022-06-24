@@ -21,6 +21,9 @@
             android:name=".ui.rules.RulesActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.process.ProcessAvtivity"
             android:exported="true"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">

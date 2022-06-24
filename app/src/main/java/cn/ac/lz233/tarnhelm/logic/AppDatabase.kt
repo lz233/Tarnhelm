@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import cn.ac.lz233.tarnhelm.logic.dao.RuleDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 
-@Database(entities = [Rule::class], version = 1)
+@Database(entities = [Rule::class], version = 1, exportSchema = false)
 abstract class AppDatabase :RoomDatabase(){
     abstract fun ruleDao():RuleDao
 }

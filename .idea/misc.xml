@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_copy.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_description.xml" value="0.177" />
+        <entry key="app/src/main/res/drawable/ic_info.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_outline_check_circle_outline_24.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_outline_rule_24.xml" value="0.177" />
@@ -18,6 +19,7 @@
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.177" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1838768115942029" />
         <entry key="app/src/main/res/layout/activity_rules.xml" value="0.1838768115942029" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.1840435176790571" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1838768115942029" />
         <entry key="app/src/main/res/layout/content_rules.xml" value="0.1838768115942029" />
         <entry key="app/src/main/res/layout/dialog_add.xml" value="0.1840435176790571" />
@@ -28,6 +30,8 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.11197916666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.177" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.177" />
+        <entry key="app/src/main/res/xml/Settings.xml" value="0.1840435176790571" />
+        <entry key="app/src/main/res/xml/preferences.xml" value="0.1085934159897392" />
       </map>
     </option>
   </component>

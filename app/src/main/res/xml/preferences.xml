@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Work Mode">
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="editTextMenu"
+            android:title="EditText Menu" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:key="xposed"
+            android:title="Xposed" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

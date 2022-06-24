@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Tarnhelm" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Tarnhelm" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_primary</item> -->
         <item name="colorPrimary">@color/md_theme_primary</item>
@@ -30,6 +30,11 @@
         <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
         <!--<item name="android:windowBackground">?attr/colorSurface</item>-->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
+        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch
+        </item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

@@ -13,7 +13,7 @@ class DragSwipeCallback(private val adapter: IDragSwipe) : ItemTouchHelper.Callb
 
     override fun isLongPressDragEnabled() = true
 
-    override fun isItemViewSwipeEnabled() = true
+    override fun isItemViewSwipeEnabled() = false
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         adapter.onItemSwapped(viewHolder.adapterPosition, target.adapterPosition)
