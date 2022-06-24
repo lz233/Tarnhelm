@@ -1,4 +1,4 @@
-package cn.ac.lz233.tarnhelm.xposed.app
+package cn.ac.lz233.tarnhelm.xposed.module
 
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedHelpers
