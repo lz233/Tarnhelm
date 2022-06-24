@@ -9,6 +9,7 @@ import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAddBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -42,7 +43,8 @@ class RulesActivity : BaseActivity() {
                     )
                     App.ruleDao.insert(item)
                     rulesList.add(item)
-                    adapter.notifyItemChanged(adapter.itemCount)
+                    adapter.notifyItemInserted(adapter.itemCount - 1)
+                    adapter.notifyItemChanged(adapter.itemCount - 2)
                 }
                 .show()
             dialogBinding.pasteImageView.setOnClickListener {
@@ -58,7 +60,9 @@ class RulesActivity : BaseActivity() {
                     )
                     App.ruleDao.insert(item)
                     rulesList.add(item)
-                    adapter.notifyItemChanged(adapter.itemCount)
+                    LogUtil.d(adapter.itemCount)
+                    adapter.notifyItemInserted(adapter.itemCount - 1)
+                    adapter.notifyItemChanged(adapter.itemCount - 2)
                     dialog.dismiss()
                 } catch (e: Throwable) {
                     e.printStackTrace()

@@ -33,7 +33,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="15dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_copy"
                 app:tint="?attr/colorOnSecondaryContainer" />
@@ -42,9 +42,19 @@
                 android:id="@+id/shareImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginEnd="15dp"
                 android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/ic_share"
+                app:tint="?attr/colorOnSecondaryContainer" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/deleteImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_delete"
                 app:tint="?attr/colorOnSecondaryContainer" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -23,11 +23,13 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val headerView: View = view.findViewById(R.id.headerView)
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
         val regexContentTextView: AppCompatTextView = view.findViewById(R.id.regexContentTextView)
         val replacementContentTextView: AppCompatTextView = view.findViewById(R.id.replacementContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
+        val footerView: View = view.findViewById(R.id.footerView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,6 +39,14 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rule = rulesList[position]
+        if (position == 0)
+            holder.headerView.visibility = View.VISIBLE
+        else
+            holder.headerView.visibility = View.GONE
+        if (position == itemCount - 1)
+            holder.footerView.visibility = View.VISIBLE
+        else
+            holder.footerView.visibility = View.GONE
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
             dialogBinding.descriptionEditText.setText(rule.description)
@@ -70,6 +80,15 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
                     putExtra(Intent.EXTRA_TEXT, rule.toJSONObject().toString().encodeBase64())
                     type = "text/plain"
                 }, null).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
+                dialog.dismiss()
+            }
+            dialogBinding.deleteImageView.setOnClickListener {
+                App.ruleDao.delete(rule)
+                rulesList.removeAt(position)
+                notifyItemRemoved(position)
+                //LogUtil.d(position)
+                //LogUtil.d(itemCount - position)
+                notifyItemRangeChanged(position - 1, itemCount - position + 1)
                 dialog.dismiss()
             }
         }
