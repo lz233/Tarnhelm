@@ -3,6 +3,7 @@ package cn.ac.lz233.tarnhelm.ui.rules
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
@@ -20,6 +21,7 @@ class RulesActivity : BaseActivity() {
     private val binding by lazy { ActivityRulesBinding.inflate(layoutInflater) }
     private val rulesList by lazy { App.ruleDao.getAll() }
     private val adapter by lazy { RulesAdapter(rulesList) }
+    private val touchHelper by lazy { ItemTouchHelper(DragSwipeCallback(adapter)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class RulesActivity : BaseActivity() {
 
         binding.rulesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.rulesRecyclerView.adapter = adapter
+        touchHelper.attachToRecyclerView(binding.rulesRecyclerView)
         binding.addFab.setOnClickListener {
             val dialogBinding = DialogAddBinding.inflate(layoutInflater)
             val dialog = MaterialAlertDialogBuilder(this)
@@ -44,7 +47,6 @@ class RulesActivity : BaseActivity() {
                     App.ruleDao.insert(item)
                     rulesList.add(item)
                     adapter.notifyItemInserted(adapter.itemCount - 1)
-                    adapter.notifyItemChanged(adapter.itemCount - 2)
                 }
                 .show()
             dialogBinding.pasteImageView.setOnClickListener {
@@ -62,7 +64,6 @@ class RulesActivity : BaseActivity() {
                     rulesList.add(item)
                     LogUtil.d(adapter.itemCount)
                     adapter.notifyItemInserted(adapter.itemCount - 1)
-                    adapter.notifyItemChanged(adapter.itemCount - 2)
                     dialog.dismiss()
                 } catch (e: Throwable) {
                     e.printStackTrace()

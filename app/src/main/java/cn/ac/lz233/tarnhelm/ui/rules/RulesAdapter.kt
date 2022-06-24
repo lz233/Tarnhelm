@@ -11,6 +11,7 @@ import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogEditBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
+import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
@@ -19,17 +20,14 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONArray
 
-class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<RulesAdapter.ViewHolder>() {
-
+class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<RulesAdapter.ViewHolder>(), IDragSwipe {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val headerView: View = view.findViewById(R.id.headerView)
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
         val regexContentTextView: AppCompatTextView = view.findViewById(R.id.regexContentTextView)
         val replacementContentTextView: AppCompatTextView = view.findViewById(R.id.replacementContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
-        val footerView: View = view.findViewById(R.id.footerView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,14 +37,6 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rule = rulesList[position]
-        if (position == 0)
-            holder.headerView.visibility = View.VISIBLE
-        else
-            holder.headerView.visibility = View.GONE
-        if (position == itemCount - 1)
-            holder.footerView.visibility = View.VISIBLE
-        else
-            holder.footerView.visibility = View.GONE
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
             dialogBinding.descriptionEditText.setText(rule.description)
@@ -97,5 +87,47 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
     }
 
     override fun getItemCount() = rulesList.size
+
+    override fun onItemSwapped(fromPosition: Int, toPosition: Int) {
+        LogUtil.d("onItemSwapped $fromPosition $toPosition")
+        val fromRule = rulesList[fromPosition]
+        val toRule = rulesList[toPosition]
+        val newFromRule = Rule(
+            toRule.id,
+            fromRule.description,
+            fromRule.regexArray,
+            fromRule.replaceArray,
+            fromRule.author,
+            fromRule.sourceType
+        )
+        val newToRule = Rule(
+            fromRule.id,
+            toRule.description,
+            toRule.regexArray,
+            toRule.replaceArray,
+            toRule.author,
+            toRule.sourceType
+        )
+        App.ruleDao.insert(newFromRule)
+        App.ruleDao.insert(newToRule)
+        rulesList[fromPosition] = newToRule
+        rulesList[toPosition] = newFromRule
+        notifyItemMoved(fromPosition, toPosition)
+        //notifyItemChanged(fromPosition)
+        //notifyItemChanged(toPosition)
+    }
+
+    override fun onItemDeleted(position: Int) {
+        LogUtil.d("onItemDeleted")
+        /*App.ruleDao.delete(rulesList[position])
+        rulesList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position - 1, itemCount - position + 1)*/
+    }
+
+    override fun onItemCopy(position: Int) {
+        LogUtil.d("onItemCopy")
+        //TODO
+    }
 
 }
