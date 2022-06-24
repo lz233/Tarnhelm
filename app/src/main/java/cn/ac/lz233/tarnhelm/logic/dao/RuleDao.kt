@@ -11,7 +11,7 @@ interface RuleDao {
     @Query("SELECT * FROM rule")
     fun getAll():MutableList<Rule>
 
-    @Query("SELECT  count(*) FROM rule")
+    @Query("SELECT count(*) FROM rule")
     fun getCount():Int
 
     @Delete

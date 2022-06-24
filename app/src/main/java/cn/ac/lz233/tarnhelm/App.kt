@@ -1,6 +1,7 @@
 package cn.ac.lz233.tarnhelm
 
 import android.app.Application
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
@@ -15,6 +16,7 @@ class App : Application() {
         lateinit var editor: SharedPreferences.Editor
         lateinit var db: AppDatabase
         lateinit var ruleDao: RuleDao
+        lateinit var clipboard: ClipboardManager
         const val TAG = "Tarnhelm"
     }
 
@@ -25,6 +27,7 @@ class App : Application() {
         editor = sp.edit()
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         ruleDao = db.ruleDao()
+        clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

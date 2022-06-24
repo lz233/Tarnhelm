@@ -1,8 +1,19 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
+import android.util.Base64
 import cn.ac.lz233.tarnhelm.App
-import cn.ac.lz233.tarnhelm.util.LogUtil
 import org.json.JSONArray
+
+fun String.encodeBase64() = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT)
+
+fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
+
+fun String.toJSONArray() = JSONArray().apply {
+    val stringList = split('\n')
+    stringList.forEach {
+        put(it)
+    }
+}
 
 fun String.doTarnhelm(): String {
     var result = this

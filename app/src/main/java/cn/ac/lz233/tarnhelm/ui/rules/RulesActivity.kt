@@ -3,15 +3,16 @@ package cn.ac.lz233.tarnhelm.ui.rules
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
-import cn.ac.lz233.tarnhelm.databinding.DialogEditBinding
+import cn.ac.lz233.tarnhelm.databinding.DialogAddBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.json.JSONArray
+import org.json.JSONObject
 
 class RulesActivity : BaseActivity() {
 
@@ -24,42 +25,45 @@ class RulesActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        App.ruleDao.insert(
-            Rule(
-                0,
-                "Fuck Coolapk Feed",
-                JSONArray().apply {
-                    put("""\?.*""")
-                    put("coolapk.com")
-                }.toString(),
-                JSONArray().apply {
-                    put("")
-                    put("coolapk1s.com")
-                }.toString(),
-                "lz233"
-            )
-        )
         binding.rulesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.rulesRecyclerView.adapter = adapter
         binding.addFab.setOnClickListener {
-            val dialogBinding = DialogEditBinding.inflate(layoutInflater)
-            dialogBinding.regexEditText.setText("""[""]""")
-            dialogBinding.replacementEditText.setText("""[""]""")
-            MaterialAlertDialogBuilder(this)
+            val dialogBinding = DialogAddBinding.inflate(layoutInflater)
+            val dialog = MaterialAlertDialogBuilder(this)
                 .setView(dialogBinding.root)
                 .setPositiveButton("OK") { _, _ ->
                     val item = Rule(
                         App.ruleDao.getCount(),
                         dialogBinding.descriptionEditText.text.toString(),
-                        JSONArray(dialogBinding.regexEditText.text.toString()).toString(),
-                        JSONArray(dialogBinding.replacementEditText.text.toString()).toString(),
-                        dialogBinding.authorEditText.text.toString()
+                        dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
+                        dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
+                        dialogBinding.authorEditText.text.toString(),
+                        0
                     )
                     App.ruleDao.insert(item)
                     rulesList.add(item)
                     adapter.notifyItemChanged(adapter.itemCount)
                 }
                 .show()
+            dialogBinding.pasteImageView.setOnClickListener {
+                try {
+                    val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
+                    val item = Rule(
+                        App.ruleDao.getCount(),
+                        ruleJSONObject.getString("a"),
+                        ruleJSONObject.getJSONArray("b").toString(),
+                        ruleJSONObject.getJSONArray("c").toString(),
+                        ruleJSONObject.getString("d"),
+                        1
+                    )
+                    App.ruleDao.insert(item)
+                    rulesList.add(item)
+                    adapter.notifyItemChanged(adapter.itemCount)
+                    dialog.dismiss()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 

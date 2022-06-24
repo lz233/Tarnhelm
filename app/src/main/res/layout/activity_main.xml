@@ -102,7 +102,7 @@
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_rule"
+                    android:background="@drawable/ic_rule_folder"
                     android:backgroundTint="?attr/colorOnSecondaryContainer" />
 
                 <TextView
@@ -149,6 +149,7 @@
                 <View
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_settings"
                     android:backgroundTint="?attr/colorOnSurface" />
 
@@ -183,6 +184,7 @@
                 <View
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_info"
                     android:backgroundTint="?attr/colorOnSurface" />
 
