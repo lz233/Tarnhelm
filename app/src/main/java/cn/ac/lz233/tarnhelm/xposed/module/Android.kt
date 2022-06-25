@@ -12,7 +12,7 @@ object Android {
     private val isActivityManagerServiceInit: Boolean
         get() = ::activityManagerService.isInitialized
     private var mContext: Context? = null
-
+    
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context, p1: Intent) {
             runCatching {
@@ -22,7 +22,7 @@ object Android {
             }.onFailure { LogUtil._d(it) }
         }
     }
-
+    
     fun init() {
         try {
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
