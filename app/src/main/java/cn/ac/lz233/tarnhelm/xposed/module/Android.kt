@@ -2,17 +2,8 @@ package cn.ac.lz233.tarnhelm.xposed.module
 
 import android.annotation.SuppressLint
 import android.content.*
-import android.content.Context.BIND_AUTO_CREATE
-import android.os.Build
-import android.os.DeadObjectException
-import android.os.IBinder
-import android.os.UserHandle
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.xposed.Config
-import cn.ac.lz233.tarnhelm.xposed.ModuleDataBridge
 import cn.ac.lz233.tarnhelm.xposed.util.*
-import org.lsposed.hiddenapibypass.HiddenApiBypass
-import java.lang.reflect.Field
 
 @SuppressLint("StaticFieldLeak")
 object Android {
@@ -22,42 +13,12 @@ object Android {
         get() = ::activityManagerService.isInitialized
     private var mContext: Context? = null
 
-    private val serviceConnection = object : ServiceConnection {
-        override fun onServiceConnected(p0: ComponentName, p1: IBinder) {
-            LogUtil._d("Service connected")
-            runCatching {
-                val service = ModuleDataBridge.Stub.asInterface(p1)
-                LogUtil._d(service.moduleConfig)
-            }.onFailure {
-                if (it is DeadObjectException) {
-                    LogUtil._d("Service may be unusable, renew!")
-                    unbindBridgeService()
-                    if (startModuleAppProcess()) {
-                        bindBridgeService()
-                    }
-                }
-                LogUtil._d(it)
-            }
-        }
-
-        override fun onServiceDisconnected(p0: ComponentName) {
-            LogUtil._d("Service disconnected")
-            LogUtil._d("service is down, start service again")
-            runCatching {
-                if (startModuleAppProcess()) {
-                    bindBridgeService()
-                }
-            }.onFailure { LogUtil._d(it) }
-        }
-    }
-
-    private val onUserPresentReceiver = object : BroadcastReceiver() {
+    private val receiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context, p1: Intent) {
             runCatching {
-                LogUtil._d("on user present!")
-                if (startModuleAppProcess()) {
-                    bindBridgeService()
-                }
+                startModuleAppProcess()
+                ModuleBridgeHelper.bindBridgeService()
+                mContext?.unregisterReceiver(this)
             }.onFailure { LogUtil._d(it) }
         }
     }
@@ -66,9 +27,27 @@ object Android {
         try {
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
             systemReadyMethod.hookAfterMethod { param ->
-                activityManagerService = param.thisObject
-                mContext = param.thisObject.getObjectField("mContext") as Context
-                mContext?.registerReceiver(onUserPresentReceiver, IntentFilter(Intent.ACTION_USER_PRESENT))
+                runCatching {
+                    activityManagerService = param.thisObject
+                    mContext = param.thisObject.getObjectField("mContext") as Context
+                    ModuleBridgeHelper.mContext = mContext
+                    mContext?.registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT))
+                }.onFailure { LogUtil._d(it) }
+            }
+            "com.android.server.clipboard.ClipboardService".hookBeforeMethod("setPrimaryClipInternal", ClipData::class.java, Int::class.java) { param ->
+                runCatching {
+                    val data = param.args[0] as ClipData? ?: return@hookBeforeMethod
+                    if (data.itemCount == 0) return@hookBeforeMethod
+                    for (i in 0 until data.itemCount) {
+                        val item = data.getItemAt(i)
+                        val text = item.getObjectField("mText") as CharSequence? ?: continue
+                        if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
+                            startModuleAppProcess()
+                            ModuleBridgeHelper.bindBridgeService()
+                        }
+                        ModuleBridgeHelper.bridge?.let { item.setObjectField("mText", it.doTarnhelm(text.toString())) }
+                    }
+                }.onFailure { LogUtil._d(it) }
             }
         } catch (e: Throwable) {
             LogUtil._d(e)
@@ -76,48 +55,9 @@ object Android {
     }
 
     @SuppressLint("PrivateApi")
-    private fun startModuleAppProcess(): Boolean {
+    fun startModuleAppProcess(): Boolean {
         val ams = if (isActivityManagerServiceInit) activityManagerService else throw Exception("starting module app process but AMS isn't init")
         return AMSHelper.startModuleAppProcess(ams)
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun bindBridgeService() {
-        LogUtil._d("bind bridge service")
-        runCatching {
-            val userHandle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                HiddenApiBypass.getStaticFields(UserHandle::class.java).first { field -> (field as Field).name == "CURRENT" } as Field
-            } else {
-                UserHandle::class.java.getDeclaredField("CURRENT")
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                mContext?.bindServiceAsUser(
-                    Intent().apply {
-                        `package` = Config.packageName
-                        action = "cn.ac.lz233.tarnhelm.bridge"
-                    },
-                    serviceConnection,
-                    BIND_AUTO_CREATE,
-                    userHandle.get(null) as UserHandle
-                )
-            } else {
-                mContext?.bindService(
-                    Intent().apply {
-                        `package` = Config.packageName
-                        action = "cn.ac.lz233.tarnhelm.bridge"
-                    },
-                    serviceConnection,
-                    BIND_AUTO_CREATE
-                )
-            }
-        }.onFailure { LogUtil._d(it) }
-    }
-
-    private fun unbindBridgeService() {
-        LogUtil._d("unbind bridge service")
-        runCatching {
-            mContext?.unbindService(serviceConnection)
-        }.onFailure { LogUtil._d(it) }
     }
 
 }
