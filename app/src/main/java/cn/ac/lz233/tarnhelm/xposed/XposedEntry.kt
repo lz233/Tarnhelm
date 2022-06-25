@@ -8,9 +8,10 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 class XposedEntry : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+        Config.classLoader = lpparam.classLoader
         when (lpparam.packageName) {
-            Config.packageName -> Self.init(lpparam)
-            "android" -> Android.init(lpparam)
+            Config.packageName -> Self.init()
+            "android" -> Android.init()
         }
     }
 

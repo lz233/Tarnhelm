@@ -33,6 +33,15 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <service
+            android:enabled="true"
+            android:exported="true"
+            android:name=".service.ModuleDataBridgeService">
+            <intent-filter>
+                <action android:name="cn.ac.lz233.tarnhelm.bridge" />
+            </intent-filter>
+        </service>
+
 
         <meta-data
             android:name="xposeddescription"
