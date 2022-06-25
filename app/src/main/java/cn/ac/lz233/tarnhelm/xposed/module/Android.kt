@@ -34,7 +34,11 @@ object Android {
                     mContext?.registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT))
                 }.onFailure { LogUtil._d(it) }
             }
-            "com.android.server.clipboard.ClipboardService".hookBeforeMethod("setPrimaryClipInternal", ClipData::class.java, Int::class.java) { param ->
+
+            val clipboardServiceClazz = "com.android.server.clipboard.ClipboardService\$ClipboardImpl".findClass()
+            val setClipMethod = clipboardServiceClazz.declaredMethods.first { it.name == "setPrimaryClip" }
+            setClipMethod.hookBeforeMethod { param ->
+                LogUtil._d("setPrimaryClip")
                 runCatching {
                     val data = param.args[0] as ClipData? ?: return@hookBeforeMethod
                     if (data.itemCount == 0) return@hookBeforeMethod
