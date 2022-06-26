@@ -16,7 +16,7 @@ class SettingsActivity : BaseActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.preferenceFragment, SettingsFragment())
+            .replace(R.id.preferenceFragment, SettingsFragment(rootView))
             .commit()
     }
 

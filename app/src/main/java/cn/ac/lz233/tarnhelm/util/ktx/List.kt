@@ -1,9 +1,9 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
-fun List<String>.toMultiString() = StringBuilder().apply {
-    this@toMultiString.forEach {
+fun List<String>.toString(insert: String) = StringBuilder().apply {
+    this@toString.forEach {
         append(it)
-        append('\n')
+        append(insert)
     }
-    deleteCharAt(lastIndex)
+    delete(lastIndex - insert.length + 1, lastIndex + 1)
 }.toString()

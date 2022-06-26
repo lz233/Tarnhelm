@@ -10,8 +10,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+    lateinit var rootView: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        rootView = findViewById(android.R.id.content)
         //adapt status bar
         val mode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (mode == Configuration.UI_MODE_NIGHT_NO) {

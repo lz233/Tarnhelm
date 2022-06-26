@@ -10,7 +10,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -26,13 +27,68 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/statusErrorCardView"
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/md_theme_errorContainer"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="25dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="20dp">
+
+                <View
+                    android:id="@+id/statusErrorIconView"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_error"
+                    android:backgroundTint="@color/md_theme_onErrorContainer" />
+
+                <TextView
+                    android:id="@+id/statusErrorTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/statusErrorIconView"
+                    android:text="Status"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    android:textColor="@color/md_theme_onErrorContainer" />
+
+                <TextView
+                    android:id="@+id/statusSummaryErrorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/statusErrorTitleTextView"
+                    android:layout_alignStart="@id/statusErrorTitleTextView"
+                    android:layout_marginTop="5dp"
+                    android:text="No work mode enabled"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:textColor="@color/md_theme_onErrorContainer" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/statusPassCardView"
+            style="?attr/materialCardViewFilledStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
             app:cardBackgroundColor="@color/md_theme_passContainer"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp">
@@ -46,7 +102,7 @@
                 android:paddingBottom="20dp">
 
                 <View
-                    android:id="@+id/statusIconView"
+                    android:id="@+id/statusPassIconView"
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_centerVertical="true"
@@ -54,21 +110,21 @@
                     android:backgroundTint="@color/md_theme_onPassContainer" />
 
                 <TextView
-                    android:id="@+id/statusTitleTextView"
+                    android:id="@+id/statusPassTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_toEndOf="@id/statusIconView"
+                    android:layout_toEndOf="@id/statusPassIconView"
                     android:text="Status"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/md_theme_onPassContainer" />
 
                 <TextView
-                    android:id="@+id/statusSummaryTextView"
+                    android:id="@+id/statusPassSummaryTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/statusTitleTextView"
-                    android:layout_alignStart="@id/statusTitleTextView"
+                    android:layout_below="@id/statusPassTitleTextView"
+                    android:layout_alignStart="@id/statusPassTitleTextView"
                     android:layout_marginTop="5dp"
                     android:text="test"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
@@ -83,8 +139,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="20dp"
             app:cardBackgroundColor="?attr/colorSecondaryContainer"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp">

@@ -4,11 +4,11 @@
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
-            android:key="editTextMenu"
+            android:key="workOnEditTextMenu"
             android:title="EditText Menu" />
 
         <rikka.material.preference.MaterialSwitchPreference
-            android:key="xposed"
+            android:key="workOnXposed"
             android:title="Xposed" />
     </PreferenceCategory>
 

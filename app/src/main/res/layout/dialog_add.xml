@@ -11,7 +11,7 @@
         android:paddingStart="25dp"
         android:paddingTop="20dp"
         android:paddingEnd="25dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="10dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

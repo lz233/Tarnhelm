@@ -24,6 +24,13 @@ object Android {
     }
     
     fun init() {
+        runCatching {
+            LogUtil._d("start find methods")
+            val methods = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.filter { it.name == "startProcessLocked" }
+            methods.forEach {
+                LogUtil._d(it)
+            }
+        }.onFailure { LogUtil._d(it) }
         try {
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
             systemReadyMethod.hookAfterMethod { param ->
