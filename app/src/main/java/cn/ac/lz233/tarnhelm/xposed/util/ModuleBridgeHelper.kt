@@ -42,7 +42,7 @@ object ModuleBridgeHelper {
             bridge!!.ping()
             return true
         } catch (thr: Throwable) {
-            LogUtil._d(thr)
+            thr.printStackTrace()
             return false
         }
     }
@@ -74,11 +74,11 @@ object ModuleBridgeHelper {
                     Context.BIND_AUTO_CREATE
                 )
             }
-        }.onFailure { LogUtil._d(it) }
+        }.onFailure { LogUtil.d(it) }
     }
 
     fun unbindBridgeService(context: Context? = mContext) {
-        LogUtil._d("unbind bridge service")
+        LogUtil.d("unbind bridge service")
         runCatching {
             context?.unbindService(serviceConnection)
         }

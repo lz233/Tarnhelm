@@ -18,12 +18,14 @@ import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
 import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import org.json.JSONArray
 
 class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<RulesAdapter.ViewHolder>(), IDragSwipe {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
+        val ruleEnableSwitch: MaterialSwitch = view.findViewById(R.id.ruleEnableSwitch)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
         val regexContentTextView: AppCompatTextView = view.findViewById(R.id.regexContentTextView)
         val replacementContentTextView: AppCompatTextView = view.findViewById(R.id.replacementContentTextView)
@@ -53,7 +55,8 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
                         dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
-                        0
+                        0,
+                        true
                     )
                     App.ruleDao.insert(item)
                     rulesList[position] = item
@@ -80,6 +83,20 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
                 dialog.dismiss()
             }
         }
+        holder.ruleEnableSwitch.isChecked = rule.enabled
+        holder.ruleEnableSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            val item = Rule(
+                rule.id,
+                rule.description,
+                rule.regexArray,
+                rule.replaceArray,
+                rule.author,
+                rule.sourceType,
+                b
+            )
+            App.ruleDao.insert(item)
+            rulesList[position] = item
+        }
         holder.descriptionContentTextView.text = rule.description
         holder.regexContentTextView.text = JSONArray(rule.regexArray).toMultiString()
         holder.replacementContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
@@ -98,7 +115,8 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
             fromRule.regexArray,
             fromRule.replaceArray,
             fromRule.author,
-            fromRule.sourceType
+            fromRule.sourceType,
+            fromRule.enabled
         )
         val newToRule = Rule(
             fromRule.id,
@@ -106,7 +124,8 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
             toRule.regexArray,
             toRule.replaceArray,
             toRule.author,
-            toRule.sourceType
+            toRule.sourceType,
+            toRule.enabled
         )
         App.ruleDao.insert(newFromRule)
         App.ruleDao.insert(newToRule)

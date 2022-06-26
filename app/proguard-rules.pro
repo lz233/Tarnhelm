@@ -21,6 +21,11 @@
 #-renamesourcefileattribute SourceFile
 
 -keep public class cn.ac.lz233.tarnhelm.xposed.XposedEntry
+
 -keep class cn.ac.lz233.tarnhelm.App {
     isXposedActive();
+}
+
+-assumenosideeffects class cn.ac.lz233.tarnhelm.util.LogUtil {
+ public static void _d*(...);
 }

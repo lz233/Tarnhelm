@@ -19,18 +19,18 @@ object Android {
                 startModuleAppProcess()
                 ModuleBridgeHelper.bindBridgeService()
                 mContext?.unregisterReceiver(this)
-            }.onFailure { LogUtil._d(it) }
+            }.onFailure { LogUtil.d(it) }
         }
     }
     
     fun init() {
         runCatching {
-            LogUtil._d("start find methods")
+            LogUtil.d("start find methods")
             val methods = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.filter { it.name == "startProcessLocked" }
             methods.forEach {
-                LogUtil._d(it)
+                LogUtil.d(it)
             }
-        }.onFailure { LogUtil._d(it) }
+        }.onFailure { LogUtil.d(it) }
         try {
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
             systemReadyMethod.hookAfterMethod { param ->
@@ -39,13 +39,13 @@ object Android {
                     mContext = param.thisObject.getObjectField("mContext") as Context
                     ModuleBridgeHelper.mContext = mContext
                     mContext?.registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT))
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.d(it) }
             }
 
             val clipboardServiceClazz = "com.android.server.clipboard.ClipboardService\$ClipboardImpl".findClass()
             val setClipMethod = clipboardServiceClazz.declaredMethods.first { it.name == "setPrimaryClip" }
             setClipMethod.hookBeforeMethod { param ->
-                LogUtil._d("setPrimaryClip")
+                LogUtil.d("setPrimaryClip")
                 runCatching {
                     val data = param.args[0] as ClipData? ?: return@hookBeforeMethod
                     if (data.itemCount == 0) return@hookBeforeMethod
@@ -58,10 +58,10 @@ object Android {
                         }
                         ModuleBridgeHelper.bridge?.let { item.setObjectField("mText", it.doTarnhelm(text.toString())) }
                     }
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.d(it) }
             }
         } catch (e: Throwable) {
-            LogUtil._d(e)
+            LogUtil.d(e)
         }
     }
 

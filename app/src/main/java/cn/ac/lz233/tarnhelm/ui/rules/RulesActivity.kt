@@ -10,7 +10,6 @@ import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAddBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
-import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -42,7 +41,8 @@ class RulesActivity : BaseActivity() {
                         dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
-                        0
+                        0,
+                        true
                     )
                     App.ruleDao.insert(item)
                     rulesList.add(item)
@@ -58,11 +58,11 @@ class RulesActivity : BaseActivity() {
                         ruleJSONObject.getJSONArray("b").toString(),
                         ruleJSONObject.getJSONArray("c").toString(),
                         ruleJSONObject.getString("d"),
-                        1
+                        1,
+                        true
                     )
                     App.ruleDao.insert(item)
                     rulesList.add(item)
-                    LogUtil.d(adapter.itemCount)
                     adapter.notifyItemInserted(adapter.itemCount - 1)
                     dialog.dismiss()
                 } catch (e: Throwable) {

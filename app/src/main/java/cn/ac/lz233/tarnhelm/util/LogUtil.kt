@@ -47,7 +47,7 @@ object LogUtil {
     @JvmStatic
     @JvmOverloads
     fun d(obj: Any?, tag: String = TAG) {
-        doLog(ALog::d, tag = tag, obj = obj)
+        doLog(ALog::d, tag = tag, obj = obj, toToast = false)
     }
 
     @JvmStatic

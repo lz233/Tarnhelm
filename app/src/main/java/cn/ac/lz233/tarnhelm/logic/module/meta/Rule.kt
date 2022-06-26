@@ -10,5 +10,6 @@ data class Rule(
     val regexArray: String,
     val replaceArray: String,
     val author: String,
-    val sourceType: Int //0:manual 1:paste 2:git
+    val sourceType: Int, //0:manual 1:paste 2:git
+    val enabled: Boolean,
 )

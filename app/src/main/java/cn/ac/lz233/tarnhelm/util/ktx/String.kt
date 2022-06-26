@@ -21,13 +21,20 @@ fun String.toJSONArray() = JSONArray().apply {
 fun String.doTarnhelm(): String {
     var result = this
     val rules = App.ruleDao.getAll()
-    rules.forEach {
-        val regexArray = JSONArray(it.regexArray)
-        val replaceArray = JSONArray(it.replaceArray)
-        if (regexArray.length() != replaceArray.length()) throw Throwable("non-standard array")
-        for (i in 0 until regexArray.length()) {
-            //LogUtil.d(regexArray.getString(i))
-            result = Regex(regexArray.getString(i)).replace(result, replaceArray.getString(i))
+    var skipRuleID = -1
+    for ((index, rule) in rules.withIndex()) {
+        if (rule.enabled) {
+            val regexArray = JSONArray(rule.regexArray)
+            val replaceArray = JSONArray(rule.replaceArray)
+            if (regexArray.length() != replaceArray.length()) throw Throwable("non-standard array")
+            matchRule@ for (i in 0 until regexArray.length()) {
+                if (skipRuleID == index) break@matchRule
+                val regex = Regex(regexArray.getString(i))
+                if (regex.containsMatchIn(result))
+                    result = regex.replace(result, replaceArray.getString(i))
+                else
+                    skipRuleID = index
+            }
         }
     }
     return result
