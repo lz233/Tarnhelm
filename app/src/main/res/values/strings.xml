@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
+
+    <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 </resources>

@@ -1,13 +1,19 @@
 package cn.ac.lz233.tarnhelm.ui.main
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
+import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
+import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
+import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
@@ -26,6 +32,15 @@ class MainActivity : BaseActivity() {
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
+        binding.aboutCardView.setOnClickListener {
+            val dialogBinding = DialogAboutBinding.inflate(layoutInflater)
+            dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+            dialogBinding.sourceCodeTextView.movementMethod = LinkMovementMethod.getInstance()
+            dialogBinding.sourceCodeTextView.text = getString(R.string.aboutViewSourceCode, "<b><a href='https://github.com/lz233/Tarnhelm'>GitHub</a></b>").toHtml()
+            MaterialAlertDialogBuilder(this)
+                .setView(dialogBinding.root)
+                .show()
+        }
     }
 
     override fun onResume() {

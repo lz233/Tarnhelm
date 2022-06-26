@@ -56,7 +56,7 @@
                     android:background="@drawable/ic_error"
                     android:backgroundTint="@color/md_theme_onErrorContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/statusErrorTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/md_theme_onErrorContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/statusSummaryErrorTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:background="@drawable/ic_check_circle"
                     android:backgroundTint="@color/md_theme_onPassContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/statusPassTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/md_theme_onPassContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/statusPassSummaryTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
                     android:background="@drawable/ic_rule_folder"
                     android:backgroundTint="?attr/colorOnSecondaryContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/rulesTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="?attr/colorOnSecondaryContainer" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/rulesSummaryTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                     android:background="@drawable/ic_settings"
                     android:backgroundTint="?attr/colorOnSurface" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -223,6 +223,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/aboutCardView"
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -246,7 +247,7 @@
                     android:background="@drawable/ic_info"
                     android:backgroundTint="?attr/colorOnSurface" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

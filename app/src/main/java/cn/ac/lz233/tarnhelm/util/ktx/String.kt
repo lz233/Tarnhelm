@@ -1,10 +1,13 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
 import android.util.Base64
+import androidx.core.text.HtmlCompat
 import cn.ac.lz233.tarnhelm.App
 import org.json.JSONArray
 
-fun String.encodeBase64() = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT)
+fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), flags)
+
+fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT)
 
 fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
 
