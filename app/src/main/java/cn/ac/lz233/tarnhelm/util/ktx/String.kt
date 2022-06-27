@@ -30,7 +30,7 @@ fun String.doTarnhelm(): String {
             matchRule@ for (i in 0 until regexArray.length()) {
                 if (skipRuleID == index) break@matchRule
                 val regex = Regex(regexArray.getString(i))
-                if (regex.containsMatchIn(result))
+                if (regex.containsMatchIn(result) or (i != 0))
                     result = regex.replace(result, replaceArray.getString(i))
                 else
                     skipRuleID = index
@@ -39,3 +39,7 @@ fun String.doTarnhelm(): String {
     }
     return result
 }
+
+fun String.doTarnhelms() =
+    Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})""")
+        .replace(this) { it.value.doTarnhelm() }

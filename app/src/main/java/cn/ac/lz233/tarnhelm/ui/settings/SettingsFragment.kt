@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
-import cn.ac.lz233.tarnhelm.ui.process.ProcessAvtivity
+import cn.ac.lz233.tarnhelm.ui.process.ProcessActivity
 import com.google.android.material.snackbar.Snackbar
 
 class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
@@ -21,13 +21,13 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         workOnEditTextMenu.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
                 App.context.packageManager.setComponentEnabledSetting(
-                    ComponentName(App.context, ProcessAvtivity::class.java),
+                    ComponentName(App.context, ProcessActivity::class.java),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP
                 )
             } else {
                 App.context.packageManager.setComponentEnabledSetting(
-                    ComponentName(App.context, ProcessAvtivity::class.java),
+                    ComponentName(App.context, ProcessActivity::class.java),
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )

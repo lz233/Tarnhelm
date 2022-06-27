@@ -64,6 +64,7 @@ dependencies {
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
     kapt 'androidx.room:room-compiler:2.4.2'
     compileOnly 'de.robv.android.xposed:api:82'
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'

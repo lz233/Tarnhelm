@@ -24,10 +24,11 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.process.ProcessAvtivity"
+            android:name=".ui.process.ProcessActivity"
             android:exported="true"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
+                <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
