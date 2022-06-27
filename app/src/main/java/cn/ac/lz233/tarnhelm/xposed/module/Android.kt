@@ -56,7 +56,7 @@ object Android {
                             startModuleAppProcess()
                             ModuleBridgeHelper.bindBridgeService()
                         }
-                        ModuleBridgeHelper.bridge?.let { item.setObjectField("mText", it.doTarnhelm(text.toString())) }
+                        ModuleBridgeHelper.bridge?.let { item.setObjectField("mText", it.doTarnhelms(text.toString())) }
                     }
                 }.onFailure { LogUtil.d(it) }
             }

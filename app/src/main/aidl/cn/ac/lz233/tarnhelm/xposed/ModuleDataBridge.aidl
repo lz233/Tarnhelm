@@ -5,7 +5,7 @@ package cn.ac.lz233.tarnhelm.xposed;
 
 interface ModuleDataBridge {
 
-    String doTarnhelm(String s);
+    String doTarnhelms(String string);
     int ping();
 
 }
