@@ -11,7 +11,7 @@ android {
     defaultConfig {
         Date date = new Date()
         applicationId "cn.ac.lz233.tarnhelm"
-        minSdk 23
+        minSdk 24
         targetSdk 32
         versionCode = date.format("yyyyMMdd").toInteger()
         versionName "1.0"

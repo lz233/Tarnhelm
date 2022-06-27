@@ -18,7 +18,7 @@ fun String.toJSONArray() = JSONArray().apply {
     }
 }
 
-fun String.doTarnhelm(): String {
+fun CharSequence.doTarnhelm(): CharSequence {
     var result = this
     val rules = App.ruleDao.getAll()
     var skipRuleID = -1
@@ -40,6 +40,6 @@ fun String.doTarnhelm(): String {
     return result
 }
 
-fun String.doTarnhelms() =
+fun CharSequence.doTarnhelms() =
     Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})""")
         .replace(this) { it.value.doTarnhelm() }

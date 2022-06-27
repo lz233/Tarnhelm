@@ -6,12 +6,12 @@ import android.os.IBinder
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelm
 import cn.ac.lz233.tarnhelm.xposed.ModuleDataBridge
 
-class ModuleDataBridgeService: Service() {
+class ModuleDataBridgeService : Service() {
 
     private val binder = object : ModuleDataBridge.Stub() {
 
         override fun doTarnhelm(s: String): String {
-            return s.doTarnhelm()
+            return s.doTarnhelm().toString()
         }
 
         override fun ping(): Int = 1
