@@ -18,7 +18,7 @@ class ProcessShareActivity : AppCompatActivity() {
             //putExtra(Intent.EXTRA_TITLE, (intent.getStringExtra(Intent.EXTRA_TITLE)?.doTarnhelms() ?: ""))
             type = "text/plain"
         }, null).apply {
-            putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, ComponentName(App.context, ProcessShareActivity::class.java))
+            putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, arrayOf(ComponentName(App.context, ProcessShareActivity::class.java)))
         })
         finish()
     }
