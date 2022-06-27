@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Description"
+                    android:text="@string/rulesItemDescription"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -63,14 +63,13 @@
                 android:id="@+id/descriptionContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="xxxxxxxxx"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Regex"
+                android:text="@string/rulesItemRegex"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -78,14 +77,13 @@
                 android:id="@+id/regexContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="xxxxxxxxx"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Replacement"
+                android:text="@string/rulesItemReplacement"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -93,14 +91,13 @@
                 android:id="@+id/replacementContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="xxxxxxxxx"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Author"
+                android:text="@string/rulesItemAuthor"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -108,7 +105,6 @@
                 android:id="@+id/authorContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="xxxxxxxxx"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="?attr/colorOnTertiaryContainer" />
         </androidx.appcompat.widget.LinearLayoutCompat>

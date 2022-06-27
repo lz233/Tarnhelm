@@ -3,6 +3,9 @@ package cn.ac.lz233.tarnhelm.logic.dao
 import cn.ac.lz233.tarnhelm.App
 
 object SettingsDao {
-    val workOnEditTextMenu
-        get() = App.spSettings.getBoolean("workOnEditTextMenu", true)
+    val workModeEditTextMenu
+        get() = App.spSettings.getBoolean("workModeEditTextMenu", true)
+
+    val workModeShare
+        get() = App.spSettings.getBoolean("workModeShare", true)
 }

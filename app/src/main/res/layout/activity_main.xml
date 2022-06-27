@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/statusErrorIconView"
-                    android:text="Status"
+                    android:text="@string/mainStatusTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/md_theme_onErrorContainer" />
 
@@ -73,7 +73,7 @@
                     android:layout_below="@id/statusErrorTitleTextView"
                     android:layout_alignStart="@id/statusErrorTitleTextView"
                     android:layout_marginTop="5dp"
-                    android:text="No work mode enabled"
+                    android:text="@string/mainStatusErrorSummary"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="@color/md_theme_onErrorContainer" />
 
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/statusPassIconView"
-                    android:text="Status"
+                    android:text="@string/mainStatusTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="@color/md_theme_onPassContainer" />
 
@@ -126,7 +126,6 @@
                     android:layout_below="@id/statusPassTitleTextView"
                     android:layout_alignStart="@id/statusPassTitleTextView"
                     android:layout_marginTop="5dp"
-                    android:text="test"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="@color/md_theme_onPassContainer" />
 
@@ -168,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/rulesIconView"
-                    android:text="Rules"
+                    android:text="@string/mainRulesTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -179,7 +178,6 @@
                     android:layout_below="@id/rulesTitleTextView"
                     android:layout_alignStart="@id/rulesTitleTextView"
                     android:layout_marginTop="5dp"
-                    android:text="test"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -191,8 +189,8 @@
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="5dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="28dp"
@@ -202,7 +200,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp">
 
                 <View
                     android:layout_width="28dp"
@@ -216,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="25dp"
-                    android:text="Settings"
+                    android:text="@string/mainSettingsTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface" />
             </LinearLayout>
@@ -227,8 +228,8 @@
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="5dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="28dp"
@@ -238,7 +239,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp">
 
                 <View
                     android:layout_width="28dp"
@@ -252,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="25dp"
-                    android:text="About"
+                    android:text="@string/mainAboutTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface" />
             </LinearLayout>

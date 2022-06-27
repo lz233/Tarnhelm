@@ -11,6 +11,7 @@ import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
+import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,8 +22,9 @@ class MainActivity : BaseActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val workModeList: List<String>
         get() = mutableListOf<String>().apply {
-            if (App.isEditTextMenuActive()) add("EditText Menu")
-            if (App.isXposedActive()) add("Xposed")
+            if (App.isEditTextMenuActive()) add(R.string.mainStatusWorkModeEditTextMenu.getString())
+            if (App.isShareActive()) add(R.string.mainStatusWorkModeShare.getString())
+            if (App.isXposedActive()) add(R.string.mainStatusWorkModeXposed.getString())
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
         binding.aboutCardView.setOnClickListener {
@@ -52,9 +55,10 @@ class MainActivity : BaseActivity() {
             } else {
                 binding.statusErrorCardView.visibility = View.GONE
                 binding.statusPassCardView.visibility = View.VISIBLE
-                binding.statusPassSummaryTextView.text = "Working on ${workModeList.toString(" and ")} mode"
+                binding.statusPassSummaryTextView.text =
+                    getString(R.string.mainStatusPassSummary, workModeList.toString(R.string.mainStatusPunctuation.getString(), R.string.mainStatusPunctuationLast.getString()))
             }
-            binding.rulesSummaryTextView.text = "has ${App.ruleDao.getCount()} rule(s)"
+            binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, App.ruleDao.getCount().toString())
         }
     }
 }

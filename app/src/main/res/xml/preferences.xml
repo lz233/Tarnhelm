@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Work Mode">
+    <PreferenceCategory android:title="@string/settingsWorkModeTitle">
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
-            android:key="workOnEditTextMenu"
-            android:title="EditText Menu" />
+            android:key="workModeEditTextMenu"
+            android:title="@string/settingsWorkModeEditTextMenu" />
 
         <rikka.material.preference.MaterialSwitchPreference
-            android:key="workOnXposed"
-            android:title="Xposed" />
+            android:defaultValue="true"
+            android:key="workModeShare"
+            android:title="@string/settingsWorkModeShare" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:key="workModeXposed"
+            android:title="@string/settingsWorkModeXposed" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settingsOnlineRulesTitle">
+        <rikka.material.preference.MaterialSwitchPreference
+            android:enabled="false"
+            android:key="useOnlineRules"
+            android:title="@string/settingsOnlineRulesUse" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -26,7 +26,10 @@ class App : Application() {
         const val TAG = "Tarnhelm"
 
         @JvmStatic
-        fun isEditTextMenuActive(): Boolean = SettingsDao.workOnEditTextMenu
+        fun isEditTextMenuActive(): Boolean = SettingsDao.workModeEditTextMenu
+
+        @JvmStatic
+        fun isShareActive(): Boolean = SettingsDao.workModeShare
 
         @JvmStatic
         fun isXposedActive(): Boolean = false

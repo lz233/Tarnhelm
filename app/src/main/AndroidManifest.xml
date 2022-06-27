@@ -24,20 +24,30 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.process.ProcessActivity"
+            android:name=".ui.process.ProcessEditTextActivity"
             android:exported="true"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
-                <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <service
-            android:enabled="true"
+        <activity
+            android:name=".ui.process.ProcessShareActivity"
             android:exported="true"
-            android:name=".service.ModuleDataBridgeService">
+            android:theme="@style/Theme.Tarnhelm.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.ModuleDataBridgeService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="cn.ac.lz233.tarnhelm.bridge" />
             </intent-filter>

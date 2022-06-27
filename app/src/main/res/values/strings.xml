@@ -1,5 +1,36 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
 
+    <string name="mainStatusTitle">Status</string>
+    <string name="mainStatusErrorSummary">No work mode enabled</string>
+    <string name="mainStatusPassSummary">Working on %s mode</string>
+    <string name="mainStatusPunctuation">,\u0020</string>
+    <string name="mainStatusPunctuationLast">\u0020and\u0020</string>
+    <string name="mainStatusWorkModeEditTextMenu">EditText Menu</string>
+    <string name="mainStatusWorkModeShare">Sharing Dialog</string>
+    <string name="mainStatusWorkModeXposed">Xposed</string>
+    <string name="mainRulesTitle">Rules</string>
+    <string name="mainRulesSummary">%s rule(s) recorded</string>
+    <string name="mainSettingsTitle">Settings</string>
+    <string name="mainAboutTitle">About</string>
+
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
+
+    <string name="rulesTitle">Rules</string>
+    <string name="rulesAddFab">Add</string>
+    <string name="rulesAddDialogTitle">Add a Rule</string>
+    <string name="rulesEditDialogTitle">Edit a Rule</string>
+    <string name="rulesItemDescription">Description</string>
+    <string name="rulesItemRegex">Regex</string>
+    <string name="rulesItemReplacement">Replacement</string>
+    <string name="rulesItemAuthor">Author</string>
+
+    <string name="settingsTitle">Settings</string>
+    <string name="settingsWorkModeTitle">Work Mode</string>
+    <string name="settingsWorkModeEditTextMenu">EditText Menu</string>
+    <string name="settingsWorkModeShare">Sharing Dialog</string>
+    <string name="settingsWorkModeXposed">Xposed</string>
+    <string name="settingsWorkModeOpenLSPosed">Open LSPosed to modify.</string>
+    <string name="settingsOnlineRulesTitle">Online Rules (TODO)</string>
+    <string name="settingsOnlineRulesUse">Use Online Rules</string>
 </resources>
