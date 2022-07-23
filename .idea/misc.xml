@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/drawable/ic_error.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_info.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.177" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/ic_launcher_settings.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_outline_check_circle_outline_24.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_outline_rule_24.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_paste.xml" value="0.177" />
