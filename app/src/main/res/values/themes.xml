@@ -40,6 +40,10 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.Tarnhelm.FuckToolbar" parent="Theme.Tarnhelm">
+        <item name="android:statusBarColor">@color/md_theme_surface</item>
+    </style>
+
     <style name="Theme.Tarnhelm.NoDisplay" parent="Theme.Tarnhelm">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
-import cn.ac.lz233.tarnhelm.databinding.DialogEditBinding
+import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
@@ -21,7 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import org.json.JSONArray
 
-class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<RulesAdapter.ViewHolder>(), IDragSwipe {
+class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<ParameterRulesAdapter.ViewHolder>(), IDragSwipe {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
@@ -33,14 +33,14 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rule, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_regex_rule, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
-            val dialogBinding = DialogEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
+            val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.regexEditText.setText(JSONArray(rule.regexArray).toMultiString())
             dialogBinding.replacementEditText.setText(JSONArray(rule.replaceArray).toMultiString())
@@ -48,7 +48,7 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
             if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
-                .setPositiveButton("OK") { _, _ ->
+                .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
                     val item = Rule(
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
@@ -146,7 +146,6 @@ class RulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adap
 
     override fun onItemCopy(position: Int) {
         LogUtil.d("onItemCopy")
-        //TODO
     }
 
 }

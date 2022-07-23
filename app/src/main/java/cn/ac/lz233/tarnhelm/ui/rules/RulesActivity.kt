@@ -3,38 +3,48 @@ package cn.ac.lz233.tarnhelm.ui.rules
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
-import cn.ac.lz233.tarnhelm.databinding.DialogAddBinding
+import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleAddBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
 
 class RulesActivity : BaseActivity() {
 
     private val binding by lazy { ActivityRulesBinding.inflate(layoutInflater) }
-    private val rulesList by lazy { App.ruleDao.getAll() }
-    private val adapter by lazy { RulesAdapter(rulesList) }
-    private val touchHelper by lazy { ItemTouchHelper(DragSwipeCallback(adapter)) }
+    private val parameterRulesFragment = ParameterRulesFragment()
+    private val regexRulesFragment = RegexRulesFragment()
+    private val fragments = listOf(parameterRulesFragment, regexRulesFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        binding.rulesRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.rulesRecyclerView.adapter = adapter
-        touchHelper.attachToRecyclerView(binding.rulesRecyclerView)
+        binding.viewPager2.adapter = object : FragmentStateAdapter(this) {
+            override fun createFragment(position: Int) = fragments[position]
+            override fun getItemCount() = fragments.size
+        }
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tabItem, position ->
+            when (position) {
+                0 -> tabItem.text = R.string.rulesParameterTitle.getString()
+                1 -> tabItem.text = R.string.rulesRegexTitle.getString()
+            }
+        }.attach()
+
         binding.addFab.setOnClickListener {
-            val dialogBinding = DialogAddBinding.inflate(layoutInflater)
+            val dialogBinding = DialogRegexRuleAddBinding.inflate(layoutInflater)
             val dialog = MaterialAlertDialogBuilder(this)
                 .setView(dialogBinding.root)
-                .setPositiveButton("OK") { _, _ ->
+                .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
                     val item = Rule(
                         App.ruleDao.getMaxId() + 1,
                         dialogBinding.descriptionEditText.text.toString(),
@@ -45,8 +55,8 @@ class RulesActivity : BaseActivity() {
                         true
                     )
                     App.ruleDao.insert(item)
-                    rulesList.add(item)
-                    adapter.notifyItemInserted(adapter.itemCount - 1)
+                    regexRulesFragment.rulesList.add(item)
+                    regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
                 }
                 .show()
             dialogBinding.pasteImageView.setOnClickListener {
@@ -62,19 +72,14 @@ class RulesActivity : BaseActivity() {
                         true
                     )
                     App.ruleDao.insert(item)
-                    rulesList.add(item)
-                    adapter.notifyItemInserted(adapter.itemCount - 1)
+                    regexRulesFragment.rulesList.add(item)
+                    regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
                     dialog.dismiss()
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }
         }
-    }
-
-    fun refreshRulesList() {
-        rulesList.clear()
-        rulesList.addAll(App.ruleDao.getAll())
     }
 
     companion object {

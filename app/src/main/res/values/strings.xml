@@ -17,13 +17,17 @@
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 
     <string name="rulesTitle">Rules</string>
+    <string name="rulesParameterTitle">Parameter</string>
+    <string name="rulesRegexTitle">Regex</string>
     <string name="rulesAddFab">Add</string>
-    <string name="rulesAddDialogTitle">Add a Rule</string>
-    <string name="rulesEditDialogTitle">Edit a Rule</string>
-    <string name="rulesItemDescription">Description</string>
-    <string name="rulesItemRegex">Regex</string>
-    <string name="rulesItemReplacement">Replacement</string>
-    <string name="rulesItemAuthor">Author</string>
+
+    <string name="regexRulesAddDialogTitle">Add a Rule</string>
+    <string name="regexRulesEditDialogTitle">Edit a Rule</string>
+    <string name="regexRulesDialogPositiveButton">OK</string>
+    <string name="regexRulesItemDescription">Description</string>
+    <string name="regexRulesItemRegex">Regex</string>
+    <string name="regexRulesItemReplacement">Replacement</string>
+    <string name="regexRulesItemAuthor">Author</string>
 
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>
