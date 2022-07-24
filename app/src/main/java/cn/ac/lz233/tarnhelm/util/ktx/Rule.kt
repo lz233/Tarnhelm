@@ -14,7 +14,8 @@ fun RegexRule.toJSONObject() = JSONObject().apply {
 
 fun ParameterRule.toJSONObject() = JSONObject().apply {
     put("a", this@toJSONObject.description)
-    put("e", this@toJSONObject.mode)
-    put("f", JSONArray(this@toJSONObject.parametersArray))
+    put("e", this@toJSONObject.domain)
+    put("f", this@toJSONObject.mode)
+    put("g", JSONArray(this@toJSONObject.parametersArray))
     put("d", this@toJSONObject.author)
 }

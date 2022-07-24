@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class ParameterRule(
     @PrimaryKey val id: Int,
     val description: String,
+    val domain: String,
     val mode: Int, // 0:whiteList 1:blackList
     val parametersArray: String,
     val author: String,

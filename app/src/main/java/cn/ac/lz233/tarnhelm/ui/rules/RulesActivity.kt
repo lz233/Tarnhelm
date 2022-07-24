@@ -58,6 +58,7 @@ class RulesActivity : BaseActivity() {
                             val item = ParameterRule(
                                 App.parameterRuleDao.getMaxId() + 1,
                                 dialogBinding.descriptionEditText.text.toString(),
+                                dialogBinding.domainEditText.text.toString(),
                                 dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
                                 dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                                 dialogBinding.authorEditText.text.toString(),
@@ -75,8 +76,9 @@ class RulesActivity : BaseActivity() {
                             val item = ParameterRule(
                                 App.parameterRuleDao.getMaxId() + 1,
                                 ruleJSONObject.getString("a"),
-                                ruleJSONObject.getInt("e"),
-                                ruleJSONObject.getJSONArray("f").toString(),
+                                ruleJSONObject.getString("e"),
+                                ruleJSONObject.getInt("f"),
+                                ruleJSONObject.getJSONArray("g").toString(),
                                 ruleJSONObject.getString("d"),
                                 1,
                                 true

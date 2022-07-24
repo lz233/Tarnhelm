@@ -25,6 +25,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
         val ruleEnableSwitch: MaterialSwitch = view.findViewById(R.id.ruleEnableSwitch)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
+        val domainContentTextView: AppCompatTextView = view.findViewById(R.id.domainContentTextView)
         val modeContentTextView: AppCompatTextView = view.findViewById(R.id.modeContentTextView)
         val parametersContentTextView: AppCompatTextView = view.findViewById(R.id.parametersContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
@@ -41,6 +42,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
             val dialogBinding = DialogParameterRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
             dialogBinding.modeToggleButton.check(rule.mode.getModeButtonId())
             dialogBinding.descriptionEditText.setText(rule.description)
+            dialogBinding.domainEditText.setText(rule.domain)
             dialogBinding.parametersEditText.setText(JSONArray(rule.parametersArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
             if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
@@ -50,6 +52,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                     val item = ParameterRule(
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
+                        dialogBinding.domainEditText.text.toString(),
                         dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
                         dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
@@ -86,6 +89,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
             val item = ParameterRule(
                 rule.id,
                 rule.description,
+                rule.domain,
                 rule.mode,
                 rule.parametersArray,
                 rule.author,
@@ -96,6 +100,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
             rulesList[position] = item
         }
         holder.descriptionContentTextView.text = rule.description
+        holder.domainContentTextView.text = rule.domain
         holder.modeContentTextView.text = when (rule.mode) {
             0 -> R.string.parameterRulesItemWhiteListMode.getString()
             1 -> R.string.parameterRulesItemBlackListMode.getString()
@@ -114,6 +119,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val newFromRule = ParameterRule(
             toRule.id,
             fromRule.description,
+            fromRule.domain,
             fromRule.mode,
             fromRule.parametersArray,
             fromRule.author,
@@ -123,6 +129,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val newToRule = ParameterRule(
             fromRule.id,
             toRule.description,
+            toRule.domain,
             toRule.mode,
             toRule.parametersArray,
             toRule.author,

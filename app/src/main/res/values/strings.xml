@@ -28,6 +28,7 @@
     <string name="parameterRulesItemWhiteListMode">White List</string>
     <string name="parameterRulesItemBlackListMode">Black List</string>
     <string name="parameterRulesItemDescription">Description</string>
+    <string name="parameterRulesItemDomain">Domain</string>
     <string name="parameterRulesItemParameters">Parameters</string>
     <string name="parameterRulesItemAuthor">Author</string>
     <string name="parameterRulesDialogPositiveButton">OK</string>
