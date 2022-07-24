@@ -8,8 +8,10 @@ import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleAddBinding
-import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
+import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.ui.rules.parameter.ParameterRulesFragment
+import cn.ac.lz233.tarnhelm.ui.rules.regex.RegexRulesFragment
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
@@ -35,8 +37,8 @@ class RulesActivity : BaseActivity() {
         }
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tabItem, position ->
             when (position) {
-                0 -> tabItem.text = R.string.rulesParameterTitle.getString()
-                1 -> tabItem.text = R.string.rulesRegexTitle.getString()
+                0 -> tabItem.text = R.string.rulesParametersTitle.getString()
+                1 -> tabItem.text = R.string.rulesRegexesTitle.getString()
             }
         }.attach()
 
@@ -45,8 +47,8 @@ class RulesActivity : BaseActivity() {
             val dialog = MaterialAlertDialogBuilder(this)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
-                    val item = Rule(
-                        App.ruleDao.getMaxId() + 1,
+                    val item = RegexRule(
+                        App.regexRuleDao.getMaxId() + 1,
                         dialogBinding.descriptionEditText.text.toString(),
                         dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
@@ -54,7 +56,7 @@ class RulesActivity : BaseActivity() {
                         0,
                         true
                     )
-                    App.ruleDao.insert(item)
+                    App.regexRuleDao.insert(item)
                     regexRulesFragment.rulesList.add(item)
                     regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
                 }
@@ -62,8 +64,8 @@ class RulesActivity : BaseActivity() {
             dialogBinding.pasteImageView.setOnClickListener {
                 try {
                     val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
-                    val item = Rule(
-                        App.ruleDao.getMaxId() + 1,
+                    val item = RegexRule(
+                        App.regexRuleDao.getMaxId() + 1,
                         ruleJSONObject.getString("a"),
                         ruleJSONObject.getJSONArray("b").toString(),
                         ruleJSONObject.getJSONArray("c").toString(),
@@ -71,7 +73,7 @@ class RulesActivity : BaseActivity() {
                         1,
                         true
                     )
-                    App.ruleDao.insert(item)
+                    App.regexRuleDao.insert(item)
                     regexRulesFragment.rulesList.add(item)
                     regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
                     dialog.dismiss()

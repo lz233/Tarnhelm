@@ -8,7 +8,7 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
-import cn.ac.lz233.tarnhelm.logic.dao.RuleDao
+import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
@@ -21,7 +21,7 @@ class App : Application() {
         lateinit var editor: SharedPreferences.Editor
         lateinit var spSettings: SharedPreferences
         lateinit var db: AppDatabase
-        lateinit var ruleDao: RuleDao
+        lateinit var regexRuleDao: RegexRuleDao
         lateinit var clipboard: ClipboardManager
         const val TAG = "Tarnhelm"
 
@@ -43,7 +43,7 @@ class App : Application() {
         spSettings = PreferenceManager.getDefaultSharedPreferences(context)
         editor = sp.edit()
         db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
-        ruleDao = db.ruleDao()
+        regexRuleDao = db.regexRuleDao()
         clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         DynamicColors.applyToActivitiesIfAvailable(this)
         context.startService(

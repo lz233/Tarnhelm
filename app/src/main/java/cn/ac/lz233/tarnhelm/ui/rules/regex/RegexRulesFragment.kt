@@ -1,4 +1,4 @@
-package cn.ac.lz233.tarnhelm.ui.rules
+package cn.ac.lz233.tarnhelm.ui.rules.regex
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.databinding.FragmentRegexRulesBinding
+import cn.ac.lz233.tarnhelm.ui.rules.DragSwipeCallback
 
 class RegexRulesFragment : Fragment() {
 
     private val binding by lazy { FragmentRegexRulesBinding.inflate(layoutInflater) }
-    val rulesList by lazy { App.ruleDao.getAll() }
+    val rulesList by lazy { App.regexRuleDao.getAll() }
     val adapter by lazy { RegexRulesAdapter(rulesList) }
     private val touchHelper by lazy { ItemTouchHelper(DragSwipeCallback(adapter)) }
 
@@ -30,6 +31,6 @@ class RegexRulesFragment : Fragment() {
 
     fun refreshRulesList() {
         rulesList.clear()
-        rulesList.addAll(App.ruleDao.getAll())
+        rulesList.addAll(App.regexRuleDao.getAll())
     }
 }

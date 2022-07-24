@@ -8,7 +8,7 @@ import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
-import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
+import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
@@ -61,14 +61,14 @@ class MainActivity : BaseActivity() {
                 binding.statusPassSummaryTextView.text =
                     getString(R.string.mainStatusPassSummary, workModeList.toString(R.string.mainStatusPunctuation.getString(), R.string.mainStatusPunctuationLast.getString()))
             }
-            binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, App.ruleDao.getCount().toString())
+            binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, App.regexRuleDao.getCount().toString())
         }
     }
 
-    fun initRules() {
+    private fun initRules() {
         if (App.sp.getBoolean("isFirstTestRun", true)) {
-            App.ruleDao.insert(
-                Rule(
+            App.regexRuleDao.insert(
+                RegexRule(
                     1,
                     "微信读书",
                     JSONArray().apply {
@@ -86,8 +86,8 @@ class MainActivity : BaseActivity() {
                     true
                 )
             )
-            App.ruleDao.insert(
-                Rule(
+            App.regexRuleDao.insert(
+                RegexRule(
                     2,
                     "网易云音乐",
                     JSONArray().apply {
@@ -105,8 +105,8 @@ class MainActivity : BaseActivity() {
                     true
                 )
             )
-            App.ruleDao.insert(
-                Rule(
+            App.regexRuleDao.insert(
+                RegexRule(
                     3,
                     "淘宝/闲鱼",
                     JSONArray().apply {
@@ -122,8 +122,8 @@ class MainActivity : BaseActivity() {
                     true
                 )
             )
-            App.ruleDao.insert(
-                Rule(
+            App.regexRuleDao.insert(
+                RegexRule(
                     4,
                     "京东",
                     JSONArray().apply {
@@ -139,8 +139,8 @@ class MainActivity : BaseActivity() {
                     true
                 )
             )
-            App.ruleDao.insert(
-                Rule(
+            App.regexRuleDao.insert(
+                RegexRule(
                     5,
                     "酷安",
                     JSONArray().apply {

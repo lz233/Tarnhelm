@@ -20,7 +20,7 @@ fun String.toJSONArray() = JSONArray().apply {
 
 fun CharSequence.doTarnhelm(): CharSequence {
     var result = this
-    val rules = App.ruleDao.getAll()
+    val rules = App.regexRuleDao.getAll()
     var skipRuleID = -1
     for ((index, rule) in rules.withIndex()) {
         if (rule.enabled) {

@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Rule(
+data class RegexRule(
     @PrimaryKey val id: Int,
     val description: String,
     val regexArray: String,

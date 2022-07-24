@@ -17,8 +17,8 @@
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 
     <string name="rulesTitle">Rules</string>
-    <string name="rulesParameterTitle">Parameter</string>
-    <string name="rulesRegexTitle">Regex</string>
+    <string name="rulesParametersTitle">Parameters</string>
+    <string name="rulesRegexesTitle">Regexes</string>
     <string name="rulesAddFab">Add</string>
 
     <string name="regexRulesAddDialogTitle">Add a Rule</string>

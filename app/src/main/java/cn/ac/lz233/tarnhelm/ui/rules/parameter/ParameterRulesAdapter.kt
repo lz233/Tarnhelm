@@ -1,4 +1,4 @@
-package cn.ac.lz233.tarnhelm.ui.rules
+package cn.ac.lz233.tarnhelm.ui.rules.parameter
 
 import android.content.ClipData
 import android.content.Intent
@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
-import cn.ac.lz233.tarnhelm.logic.module.meta.Rule
+import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
+import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
@@ -21,7 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import org.json.JSONArray
 
-class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : RecyclerView.Adapter<ParameterRulesAdapter.ViewHolder>(), IDragSwipe {
+class ParameterRulesAdapter(private val rulesList: MutableList<RegexRule>) : RecyclerView.Adapter<ParameterRulesAdapter.ViewHolder>(), IDragSwipe {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
@@ -49,7 +50,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
-                    val item = Rule(
+                    val item = RegexRule(
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
                         dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
@@ -58,7 +59,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
                         0,
                         true
                     )
-                    App.ruleDao.insert(item)
+                    App.regexRuleDao.insert(item)
                     rulesList[position] = item
                     notifyItemChanged(position)
                 }
@@ -76,7 +77,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
                 dialog.dismiss()
             }
             dialogBinding.deleteImageView.setOnClickListener {
-                App.ruleDao.delete(rule)
+                App.regexRuleDao.delete(rule)
                 rulesList.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position - 1, itemCount - position + 1)
@@ -85,7 +86,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
         }
         holder.ruleEnableSwitch.isChecked = rule.enabled
         holder.ruleEnableSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            val item = Rule(
+            val item = RegexRule(
                 rule.id,
                 rule.description,
                 rule.regexArray,
@@ -94,7 +95,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
                 rule.sourceType,
                 b
             )
-            App.ruleDao.insert(item)
+            App.regexRuleDao.insert(item)
             rulesList[position] = item
         }
         holder.descriptionContentTextView.text = rule.description
@@ -109,7 +110,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
         LogUtil.d("onItemSwapped $fromPosition $toPosition")
         val fromRule = rulesList[fromPosition]
         val toRule = rulesList[toPosition]
-        val newFromRule = Rule(
+        val newFromRegexRule = RegexRule(
             toRule.id,
             fromRule.description,
             fromRule.regexArray,
@@ -118,7 +119,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
             fromRule.sourceType,
             fromRule.enabled
         )
-        val newToRule = Rule(
+        val newToRegexRule = RegexRule(
             fromRule.id,
             toRule.description,
             toRule.regexArray,
@@ -127,10 +128,10 @@ class ParameterRulesAdapter(private val rulesList: MutableList<Rule>) : Recycler
             toRule.sourceType,
             toRule.enabled
         )
-        App.ruleDao.insert(newFromRule)
-        App.ruleDao.insert(newToRule)
-        rulesList[fromPosition] = newToRule
-        rulesList[toPosition] = newFromRule
+        App.regexRuleDao.insert(newFromRegexRule)
+        App.regexRuleDao.insert(newToRegexRule)
+        rulesList[fromPosition] = newToRegexRule
+        rulesList[toPosition] = newFromRegexRule
         notifyItemMoved(fromPosition, toPosition)
         //notifyItemChanged(fromPosition)
         //notifyItemChanged(toPosition)
