@@ -20,6 +20,7 @@
     <string name="rulesParametersTitle">Parameters</string>
     <string name="rulesRegexesTitle">Regexes</string>
     <string name="rulesAddFab">Add</string>
+    <string name="rulesPasteFailedToast">Paste failed. Wrong format?</string>
 
     <string name="parameterRulesAddDialogTitle">Add a Parameter Rule</string>
     <string name="parameterRulesEditDialogTitle">Edit a Parameter Rule</string>

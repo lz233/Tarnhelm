@@ -3,6 +3,7 @@ package cn.ac.lz233.tarnhelm.ui.rules
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
@@ -20,6 +21,7 @@ import cn.ac.lz233.tarnhelm.util.ktx.getModeId
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
 
@@ -82,9 +84,11 @@ class RulesActivity : BaseActivity() {
                             App.parameterRuleDao.insert(item)
                             parameterRulesFragment.rulesList.add(item)
                             parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
-                            dialog.dismiss()
                         } catch (e: Throwable) {
+                            Snackbar.make(binding.root, R.string.rulesPasteFailedToast, Toast.LENGTH_SHORT).show()
                             LogUtil.e(e)
+                        } finally {
+                            dialog.dismiss()
                         }
                     }
                 }
@@ -122,9 +126,11 @@ class RulesActivity : BaseActivity() {
                             App.regexRuleDao.insert(item)
                             regexRulesFragment.rulesList.add(item)
                             regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
-                            dialog.dismiss()
                         } catch (e: Throwable) {
+                            Snackbar.make(binding.root, R.string.rulesPasteFailedToast, Toast.LENGTH_SHORT).show()
                             LogUtil.e(e)
+                        } finally {
+                            dialog.dismiss()
                         }
                     }
                 }
