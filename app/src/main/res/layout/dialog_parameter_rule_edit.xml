@@ -26,7 +26,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:text="@string/regexRulesEditDialogTitle"
+                android:text="@string/parameterRulesEditDialogTitle"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -60,11 +60,38 @@
                 app:tint="?attr/colorOnSecondaryContainer" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/modeToggleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            app:checkedButton="@id/whiteListModeButton"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/whiteListModeButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/parameterRulesItemWhiteListMode" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/blackListModeButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/parameterRulesItemBlackListMode" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="@string/regexRulesItemDescription"
+            android:hint="@string/parameterRulesItemDescription"
             app:endIconMode="clear_text">
 
             <cn.ac.lz233.tarnhelm.view.EditText
@@ -78,11 +105,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="@string/regexRulesItemRegexes"
+            android:hint="@string/parameterRulesItemParameters"
             app:endIconMode="clear_text">
 
             <cn.ac.lz233.tarnhelm.view.EditText
-                android:id="@+id/regexesEditText"
+                android:id="@+id/parametersEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -91,21 +118,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/regexRulesItemReplacements"
-            app:endIconMode="clear_text">
-
-            <cn.ac.lz233.tarnhelm.view.EditText
-                android:id="@+id/replacementsEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/regexRulesItemAuthor"
+            android:hint="@string/parameterRulesItemAuthor"
             app:endIconMode="clear_text">
 
             <cn.ac.lz233.tarnhelm.view.EditText

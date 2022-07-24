@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="@string/regexRulesItemDescription"
+                    android:text="@string/parameterRulesItemDescription"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                     android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -70,12 +70,12 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/regexRulesItemRegexes"
+                android:text="@string/parameterRulesItemMode"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/regexesContentTextView"
+                android:id="@+id/modeContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
@@ -84,12 +84,12 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/regexRulesItemReplacements"
+                android:text="@string/parameterRulesItemParameters"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/replacementsContentTextView"
+                android:id="@+id/parametersContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
@@ -98,7 +98,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/regexRulesItemAuthor"
+                android:text="@string/parameterRulesItemAuthor"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
 

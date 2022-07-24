@@ -18,7 +18,7 @@ class RegexRulesFragment : Fragment() {
     val adapter by lazy { RegexRulesAdapter(rulesList) }
     private val touchHelper by lazy { ItemTouchHelper(DragSwipeCallback(adapter)) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
     }
 

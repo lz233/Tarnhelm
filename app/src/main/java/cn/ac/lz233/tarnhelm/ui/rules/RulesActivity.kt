@@ -7,12 +7,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityRulesBinding
+import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleAddBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleAddBinding
+import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.parameter.ParameterRulesFragment
 import cn.ac.lz233.tarnhelm.ui.rules.regex.RegexRulesFragment
+import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.getModeId
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -43,42 +47,86 @@ class RulesActivity : BaseActivity() {
         }.attach()
 
         binding.addFab.setOnClickListener {
-            val dialogBinding = DialogRegexRuleAddBinding.inflate(layoutInflater)
-            val dialog = MaterialAlertDialogBuilder(this)
-                .setView(dialogBinding.root)
-                .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
-                    val item = RegexRule(
-                        App.regexRuleDao.getMaxId() + 1,
-                        dialogBinding.descriptionEditText.text.toString(),
-                        dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
-                        dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
-                        dialogBinding.authorEditText.text.toString(),
-                        0,
-                        true
-                    )
-                    App.regexRuleDao.insert(item)
-                    regexRulesFragment.rulesList.add(item)
-                    regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
+            when (binding.viewPager2.currentItem) {
+                0 -> {
+                    val dialogBinding = DialogParameterRuleAddBinding.inflate(layoutInflater)
+                    val dialog = MaterialAlertDialogBuilder(this)
+                        .setView(dialogBinding.root)
+                        .setPositiveButton(R.string.parameterRulesDialogPositiveButton) { _, _ ->
+                            val item = ParameterRule(
+                                App.parameterRuleDao.getMaxId() + 1,
+                                dialogBinding.descriptionEditText.text.toString(),
+                                dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
+                                dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
+                                dialogBinding.authorEditText.text.toString(),
+                                0,
+                                true
+                            )
+                            App.parameterRuleDao.insert(item)
+                            parameterRulesFragment.rulesList.add(item)
+                            parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
+                        }
+                        .show()
+                    dialogBinding.pasteImageView.setOnClickListener {
+                        try {
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
+                            val item = ParameterRule(
+                                App.parameterRuleDao.getMaxId() + 1,
+                                ruleJSONObject.getString("a"),
+                                ruleJSONObject.getInt("e"),
+                                ruleJSONObject.getJSONArray("f").toString(),
+                                ruleJSONObject.getString("d"),
+                                1,
+                                true
+                            )
+                            App.parameterRuleDao.insert(item)
+                            parameterRulesFragment.rulesList.add(item)
+                            parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
+                            dialog.dismiss()
+                        } catch (e: Throwable) {
+                            LogUtil.e(e)
+                        }
+                    }
                 }
-                .show()
-            dialogBinding.pasteImageView.setOnClickListener {
-                try {
-                    val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
-                    val item = RegexRule(
-                        App.regexRuleDao.getMaxId() + 1,
-                        ruleJSONObject.getString("a"),
-                        ruleJSONObject.getJSONArray("b").toString(),
-                        ruleJSONObject.getJSONArray("c").toString(),
-                        ruleJSONObject.getString("d"),
-                        1,
-                        true
-                    )
-                    App.regexRuleDao.insert(item)
-                    regexRulesFragment.rulesList.add(item)
-                    regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
-                    dialog.dismiss()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
+                1 -> {
+                    val dialogBinding = DialogRegexRuleAddBinding.inflate(layoutInflater)
+                    val dialog = MaterialAlertDialogBuilder(this)
+                        .setView(dialogBinding.root)
+                        .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
+                            val item = RegexRule(
+                                App.regexRuleDao.getMaxId() + 1,
+                                dialogBinding.descriptionEditText.text.toString(),
+                                dialogBinding.regexesEditText.text.toString().toJSONArray().toString(),
+                                dialogBinding.replacementsEditText.text.toString().toJSONArray().toString(),
+                                dialogBinding.authorEditText.text.toString(),
+                                0,
+                                true
+                            )
+                            App.regexRuleDao.insert(item)
+                            regexRulesFragment.rulesList.add(item)
+                            regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
+                        }
+                        .show()
+                    dialogBinding.pasteImageView.setOnClickListener {
+                        try {
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
+                            val item = RegexRule(
+                                App.regexRuleDao.getMaxId() + 1,
+                                ruleJSONObject.getString("a"),
+                                ruleJSONObject.getJSONArray("b").toString(),
+                                ruleJSONObject.getJSONArray("c").toString(),
+                                ruleJSONObject.getString("d"),
+                                1,
+                                true
+                            )
+                            App.regexRuleDao.insert(item)
+                            regexRulesFragment.rulesList.add(item)
+                            regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
+                            dialog.dismiss()
+                        } catch (e: Throwable) {
+                            LogUtil.e(e)
+                        }
+                    }
                 }
             }
         }

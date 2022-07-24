@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ac.lz233.tarnhelm.App
-import cn.ac.lz233.tarnhelm.databinding.FragmentRegexRulesBinding
+import cn.ac.lz233.tarnhelm.databinding.FragmentParameterRulesBinding
 import cn.ac.lz233.tarnhelm.ui.rules.DragSwipeCallback
 
 class ParameterRulesFragment : Fragment() {
 
-    private val binding by lazy { FragmentRegexRulesBinding.inflate(layoutInflater) }
-    val rulesList by lazy { App.regexRuleDao.getAll() }
+    private val binding by lazy { FragmentParameterRulesBinding.inflate(layoutInflater) }
+    val rulesList by lazy { App.parameterRuleDao.getAll() }
     val adapter by lazy { ParameterRulesAdapter(rulesList) }
     private val touchHelper by lazy { ItemTouchHelper(DragSwipeCallback(adapter)) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
     }
 
@@ -31,6 +31,6 @@ class ParameterRulesFragment : Fragment() {
 
     fun refreshRulesList() {
         rulesList.clear()
-        rulesList.addAll(App.regexRuleDao.getAll())
+        rulesList.addAll(App.parameterRuleDao.getAll())
     }
 }

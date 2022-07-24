@@ -9,57 +9,54 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
-import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
-import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
+import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleEditBinding
+import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
-import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
+import cn.ac.lz233.tarnhelm.util.ktx.*
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import org.json.JSONArray
 
-class ParameterRulesAdapter(private val rulesList: MutableList<RegexRule>) : RecyclerView.Adapter<ParameterRulesAdapter.ViewHolder>(), IDragSwipe {
+class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) : RecyclerView.Adapter<ParameterRulesAdapter.ViewHolder>(), IDragSwipe {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
         val ruleEnableSwitch: MaterialSwitch = view.findViewById(R.id.ruleEnableSwitch)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
-        val regexContentTextView: AppCompatTextView = view.findViewById(R.id.regexContentTextView)
-        val replacementContentTextView: AppCompatTextView = view.findViewById(R.id.replacementContentTextView)
+        val modeContentTextView: AppCompatTextView = view.findViewById(R.id.modeContentTextView)
+        val parametersContentTextView: AppCompatTextView = view.findViewById(R.id.parametersContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_regex_rule, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_parameter_rule, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
-            val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
+            val dialogBinding = DialogParameterRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
+            dialogBinding.modeToggleButton.check(rule.mode.getModeButtonId())
             dialogBinding.descriptionEditText.setText(rule.description)
-            dialogBinding.regexEditText.setText(JSONArray(rule.regexArray).toMultiString())
-            dialogBinding.replacementEditText.setText(JSONArray(rule.replaceArray).toMultiString())
+            dialogBinding.parametersEditText.setText(JSONArray(rule.parametersArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
             if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
-                .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
-                    val item = RegexRule(
+                .setPositiveButton(R.string.parameterRulesDialogPositiveButton) { _, _ ->
+                    val item = ParameterRule(
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
-                        dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
-                        dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
+                        dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
+                        dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
                         0,
                         true
                     )
-                    App.regexRuleDao.insert(item)
+                    App.parameterRuleDao.insert(item)
                     rulesList[position] = item
                     notifyItemChanged(position)
                 }
@@ -77,7 +74,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<RegexRule>) : Rec
                 dialog.dismiss()
             }
             dialogBinding.deleteImageView.setOnClickListener {
-                App.regexRuleDao.delete(rule)
+                App.parameterRuleDao.delete(rule)
                 rulesList.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position - 1, itemCount - position + 1)
@@ -86,52 +83,56 @@ class ParameterRulesAdapter(private val rulesList: MutableList<RegexRule>) : Rec
         }
         holder.ruleEnableSwitch.isChecked = rule.enabled
         holder.ruleEnableSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            val item = RegexRule(
+            val item = ParameterRule(
                 rule.id,
                 rule.description,
-                rule.regexArray,
-                rule.replaceArray,
+                rule.mode,
+                rule.parametersArray,
                 rule.author,
                 rule.sourceType,
                 b
             )
-            App.regexRuleDao.insert(item)
+            App.parameterRuleDao.insert(item)
             rulesList[position] = item
         }
         holder.descriptionContentTextView.text = rule.description
-        holder.regexContentTextView.text = JSONArray(rule.regexArray).toMultiString()
-        holder.replacementContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
+        holder.modeContentTextView.text = when (rule.mode) {
+            0 -> R.string.parameterRulesItemWhiteListMode.getString()
+            1 -> R.string.parameterRulesItemBlackListMode.getString()
+            else -> ""
+        }
+        holder.parametersContentTextView.text = JSONArray(rule.parametersArray).toMultiString()
         holder.authorContentTextView.text = rule.author
     }
 
     override fun getItemCount() = rulesList.size
 
     override fun onItemSwapped(fromPosition: Int, toPosition: Int) {
-        LogUtil.d("onItemSwapped $fromPosition $toPosition")
+        LogUtil._d("onItemSwapped $fromPosition $toPosition")
         val fromRule = rulesList[fromPosition]
         val toRule = rulesList[toPosition]
-        val newFromRegexRule = RegexRule(
+        val newFromRule = ParameterRule(
             toRule.id,
             fromRule.description,
-            fromRule.regexArray,
-            fromRule.replaceArray,
+            fromRule.mode,
+            fromRule.parametersArray,
             fromRule.author,
             fromRule.sourceType,
             fromRule.enabled
         )
-        val newToRegexRule = RegexRule(
+        val newToRule = ParameterRule(
             fromRule.id,
             toRule.description,
-            toRule.regexArray,
-            toRule.replaceArray,
+            toRule.mode,
+            toRule.parametersArray,
             toRule.author,
             toRule.sourceType,
             toRule.enabled
         )
-        App.regexRuleDao.insert(newFromRegexRule)
-        App.regexRuleDao.insert(newToRegexRule)
-        rulesList[fromPosition] = newToRegexRule
-        rulesList[toPosition] = newFromRegexRule
+        App.parameterRuleDao.insert(newFromRule)
+        App.parameterRuleDao.insert(newToRule)
+        rulesList[fromPosition] = newToRule
+        rulesList[toPosition] = newFromRule
         notifyItemMoved(fromPosition, toPosition)
         //notifyItemChanged(fromPosition)
         //notifyItemChanged(toPosition)

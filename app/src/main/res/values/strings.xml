@@ -21,13 +21,23 @@
     <string name="rulesRegexesTitle">Regexes</string>
     <string name="rulesAddFab">Add</string>
 
-    <string name="regexRulesAddDialogTitle">Add a Rule</string>
-    <string name="regexRulesEditDialogTitle">Edit a Rule</string>
-    <string name="regexRulesDialogPositiveButton">OK</string>
+    <string name="parameterRulesAddDialogTitle">Add a Parameter Rule</string>
+    <string name="parameterRulesEditDialogTitle">Edit a Parameter Rule</string>
+    <string name="parameterRulesItemMode">Mode</string>
+    <string name="parameterRulesItemWhiteListMode">White List</string>
+    <string name="parameterRulesItemBlackListMode">Black List</string>
+    <string name="parameterRulesItemDescription">Description</string>
+    <string name="parameterRulesItemParameters">Parameters</string>
+    <string name="parameterRulesItemAuthor">Author</string>
+    <string name="parameterRulesDialogPositiveButton">OK</string>
+
+    <string name="regexRulesAddDialogTitle">Add a Regex Rule</string>
+    <string name="regexRulesEditDialogTitle">Edit a Regex Rule</string>
     <string name="regexRulesItemDescription">Description</string>
-    <string name="regexRulesItemRegex">Regex</string>
-    <string name="regexRulesItemReplacement">Replacement</string>
+    <string name="regexRulesItemRegexes">Regexes</string>
+    <string name="regexRulesItemReplacements">Replacements</string>
     <string name="regexRulesItemAuthor">Author</string>
+    <string name="regexRulesDialogPositiveButton">OK</string>
 
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>

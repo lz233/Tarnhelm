@@ -28,8 +28,8 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         val ruleContentCardView: MaterialCardView = view.findViewById(R.id.ruleContentCardView)
         val ruleEnableSwitch: MaterialSwitch = view.findViewById(R.id.ruleEnableSwitch)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
-        val regexContentTextView: AppCompatTextView = view.findViewById(R.id.regexContentTextView)
-        val replacementContentTextView: AppCompatTextView = view.findViewById(R.id.replacementContentTextView)
+        val regexesContentTextView: AppCompatTextView = view.findViewById(R.id.regexesContentTextView)
+        val replacementsContentTextView: AppCompatTextView = view.findViewById(R.id.replacementsContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
     }
 
@@ -43,8 +43,8 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
             dialogBinding.descriptionEditText.setText(rule.description)
-            dialogBinding.regexEditText.setText(JSONArray(rule.regexArray).toMultiString())
-            dialogBinding.replacementEditText.setText(JSONArray(rule.replaceArray).toMultiString())
+            dialogBinding.regexesEditText.setText(JSONArray(rule.regexArray).toMultiString())
+            dialogBinding.replacementsEditText.setText(JSONArray(rule.replaceArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
             if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
@@ -53,8 +53,8 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
                     val item = RegexRule(
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
-                        dialogBinding.regexEditText.text.toString().toJSONArray().toString(),
-                        dialogBinding.replacementEditText.text.toString().toJSONArray().toString(),
+                        dialogBinding.regexesEditText.text.toString().toJSONArray().toString(),
+                        dialogBinding.replacementsEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
                         0,
                         true
@@ -99,18 +99,18 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
             rulesList[position] = item
         }
         holder.descriptionContentTextView.text = rule.description
-        holder.regexContentTextView.text = JSONArray(rule.regexArray).toMultiString()
-        holder.replacementContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
+        holder.regexesContentTextView.text = JSONArray(rule.regexArray).toMultiString()
+        holder.replacementsContentTextView.text = JSONArray(rule.replaceArray).toMultiString()
         holder.authorContentTextView.text = rule.author
     }
 
     override fun getItemCount() = rulesList.size
 
     override fun onItemSwapped(fromPosition: Int, toPosition: Int) {
-        LogUtil.d("onItemSwapped $fromPosition $toPosition")
+        LogUtil._d("onItemSwapped $fromPosition $toPosition")
         val fromRule = rulesList[fromPosition]
         val toRule = rulesList[toPosition]
-        val newFromRegexRule = RegexRule(
+        val newFromRule = RegexRule(
             toRule.id,
             fromRule.description,
             fromRule.regexArray,
@@ -119,7 +119,7 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
             fromRule.sourceType,
             fromRule.enabled
         )
-        val newToRegexRule = RegexRule(
+        val newToRule = RegexRule(
             fromRule.id,
             toRule.description,
             toRule.regexArray,
@@ -128,10 +128,10 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
             toRule.sourceType,
             toRule.enabled
         )
-        App.regexRuleDao.insert(newFromRegexRule)
-        App.regexRuleDao.insert(newToRegexRule)
-        rulesList[fromPosition] = newToRegexRule
-        rulesList[toPosition] = newFromRegexRule
+        App.regexRuleDao.insert(newFromRule)
+        App.regexRuleDao.insert(newToRule)
+        rulesList[fromPosition] = newToRule
+        rulesList[toPosition] = newFromRule
         notifyItemMoved(fromPosition, toPosition)
         //notifyItemChanged(fromPosition)
         //notifyItemChanged(toPosition)

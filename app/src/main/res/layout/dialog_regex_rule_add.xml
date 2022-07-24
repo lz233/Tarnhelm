@@ -24,6 +24,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:singleLine="true"
                 android:text="@string/regexRulesAddDialogTitle"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="?attr/colorOnSecondaryContainer" />
@@ -56,11 +58,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="@string/regexRulesItemRegex"
+            android:hint="@string/regexRulesItemRegexes"
             app:endIconMode="clear_text">
 
             <cn.ac.lz233.tarnhelm.view.EditText
-                android:id="@+id/regexEditText"
+                android:id="@+id/regexesEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -70,11 +72,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="@string/regexRulesItemReplacement"
+            android:hint="@string/regexRulesItemReplacements"
             app:endIconMode="clear_text">
 
             <cn.ac.lz233.tarnhelm.view.EditText
-                android:id="@+id/replacementEditText"
+                android:id="@+id/replacementsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
