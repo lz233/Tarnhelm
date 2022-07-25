@@ -3,6 +3,8 @@ package cn.ac.lz233.tarnhelm.util.ktx
 import android.util.Base64
 import androidx.core.text.HtmlCompat
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.util.LogUtil
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 
 fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), flags)
@@ -18,11 +20,41 @@ fun String.toJSONArray() = JSONArray().apply {
     }
 }
 
-fun CharSequence.doTarnhelm(): CharSequence {
+fun String.doTarnhelm(): CharSequence {
+    LogUtil._d(this)
     var result = this
-    val rules = App.regexRuleDao.getAll()
+    val parameterRules = App.parameterRuleDao.getAll()
+    var httpUrl = result.toHttpUrlOrNull()
+    if (httpUrl != null) {
+        for (rule in parameterRules) {
+            if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
+                val ruleParameterNames = JSONArray(rule.parametersArray)
+                val urlParameterNames = httpUrl.queryParameterNames
+                val overlapParameterNames = mutableListOf<String>()
+                val aloneParameterNames = mutableListOf<String>()
+                urlParameterNames.forEach {
+                    if (ruleParameterNames.contain(it)) overlapParameterNames.add(it) else aloneParameterNames.add(it)
+                }
+                httpUrl = httpUrl.run {
+                    var httpUrlBuilder = this.newBuilder()
+                    when (rule.mode) {
+                        0 -> aloneParameterNames.forEach {
+                            httpUrlBuilder = httpUrlBuilder.removeAllQueryParameters(it)
+                        }
+                        1 -> overlapParameterNames.forEach {
+                            httpUrlBuilder = httpUrlBuilder.removeAllQueryParameters(it)
+                        }
+                    }
+                    httpUrlBuilder.build()
+                }
+            }
+        }
+        result = httpUrl.toString()
+        LogUtil._d(result)
+    }
+    val regexRules = App.regexRuleDao.getAll()
     var skipRuleID = -1
-    for ((index, rule) in rules.withIndex()) {
+    for ((index, rule) in regexRules.withIndex()) {
         if (rule.enabled) {
             val regexArray = JSONArray(rule.regexArray)
             val replaceArray = JSONArray(rule.replaceArray)
@@ -37,6 +69,7 @@ fun CharSequence.doTarnhelm(): CharSequence {
             }
         }
     }
+    LogUtil._d(result)
     return result
 }
 
