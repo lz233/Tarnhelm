@@ -8,6 +8,7 @@ import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
+import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
@@ -67,81 +68,70 @@ class MainActivity : BaseActivity() {
 
     private fun initRules() {
         if (App.sp.getBoolean("isFirstTestRun", true)) {
+            App.parameterRuleDao.insert(
+                ParameterRule(
+                    1,
+                    "微信读书",
+                    "weread.qq.com",
+                    0,
+                    JSONArray().apply {
+                        put("v")
+                    }.toString(),
+                    "lz233",
+                    1,
+                    true
+                ),
+                ParameterRule(
+                    2,
+                    "网易云音乐",
+                    "y.music.163.com",
+                    0,
+                    JSONArray().apply {
+                        put("id")
+                    }.toString(),
+                    "lz233",
+                    1,
+                    true
+                ),
+                ParameterRule(
+                    3,
+                    "淘宝/闲鱼",
+                    "m.tb.cn",
+                    0,
+                    JSONArray().apply { put("") }.toString(),
+                    "lz233",
+                    1,
+                    true
+                ),
+                ParameterRule(
+                    4,
+                    "京东",
+                    "item.m.jd.com",
+                    0,
+                    JSONArray().apply { put("") }.toString(),
+                    "lz233",
+                    1,
+                    true
+                )
+            )
             App.regexRuleDao.insert(
                 RegexRule(
                     1,
-                    "微信读书",
+                    "Twitter",
                     JSONArray().apply {
-                        put("weread.qq.com")
-                        put("""(type|senderVid|wtheme|wfrom|wvid)=.+?&""")
-                        put("""&scene=.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("weread.qq.com")
-                        put("")
-                        put("")
-                    }.toString(),
-                    "lz233",
-                    2,
-                    true
-                )
-            )
-            App.regexRuleDao.insert(
-                RegexRule(
-                    2,
-                    "网易云音乐",
-                    JSONArray().apply {
-                        put("y.music.163.com")
-                        put("""(uct|dlt|app_version|sc)=.*?&""")
-                        put("""&tn=.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("y.music.163.com")
-                        put("")
-                        put("")
-                    }.toString(),
-                    "lz233",
-                    2,
-                    true
-                )
-            )
-            App.regexRuleDao.insert(
-                RegexRule(
-                    3,
-                    "淘宝/闲鱼",
-                    JSONArray().apply {
-                        put("m.tb.cn")
+                        put("twitter.com")
                         put("""\?.*""")
                     }.toString(),
                     JSONArray().apply {
-                        put("m.tb.cn")
+                        put("vxtwitter.com")
                         put("")
                     }.toString(),
                     "lz233",
-                    2,
+                    1,
                     true
-                )
-            )
-            App.regexRuleDao.insert(
+                ),
                 RegexRule(
-                    4,
-                    "京东",
-                    JSONArray().apply {
-                        put("item.m.jd.com")
-                        put("""\?.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("item.m.jd.com")
-                        put("")
-                    }.toString(),
-                    "lz233",
                     2,
-                    true
-                )
-            )
-            App.regexRuleDao.insert(
-                RegexRule(
-                    5,
                     "酷安",
                     JSONArray().apply {
                         put("coolapk.com")
@@ -152,7 +142,7 @@ class MainActivity : BaseActivity() {
                         put("")
                     }.toString(),
                     "lz233",
-                    2,
+                    1,
                     true
                 )
             )

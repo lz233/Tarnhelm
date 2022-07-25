@@ -48,7 +48,7 @@ class App : Application() {
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
         clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        context.startService(
+        if (isXposedActive()) context.startService(
             Intent().apply {
                 `package` = Config.packageName
                 action = "cn.ac.lz233.tarnhelm.bridge"
