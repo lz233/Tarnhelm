@@ -72,6 +72,9 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
 
+    implementation "com.microsoft.appcenter:appcenter-analytics:4.3.1"
+    implementation "com.microsoft.appcenter:appcenter-crashes:4.3.1"
+
     implementation 'dev.rikka.rikkax.appcompat:appcompat:1.4.1'
     implementation 'dev.rikka.rikkax.material:material:2.5.0'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"

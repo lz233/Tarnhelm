@@ -17,6 +17,9 @@ import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
@@ -35,6 +38,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
         initRules()
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
