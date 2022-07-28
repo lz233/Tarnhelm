@@ -22,7 +22,7 @@
 
 -keep public class cn.ac.lz233.tarnhelm.xposed.XposedEntry
 
--keep class cn.ac.lz233.tarnhelm.App {
+-keep class cn.ac.lz233.tarnhelm.App$Companion {
     isXposedActive();
 }
 
