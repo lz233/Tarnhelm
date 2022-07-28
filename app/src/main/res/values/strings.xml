@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
+    <string name="copy_label">Tarnhelm Copy</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>
@@ -7,6 +8,7 @@
     <string name="mainStatusPunctuation">,\u0020</string>
     <string name="mainStatusPunctuationLast">\u0020and\u0020</string>
     <string name="mainStatusWorkModeEditTextMenu">EditText Menu</string>
+    <string name="mainStatusWorkModeCopyMenu">Copy Menu</string>
     <string name="mainStatusWorkModeShare">Sharing Dialog</string>
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">Rules</string>
@@ -44,6 +46,7 @@
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>
     <string name="settingsWorkModeEditTextMenu">EditText Menu</string>
+    <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosed">Open LSPosed to modify.</string>

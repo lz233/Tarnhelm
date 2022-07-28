@@ -9,6 +9,11 @@
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
+            android:key="workModeCopyMenu"
+            android:title="@string/settingsWorkModeCopyMenu" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
             android:key="workModeShare"
             android:title="@string/settingsWorkModeShare" />
 

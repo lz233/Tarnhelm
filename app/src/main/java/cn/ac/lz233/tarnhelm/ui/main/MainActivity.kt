@@ -29,6 +29,7 @@ class MainActivity : BaseActivity() {
     private val workModeList: List<String>
         get() = mutableListOf<String>().apply {
             if (App.isEditTextMenuActive()) add(R.string.mainStatusWorkModeEditTextMenu.getString())
+            if (App.isCopyMenuActive()) add(R.string.mainStatusWorkModeCopyMenu.getString())
             if (App.isShareActive()) add(R.string.mainStatusWorkModeShare.getString())
             if (App.isXposedActive()) add(R.string.mainStatusWorkModeXposed.getString())
         }
@@ -39,6 +40,7 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
 
         AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
+        //App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
         initRules()
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }

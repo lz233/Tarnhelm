@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
+import cn.ac.lz233.tarnhelm.ui.process.ProcessCopyActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessEditTextActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessShareActivity
 import com.google.android.material.snackbar.Snackbar
@@ -16,11 +17,12 @@ import com.google.android.material.snackbar.Snackbar
 class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        val workOnEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
+        val workModeEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
+        val workModeCopyMenu: TwoStatePreference = findPreference("workModeCopyMenu")!!
         val workModeShare: TwoStatePreference = findPreference("workModeShare")!!
-        val workOnXposed: TwoStatePreference = findPreference("workModeXposed")!!
+        val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
 
-        workOnEditTextMenu.setOnPreferenceChangeListener { preference, newValue ->
+        workModeEditTextMenu.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
                 App.context.packageManager.setComponentEnabledSetting(
                     ComponentName(App.context, ProcessEditTextActivity::class.java),
@@ -30,6 +32,22 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
             } else {
                 App.context.packageManager.setComponentEnabledSetting(
                     ComponentName(App.context, ProcessEditTextActivity::class.java),
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+            true
+        }
+        workModeCopyMenu.setOnPreferenceChangeListener { preference, newValue ->
+            if (newValue as Boolean) {
+                App.context.packageManager.setComponentEnabledSetting(
+                    ComponentName(App.context, ProcessCopyActivity::class.java),
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            } else {
+                App.context.packageManager.setComponentEnabledSetting(
+                    ComponentName(App.context, ProcessCopyActivity::class.java),
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )
@@ -52,8 +70,8 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
             }
             true
         }
-        workOnXposed.isChecked = App.isXposedActive()
-        workOnXposed.setOnPreferenceChangeListener { preference, newValue ->
+        workModeXposed.isChecked = App.isXposedActive()
+        workModeXposed.setOnPreferenceChangeListener { preference, newValue ->
             Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosed, Toast.LENGTH_SHORT).show()
             false
         }

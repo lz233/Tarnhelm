@@ -31,6 +31,9 @@ class App : Application() {
         fun isEditTextMenuActive(): Boolean = SettingsDao.workModeEditTextMenu
 
         @JvmStatic
+        fun isCopyMenuActive(): Boolean = SettingsDao.workModeCopyMenu
+
+        @JvmStatic
         fun isShareActive(): Boolean = SettingsDao.workModeShare
 
         @JvmStatic

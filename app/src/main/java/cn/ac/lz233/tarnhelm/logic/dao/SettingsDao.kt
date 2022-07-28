@@ -6,6 +6,9 @@ object SettingsDao {
     val workModeEditTextMenu
         get() = App.spSettings.getBoolean("workModeEditTextMenu", true)
 
+    val workModeCopyMenu
+        get() = App.spSettings.getBoolean("workModeCopyMenu", true)
+
     val workModeShare
         get() = App.spSettings.getBoolean("workModeShare", true)
 }

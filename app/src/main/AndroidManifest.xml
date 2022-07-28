@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.ac.lz233.tarnhelm">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -18,14 +29,25 @@
         </activity>
         <activity
             android:name=".ui.rules.RulesActivity"
-            android:theme="@style/Theme.Tarnhelm.FuckToolbar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Tarnhelm.FuckToolbar" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.process.ProcessEditTextActivity"
             android:exported="true"
+            android:theme="@style/Theme.Tarnhelm.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.process.ProcessCopyActivity"
+            android:exported="true"
+            android:label="@string/copy_label"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
