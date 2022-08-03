@@ -2,6 +2,7 @@ package cn.ac.lz233.tarnhelm.ui.rules
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -45,6 +46,10 @@ class RulesActivity : BaseActivity() {
             }
         }.attach()
 
+        binding.openWebImageView.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tarnhelm.project.ac.cn/rules.html")))
+        }
+
         binding.addFab.setOnClickListener {
             when (binding.viewPager2.currentItem) {
                 0 -> {
@@ -69,7 +74,9 @@ class RulesActivity : BaseActivity() {
                         .show()
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
-                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().apply {
+                                replace("tarnhelm://rule?parameter=", "")
+                            }.decodeBase64())
                             val item = ruleJSONObject.insertToParameterRules()
                             parameterRulesFragment.rulesList.add(item)
                             parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
@@ -102,7 +109,9 @@ class RulesActivity : BaseActivity() {
                         .show()
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
-                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().apply {
+                                replace("tarnhelm://rule?regex=", "")
+                            }.decodeBase64())
                             val item = ruleJSONObject.insertToRegexRules()
                             regexRulesFragment.rulesList.add(item)
                             regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)

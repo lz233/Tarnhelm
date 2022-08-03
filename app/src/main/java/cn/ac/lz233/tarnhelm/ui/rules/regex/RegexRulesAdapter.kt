@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
@@ -42,6 +43,7 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?regex=" else "") + rule.toJSONObject().toString().encodeBase64()
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.regexesEditText.setText(JSONArray(rule.regexArray).toMultiString())
             dialogBinding.replacementsEditText.setText(JSONArray(rule.replaceArray).toMultiString())
@@ -65,13 +67,13 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
                 }
                 .show()
             dialogBinding.copyImageView.setOnClickListener {
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", rule.toJSONObject().toString().encodeBase64()))
+                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", base64Text))
                 dialog.dismiss()
             }
             dialogBinding.shareImageView.setOnClickListener {
                 App.context.startActivity(Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, rule.toJSONObject().toString().encodeBase64())
+                    putExtra(Intent.EXTRA_TEXT, base64Text)
                     type = "text/plain"
                 }, null).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
                 dialog.dismiss()

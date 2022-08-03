@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleEditBinding
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
@@ -40,6 +41,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogParameterRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?parameter=" else "") + rule.toJSONObject().toString().encodeBase64()
             dialogBinding.modeToggleButton.check(rule.mode.getModeButtonId())
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.domainEditText.setText(rule.domain)
@@ -65,13 +67,13 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                 }
                 .show()
             dialogBinding.copyImageView.setOnClickListener {
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", rule.toJSONObject().toString().encodeBase64()))
+                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", base64Text))
                 dialog.dismiss()
             }
             dialogBinding.shareImageView.setOnClickListener {
                 App.context.startActivity(Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, rule.toJSONObject().toString().encodeBase64())
+                    putExtra(Intent.EXTRA_TEXT, base64Text)
                     type = "text/plain"
                 }, null).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
                 dialog.dismiss()

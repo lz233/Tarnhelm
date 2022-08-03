@@ -13,6 +13,8 @@ import cn.ac.lz233.tarnhelm.ui.process.ProcessCopyActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessEditTextActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessShareActivity
 import com.google.android.material.snackbar.Snackbar
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 
 class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -21,6 +23,9 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         val workModeCopyMenu: TwoStatePreference = findPreference("workModeCopyMenu")!!
         val workModeShare: TwoStatePreference = findPreference("workModeShare")!!
         val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
+        val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
+        val analytics: TwoStatePreference = findPreference("analytics")!!
+        val crashes: TwoStatePreference = findPreference("crashes")!!
 
         workModeEditTextMenu.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
@@ -38,6 +43,7 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
             }
             true
         }
+
         workModeCopyMenu.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
                 App.context.packageManager.setComponentEnabledSetting(
@@ -54,6 +60,7 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
             }
             true
         }
+
         workModeShare.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
                 App.context.packageManager.setComponentEnabledSetting(
@@ -70,10 +77,21 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
             }
             true
         }
+
         workModeXposed.isChecked = App.isXposedActive()
         workModeXposed.setOnPreferenceChangeListener { preference, newValue ->
             Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosed, Toast.LENGTH_SHORT).show()
             false
+        }
+
+        analytics.setOnPreferenceChangeListener { preference, newValue ->
+            Analytics.setEnabled(newValue as Boolean)
+            true
+        }
+
+        crashes.setOnPreferenceChangeListener { preference, newValue ->
+            Crashes.setEnabled(newValue as Boolean)
+            true
         }
     }
 }

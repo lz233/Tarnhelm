@@ -11,4 +11,7 @@ object SettingsDao {
 
     val workModeShare
         get() = App.spSettings.getBoolean("workModeShare", true)
+
+    val exportRulesAsLink
+        get() = App.spSettings.getBoolean("exportRulesAsLink", false)
 }

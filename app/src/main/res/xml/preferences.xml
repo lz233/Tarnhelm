@@ -22,11 +22,20 @@
             android:title="@string/settingsWorkModeXposed" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settingsOnlineRulesTitle">
+    <PreferenceCategory android:title="@string/settingsBehavior">
         <rikka.material.preference.MaterialSwitchPreference
-            android:enabled="false"
-            android:key="useOnlineRules"
-            android:title="@string/settingsOnlineRulesUse" />
+            android:key="exportRulesAsLink"
+            android:title="@string/settingsBehaviorExportRulesAsLink" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="analytics"
+            android:title="@string/settingsBehaviorAnalytics" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="crashes"
+            android:title="@string/settingsBehaviorCrashes" />
     </PreferenceCategory>
 
 </PreferenceScreen>
