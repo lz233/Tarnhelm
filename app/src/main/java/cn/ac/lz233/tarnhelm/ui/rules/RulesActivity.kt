@@ -74,9 +74,7 @@ class RulesActivity : BaseActivity() {
                         .show()
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
-                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().apply {
-                                replace("tarnhelm://rule?parameter=", "")
-                            }.decodeBase64())
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().replace("tarnhelm://rule?parameter=", "").decodeBase64())
                             val item = ruleJSONObject.insertToParameterRules()
                             parameterRulesFragment.rulesList.add(item)
                             parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
@@ -109,9 +107,7 @@ class RulesActivity : BaseActivity() {
                         .show()
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
-                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().apply {
-                                replace("tarnhelm://rule?regex=", "")
-                            }.decodeBase64())
+                            val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().replace("tarnhelm://rule?regex=", "").decodeBase64())
                             val item = ruleJSONObject.insertToRegexRules()
                             regexRulesFragment.rulesList.add(item)
                             regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
