@@ -2,11 +2,11 @@ package cn.ac.lz233.tarnhelm.ui.process
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 
-class ProcessEditTextActivity : AppCompatActivity() {
+class ProcessEditTextActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

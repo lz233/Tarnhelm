@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
     <string name="copy_label">Tarnhelm Copy</string>
+    <string name="read_only_toast">Read Only</string>
+    <string name="rule_added_toast">\"%s\" added</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>

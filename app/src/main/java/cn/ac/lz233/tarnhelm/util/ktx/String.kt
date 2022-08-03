@@ -9,7 +9,7 @@ import org.json.JSONArray
 
 fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), flags)
 
-fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT)
+fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT).replace("\n", "")
 
 fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
 

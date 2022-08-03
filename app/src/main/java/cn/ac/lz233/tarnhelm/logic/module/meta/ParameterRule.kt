@@ -11,6 +11,6 @@ data class ParameterRule(
     val mode: Int, // 0:whiteList 1:blackList
     val parametersArray: String,
     val author: String,
-    val sourceType: Int, // 0:manual 1:paste 2:git
+    val sourceType: Int, // 0:manual 1:paste 2:??
     val enabled: Boolean,
 )

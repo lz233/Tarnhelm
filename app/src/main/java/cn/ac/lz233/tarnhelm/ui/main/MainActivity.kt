@@ -140,11 +140,11 @@ class MainActivity : BaseActivity() {
                     2,
                     "酷安",
                     JSONArray().apply {
-                        put("coolapk.com")
+                        put("coolapk.com/feed/")
                         put("""\?.*""")
                     }.toString(),
                     JSONArray().apply {
-                        put("coolapk1s.com")
+                        put("coolapk1s.com/feed/")
                         put("")
                     }.toString(),
                     "lz233",

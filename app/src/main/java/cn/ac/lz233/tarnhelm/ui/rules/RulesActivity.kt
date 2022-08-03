@@ -16,10 +16,7 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.parameter.ParameterRulesFragment
 import cn.ac.lz233.tarnhelm.ui.rules.regex.RegexRulesFragment
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
-import cn.ac.lz233.tarnhelm.util.ktx.getModeId
-import cn.ac.lz233.tarnhelm.util.ktx.getString
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
+import cn.ac.lz233.tarnhelm.util.ktx.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
@@ -73,17 +70,7 @@ class RulesActivity : BaseActivity() {
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
                             val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
-                            val item = ParameterRule(
-                                App.parameterRuleDao.getMaxId() + 1,
-                                ruleJSONObject.getString("a"),
-                                ruleJSONObject.getString("e"),
-                                ruleJSONObject.getInt("f"),
-                                ruleJSONObject.getJSONArray("g").toString(),
-                                ruleJSONObject.getString("d"),
-                                1,
-                                true
-                            )
-                            App.parameterRuleDao.insert(item)
+                            val item = ruleJSONObject.insertToParameterRules()
                             parameterRulesFragment.rulesList.add(item)
                             parameterRulesFragment.adapter.notifyItemInserted(parameterRulesFragment.adapter.itemCount - 1)
                         } catch (e: Throwable) {
@@ -116,16 +103,7 @@ class RulesActivity : BaseActivity() {
                     dialogBinding.pasteImageView.setOnClickListener {
                         try {
                             val ruleJSONObject = JSONObject(App.clipboard.primaryClip!!.getItemAt(0).text.toString().decodeBase64())
-                            val item = RegexRule(
-                                App.regexRuleDao.getMaxId() + 1,
-                                ruleJSONObject.getString("a"),
-                                ruleJSONObject.getJSONArray("b").toString(),
-                                ruleJSONObject.getJSONArray("c").toString(),
-                                ruleJSONObject.getString("d"),
-                                1,
-                                true
-                            )
-                            App.regexRuleDao.insert(item)
+                            val item = ruleJSONObject.insertToRegexRules()
                             regexRulesFragment.rulesList.add(item)
                             regexRulesFragment.adapter.notifyItemInserted(regexRulesFragment.adapter.itemCount - 1)
                         } catch (e: Throwable) {
