@@ -108,16 +108,6 @@ class MainActivity : BaseActivity() {
                     "lz233",
                     1,
                     true
-                ),
-                ParameterRule(
-                    4,
-                    "京东",
-                    "item.m.jd.com",
-                    0,
-                    JSONArray().apply { put("") }.toString(),
-                    "lz233",
-                    1,
-                    true
                 )
             )
             App.regexRuleDao.insert(
@@ -145,6 +135,21 @@ class MainActivity : BaseActivity() {
                     }.toString(),
                     JSONArray().apply {
                         put("coolapk1s.com/feed/")
+                        put("")
+                    }.toString(),
+                    "lz233",
+                    1,
+                    true
+                ),
+                RegexRule(
+                    3,
+                    "京东",
+                    JSONArray().apply {
+                        put("item.m.jd.com")
+                        put("""\?.*""")
+                    }.toString(),
+                    JSONArray().apply {
+                        put("item.jd.com")
                         put("")
                     }.toString(),
                     "lz233",
