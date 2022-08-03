@@ -1,5 +1,7 @@
 package cn.ac.lz233.tarnhelm.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -45,6 +47,7 @@ class MainActivity : BaseActivity() {
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
+        binding.websiteCardView.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tarnhelm.project.ac.cn"))) }
         binding.aboutCardView.setOnClickListener {
             val dialogBinding = DialogAboutBinding.inflate(layoutInflater)
             dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.BUILD_TYPE}"
@@ -157,7 +160,7 @@ class MainActivity : BaseActivity() {
                     true
                 )
             )
-            App.editor.putBoolean("isFirstTestRun", false)
+            App.editor.putBoolean("isFirstTestRun", false).apply()
         }
     }
 }

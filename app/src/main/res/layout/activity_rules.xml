@@ -27,8 +27,8 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_launch"
-                app:tint="@color/md_theme_onSurface" />
+                app:srcCompat="@drawable/ic_open"
+                app:tint="?attr/colorOnSurface" />
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout

@@ -16,6 +16,7 @@
     <string name="mainRulesTitle">Rules</string>
     <string name="mainRulesSummary">%s rule(s) recorded</string>
     <string name="mainSettingsTitle">Settings</string>
+    <string name="mainWebsiteTitle">Website</string>
     <string name="mainAboutTitle">About</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>

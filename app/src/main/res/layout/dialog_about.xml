@@ -2,13 +2,16 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="?android:dialogPreferredPadding">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@android:id/icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:srcCompat="@drawable/ic_icon"
+        app:tint="?attr/colorOnSurface"
         android:importantForAccessibility="no" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
