@@ -11,7 +11,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:srcCompat="@drawable/ic_icon"
-        app:tint="?attr/colorOnSurface"
+        app:tint="?attr/colorOnSurfaceVariant"
         android:importantForAccessibility="no" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
