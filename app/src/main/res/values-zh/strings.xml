@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Tarnhelm</string>
+    <string name="copy_label">Tarnhelm 复制</string>
+    <string name="read_only_toast">只读文本</string>
+    <string name="rule_added_toast">「%s」已添加</string>
+
+    <string name="mainStatusTitle">状态</string>
+    <string name="mainStatusErrorSummary">没有工作模式被激活</string>
+    <string name="mainStatusPassSummary">工作在 %s 模式</string>
+    <string name="mainStatusPunctuation">、</string>
+    <string name="mainStatusPunctuationLast">和</string>
+    <string name="mainStatusWorkModeEditTextMenu">编辑菜单</string>
+    <string name="mainStatusWorkModeCopyMenu">复制菜单</string>
+    <string name="mainStatusWorkModeShare">分享对话框</string>
+    <string name="mainStatusWorkModeXposed">Xposed</string>
+    <string name="mainRulesTitle">规则库</string>
+    <string name="mainRulesSummary">已记录 %s 个规则</string>
+    <string name="mainSettingsTitle">设置</string>
+    <string name="mainWebsiteTitle">网站</string>
+    <string name="mainAboutTitle">关于</string>
+
+    <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源码]]></string>
+
+    <string name="rulesTitle">规则库</string>
+    <string name="rulesParametersTitle">参数</string>
+    <string name="rulesRegexesTitle">正则</string>
+    <string name="rulesAddFab">添加</string>
+    <string name="rulesPasteFailedToast">粘贴失败。错误的格式？</string>
+
+    <string name="parameterRulesAddDialogTitle">添加一个参数规则</string>
+    <string name="parameterRulesEditDialogTitle">编辑一个参数规则</string>
+    <string name="parameterRulesItemMode">模式</string>
+    <string name="parameterRulesItemWhiteListMode">白名单</string>
+    <string name="parameterRulesItemBlackListMode">黑名单</string>
+    <string name="parameterRulesItemDescription">描述</string>
+    <string name="parameterRulesItemDomain">域名</string>
+    <string name="parameterRulesItemParameters">参数</string>
+    <string name="parameterRulesItemAuthor">作者</string>
+    <string name="parameterRulesDialogPositiveButton">确认</string>
+
+    <string name="regexRulesAddDialogTitle">添加一个正则规则</string>
+    <string name="regexRulesEditDialogTitle">编辑一个正则规则</string>
+    <string name="regexRulesItemDescription">描述</string>
+    <string name="regexRulesItemRegexes">正则</string>
+    <string name="regexRulesItemReplacements">替换</string>
+    <string name="regexRulesItemAuthor">作者</string>
+    <string name="regexRulesDialogPositiveButton">确认</string>
+
+    <string name="settingsTitle">设置</string>
+    <string name="settingsWorkModeTitle">工作模式</string>
+    <string name="settingsWorkModeEditTextMenu">编辑菜单</string>
+    <string name="settingsWorkModeCopyMenu">复制菜单</string>
+    <string name="settingsWorkModeShare">分享对话框</string>
+    <string name="settingsWorkModeXposed">Xposed</string>
+    <string name="settingsWorkModeOpenLSPosed">在 LSPosed 中激活并重启来修改</string>
+    <string name="settingsBehavior">行为</string>
+    <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
+    <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
+    <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
+    <string name="settingsLanguageTitle">语言</string>
+    <string name="settingsLanguageTranslatorTitle">译者</string>
+    <string name="settingsLanguageTranslatorSummary">lz233</string>
+</resources>

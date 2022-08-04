@@ -52,9 +52,12 @@
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">Open LSPosed and reboot to modify.</string>
+    <string name="settingsWorkModeOpenLSPosed">Activate in LSPosed and reboot to modify</string>
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
+    <string name="settingsLanguageTitle">Language</string>
+    <string name="settingsLanguageTranslatorTitle">Translator</string>
+    <string name="settingsLanguageTranslatorSummary">lz233</string>
 </resources>
