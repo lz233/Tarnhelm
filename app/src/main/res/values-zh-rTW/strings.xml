@@ -37,7 +37,7 @@
     <string name="parameterRulesItemParameters">參數</string>
     <string name="parameterRulesItemAuthor">作者</string>
     <string name="parameterRulesDialogPositiveButton">確認</string>
-    ˚
+
     <string name="regexRulesAddDialogTitle">添加一個正則規則</string>
     <string name="regexRulesEditDialogTitle">編輯一個正則規則</string>
     <string name="regexRulesItemDescription">描述</string>
