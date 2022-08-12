@@ -90,7 +90,7 @@ object Android {
             }*/
             Intent::class.java.hookBeforeAllMethods("createChooser") { param ->
                 LogUtil._d("createChooser")
-                val target = param.args[1] as Intent
+                val target = param.args[0] as Intent
                 if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
                     startModuleAppProcess()
                     ModuleBridgeHelper.bindBridgeService()
@@ -98,7 +98,7 @@ object Android {
                 ModuleBridgeHelper.bridge?.let {
                     target.putExtra(Intent.EXTRA_SUBJECT, it.doTarnhelms(target.getStringExtra(Intent.EXTRA_SUBJECT)))
                     target.putExtra(Intent.EXTRA_TEXT, it.doTarnhelms(target.getStringExtra(Intent.EXTRA_TEXT)))
-                    param.args[1] = target
+                    param.args[0] = target
                 }
             }
         } catch (e: Throwable) {
