@@ -16,8 +16,10 @@
     <string name="mainRulesTitle">规则库</string>
     <string name="mainRulesSummary">已记录 %s 个规则</string>
     <string name="mainSettingsTitle">设置</string>
-    <string name="mainWebsiteTitle">网站</string>
+    <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">关于</string>
+    <string name="mainRankToast">喜欢这个应用吗？请在商店给我们评分！</string>
+    <string name="mainRankToastAction">评分</string>
 
     <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源码]]></string>
 
@@ -57,7 +59,7 @@
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsLanguageTitle">语言</string>
-    <string name="settingsLanguageTranslatorTitle">译者</string>
-    <string name="settingsLanguageTranslatorSummary">lz233</string>
+    <string name="settingsOthersTitle">语言</string>
+    <string name="settingsOthersTranslatorTitle">译者</string>
+    <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

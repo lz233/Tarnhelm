@@ -227,7 +227,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/websiteCardView"
+            android:id="@+id/shareCardView"
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_open"
+                    android:background="@drawable/ic_share"
                     android:backgroundTint="?attr/colorOnSurface" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="25dp"
-                    android:text="@string/mainWebsiteTitle"
+                    android:text="@string/mainShareTitle"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="?attr/colorOnSurface" />
             </LinearLayout>

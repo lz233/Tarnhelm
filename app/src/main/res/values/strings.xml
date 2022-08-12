@@ -16,8 +16,10 @@
     <string name="mainRulesTitle">Rules</string>
     <string name="mainRulesSummary">%s rule(s) recorded</string>
     <string name="mainSettingsTitle">Settings</string>
-    <string name="mainWebsiteTitle">Website</string>
+    <string name="mainShareTitle">Share</string>
     <string name="mainAboutTitle">About</string>
+    <string name="mainRankToast">Like it? Please rank us at App Store!</string>
+    <string name="mainRankToastAction">Rank</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 
@@ -57,7 +59,7 @@
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsLanguageTitle">Language</string>
-    <string name="settingsLanguageTranslatorTitle">Translator</string>
-    <string name="settingsLanguageTranslatorSummary">lz233</string>
+    <string name="settingsOthersTitle">Others</string>
+    <string name="settingsOthersTranslatorTitle">Translator</string>
+    <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

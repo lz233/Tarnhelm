@@ -12,9 +12,7 @@ object LogUtil {
     private const val maxLength = 4000
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
-    @JvmOverloads
-    fun toast(msg: String, force: Boolean = true) {
-        if (!force && !App.sp.getBoolean("showLogToast", false)) return
+    fun toast(msg: String) {
         handler.post {
             Toast.makeText(App.context, msg, Toast.LENGTH_SHORT).show()
         }
@@ -35,7 +33,7 @@ object LogUtil {
             }
         } else {
             f(tag, str)
-            if (toToast) toast(str, false)
+            if (toToast) toast(str)
         }
     }
 

@@ -16,8 +16,10 @@
     <string name="mainRulesTitle">規則庫</string>
     <string name="mainRulesSummary">已記錄 %s 個規則</string>
     <string name="mainSettingsTitle">設置</string>
-    <string name="mainWebsiteTitle">網站</string>
+    <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">關於</string>
+    <string name="mainRankToast">喜歡這個應用嗎？請在商店給我們評分！</string>
+    <string name="mainRankToastAction">評分</string>
 
     <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源碼]]></string>
 
@@ -52,12 +54,12 @@
     <string name="settingsWorkModeCopyMenu">複製菜單</string>
     <string name="settingsWorkModeShare">分享對話框</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">在 LSPosed 中開啟並重啟來修改</string>
+    <string name="settingsWorkModeOpenLSPosed">在 LSPosed 中啟動並重啟來修改</string>
     <string name="settingsBehavior">行為</string>
     <string name="settingsBehaviorExportRulesAsLink">以鏈接形式導出規則</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsLanguageTitle">語言</string>
-    <string name="settingsLanguageTranslatorTitle">譯者</string>
-    <string name="settingsLanguageTranslatorSummary">lz233</string>
+    <string name="settingsOthersTitle">語言</string>
+    <string name="settingsOthersTranslatorTitle">譯者</string>
+    <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

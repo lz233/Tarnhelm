@@ -17,8 +17,10 @@
     <string name="mainRulesTitle">ルール</string>
     <string name="mainRulesSummary">%s ルール</string>
     <string name="mainSettingsTitle">設定</string>
-    <string name="mainWebsiteTitle">ウェブサイト</string>
-    <string name="mainAboutTitle">Tarnhelmについて</string>
+    <string name="mainShareTitle"> </string>
+    <string name="mainAboutTitle">Tarnhelm について</string>
+    <string name="mainRankToast"> </string>
+    <string name="mainRankToastAction"> </string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 
@@ -58,7 +60,7 @@
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsLanguageTitle">言語</string>
-    <string name="settingsLanguageTranslatorTitle">翻訳者</string>
-    <string name="settingsLanguageTranslatorSummary">mitian233</string>
+    <string name="settingsOthersTitle">言語</string>
+    <string name="settingsOthersTranslatorTitle">翻訳者</string>
+    <string name="settingsOthersTranslatorSummary">mitian233</string>
 </resources>

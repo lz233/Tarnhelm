@@ -12,7 +12,7 @@ object Android {
     private val isActivityManagerServiceInit: Boolean
         get() = ::activityManagerService.isInitialized
     private var mContext: Context? = null
-    
+
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context, p1: Intent) {
             runCatching {
@@ -22,7 +22,7 @@ object Android {
             }.onFailure { LogUtil._d(it) }
         }
     }
-    
+
     fun init() {
         runCatching {
             LogUtil._d("start find methods")
@@ -56,9 +56,50 @@ object Android {
                             startModuleAppProcess()
                             ModuleBridgeHelper.bindBridgeService()
                         }
-                        ModuleBridgeHelper.bridge?.let { item.setObjectField("mText", it.doTarnhelms(text.toString())) }
+                        ModuleBridgeHelper.bridge?.let {
+                            item.setObjectField("mText", it.doTarnhelms(text.toString()))
+                        }
                     }
                 }.onFailure { LogUtil._d(it) }
+            }
+
+            /*Intent::class.java.hookBeforeAllMethods("putExtra"){
+                LogUtil._d(it.method)
+                LogUtil._d("1 ${it.args[0]}")
+                LogUtil._d("2 ${it.args[1]}")
+            }
+            Intent::class.java.hookBeforeMethod("putExtra", String::class.java, String::class.java) { param ->
+                LogUtil._d("putExtraString ${param.args[0]} ${param.args[1]}")
+                if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
+                    startModuleAppProcess()
+                    ModuleBridgeHelper.bindBridgeService()
+                }
+                /*ModuleBridgeHelper.bridge?.let {
+                    param.args[1] = it.doTarnhelms(param.args[1] as String)
+                }*/
+            }
+            Intent::class.java.hookBeforeMethod("putExtra", String::class.java, CharSequence::class.java) { param ->
+                LogUtil._d("putExtraCharSequence ${param.args[0]} ${param.args[1]}")
+                if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
+                    startModuleAppProcess()
+                    ModuleBridgeHelper.bindBridgeService()
+                }
+                /*ModuleBridgeHelper.bridge?.let {
+                    param.args[1] = it.doTarnhelms(param.args[1] as String)
+                }*/
+            }*/
+            Intent::class.java.hookBeforeAllMethods("createChooser") { param ->
+                LogUtil._d("createChooser")
+                val target = param.args[1] as Intent
+                if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
+                    startModuleAppProcess()
+                    ModuleBridgeHelper.bindBridgeService()
+                }
+                ModuleBridgeHelper.bridge?.let {
+                    target.putExtra(Intent.EXTRA_SUBJECT, it.doTarnhelms(target.getStringExtra(Intent.EXTRA_SUBJECT)))
+                    target.putExtra(Intent.EXTRA_TEXT, it.doTarnhelms(target.getStringExtra(Intent.EXTRA_TEXT)))
+                    param.args[1] = target
+                }
             }
         } catch (e: Throwable) {
             LogUtil._d(e)

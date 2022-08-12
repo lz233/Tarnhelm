@@ -5,11 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.widget.Toast
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
+import cn.ac.lz233.tarnhelm.logic.dao.ConfigDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
@@ -19,6 +21,7 @@ import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -43,11 +46,19 @@ class MainActivity : BaseActivity() {
 
         AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
         //App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
-        initRules()
+        init()
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
-        binding.websiteCardView.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tarnhelm.project.ac.cn"))) }
+        binding.shareCardView.setOnClickListener {
+            startActivity(Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_SUBJECT, R.string.app_name.getString())
+                // TODO: redirect to f-droid
+                putExtra(Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+                type = "text/plain"
+            }, R.string.app_name.getString()))
+        }
         binding.aboutCardView.setOnClickListener {
             val dialogBinding = DialogAboutBinding.inflate(layoutInflater)
             dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.BUILD_TYPE}"
@@ -75,7 +86,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun initRules() {
+    private fun init() {
         if (App.sp.getBoolean("isFirstTestRun", true)) {
             App.parameterRuleDao.insert(
                 ParameterRule(
@@ -161,6 +172,17 @@ class MainActivity : BaseActivity() {
                 )
             )
             App.editor.putBoolean("isFirstTestRun", false).apply()
+        }
+        ConfigDao.openTimes++
+        //if (true){
+        if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
+            ConfigDao.ranked = true
+            Snackbar.make(binding.root, R.string.mainRankToast, Toast.LENGTH_SHORT)
+                .setAction(R.string.mainRankToastAction) {
+                    startActivity(Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
+                    })
+                }.show()
         }
     }
 }

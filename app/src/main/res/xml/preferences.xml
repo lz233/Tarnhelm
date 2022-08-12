@@ -38,9 +38,9 @@
             android:title="@string/settingsBehaviorCrashes" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settingsLanguageTitle">
+    <PreferenceCategory android:title="@string/settingsOthersTitle">
         <Preference
-            android:summary="@string/settingsLanguageTranslatorSummary"
-            android:title="@string/settingsLanguageTranslatorTitle" />
+            android:summary="@string/settingsOthersTranslatorSummary"
+            android:title="@string/settingsOthersTitle" />
     </PreferenceCategory>
 </PreferenceScreen>
