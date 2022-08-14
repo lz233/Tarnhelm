@@ -41,6 +41,6 @@
     <PreferenceCategory android:title="@string/settingsOthersTitle">
         <Preference
             android:summary="@string/settingsOthersTranslatorSummary"
-            android:title="@string/settingsOthersTitle" />
+            android:title="@string/settingsOthersTranslatorTitle" />
     </PreferenceCategory>
 </PreferenceScreen>
