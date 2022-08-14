@@ -54,12 +54,13 @@ android {
 }
 
 configurations.all {
-    exclude group: 'androidx.appcompat', module: 'appcompat'
+    exclude group: 'dev.rikka.rikkax.appcompat', module: 'appcompat'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
@@ -73,8 +74,8 @@ dependencies {
     implementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
     implementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
-    implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
-    implementation 'dev.rikka.rikkax.material:material:2.5.1'
+    //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
+    //implementation 'dev.rikka.rikkax.material:material:2.5.1'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
