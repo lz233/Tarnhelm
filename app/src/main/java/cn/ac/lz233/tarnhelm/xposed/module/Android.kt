@@ -88,7 +88,7 @@ object Android {
                     param.args[1] = it.doTarnhelms(param.args[1] as String)
                 }*/
             }*/
-            Intent::class.java.hookBeforeAllMethods("createChooser") { param ->
+            /*Intent::class.java.hookBeforeAllMethods("createChooser") { param ->
                 LogUtil._d("createChooser")
                 val target = param.args[0] as Intent
                 if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
@@ -100,7 +100,7 @@ object Android {
                     target.putExtra(Intent.EXTRA_TEXT, it.doTarnhelms(target.getStringExtra(Intent.EXTRA_TEXT)))
                     param.args[0] = target
                 }
-            }
+            }*/
         } catch (e: Throwable) {
             LogUtil._d(e)
         }
