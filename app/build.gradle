@@ -44,15 +44,12 @@ android {
         viewBinding true
     }
     packagingOptions {
-        exclude 'META-INF/**'
-        exclude 'kotlin/**'
-        exclude 'okhttp3/**'
-        exclude 'org/**'
-        exclude '**.properties'
-        exclude '**.bin'
-        //exclude 'lib/arm64-v8a/**'
-        //exclude 'lib/x86_64/**'
-        //exclude 'lib/x86/**'
+        jniLibs {
+            excludes += []
+        }
+        resources {
+            excludes += ['META-INF/**', 'kotlin/**', 'okhttp3/**', 'org/**', '**.properties', '**.bin']
+        }
     }
 }
 
@@ -68,15 +65,16 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     kapt 'androidx.room:room-compiler:2.4.3'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    implementation "com.microsoft.appcenter:appcenter-analytics:4.3.1"
-    implementation "com.microsoft.appcenter:appcenter-crashes:4.3.1"
+    implementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    implementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
-    implementation 'dev.rikka.rikkax.appcompat:appcompat:1.4.1'
-    implementation 'dev.rikka.rikkax.material:material:2.5.0'
+    implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
+    implementation 'dev.rikka.rikkax.material:material:2.5.1'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
