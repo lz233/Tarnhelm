@@ -1,4 +1,8 @@
-# Tarnhelm
+<p align="center">
+<img class="icon1" src="https://tarnhelm.project.ac.cn/icon-color.png" alt="icon-color" width="15%"/>
+</p>
+
+<h1 align="center">Tarnhelm</h1>
 
 The magic to clean sharing links up.
 
