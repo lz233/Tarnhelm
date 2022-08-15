@@ -59,7 +59,9 @@
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsOthersTitle">语言</string>
+    <string name="settingsOthersTitle">其他</string>
+    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslatorTitle">译者</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

@@ -40,6 +40,11 @@
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">
         <Preference
+            android:key="telegramChannel"
+            android:summary="@string/settingsOthersTelegramChannelSummary"
+            android:title="@string/settingsOthersTelegramChannelTitle" />
+
+        <Preference
             android:summary="@string/settingsOthersTranslatorSummary"
             android:title="@string/settingsOthersTranslatorTitle" />
     </PreferenceCategory>

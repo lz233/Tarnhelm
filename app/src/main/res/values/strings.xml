@@ -49,7 +49,7 @@
     <string name="regexRulesDialogPositiveButton">OK</string>
 
     <string name="settingsTitle">Settings</string>
-    <string name="settingsWorkModeTitle">Work mode</string>
+    <string name="settingsWorkModeTitle">Work Mode</string>
     <string name="settingsWorkModeEditTextMenu">EditText Menu</string>
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
@@ -60,6 +60,8 @@
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">Others</string>
+    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslatorTitle">Translator</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

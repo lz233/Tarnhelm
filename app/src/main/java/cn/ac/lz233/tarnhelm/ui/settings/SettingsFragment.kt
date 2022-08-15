@@ -1,10 +1,13 @@
 package cn.ac.lz233.tarnhelm.ui.settings
 
 import android.content.ComponentName
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import cn.ac.lz233.tarnhelm.App
@@ -26,6 +29,7 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
         val analytics: TwoStatePreference = findPreference("analytics")!!
         val crashes: TwoStatePreference = findPreference("crashes")!!
+        val telegramChannel: Preference = findPreference("telegramChannel")!!
 
         workModeEditTextMenu.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
@@ -92,6 +96,13 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         crashes.setOnPreferenceChangeListener { preference, newValue ->
             Crashes.setEnabled(newValue as Boolean)
             true
+        }
+
+        telegramChannel.setOnPreferenceClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://t.me/tarnhelm_app")
+            })
+            false
         }
     }
 }
