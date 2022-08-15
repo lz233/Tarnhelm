@@ -17,10 +17,10 @@
     <string name="mainRulesTitle">ルール</string>
     <string name="mainRulesSummary">%s ルール</string>
     <string name="mainSettingsTitle">設定</string>
-    <string name="mainShareTitle"> </string>
+    <string name="mainShareTitle">友達にシェア</string>
     <string name="mainAboutTitle">Tarnhelm について</string>
-    <string name="mainRankToast"> </string>
-    <string name="mainRankToastAction"> </string>
+    <string name="mainRankToast">Tarnhelmについての感想をお聞かせください。</string>
+    <string name="mainRankToastAction">評価</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 
@@ -55,14 +55,14 @@
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">LSPosedで有効化し、端末を再起動して変更します</string>
+    <string name="settingsWorkModeOpenLSPosed">LSPosedで有効化し、端末を再起動して変更できます。</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
-    <string name="settingsOthersTitle"> </string>
+    <string name="settingsOthersTitle">その他</string>
     <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslatorTitle">翻訳者</string>
-    <string name="settingsOthersTranslatorSummary">mitian233</string>
+    <string name="settingsOthersTranslatorSummary">蜜柑@9_bishi</string>
 </resources>
