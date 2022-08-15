@@ -19,7 +19,7 @@
     <string name="mainSettingsTitle">設定</string>
     <string name="mainShareTitle">友達にシェア</string>
     <string name="mainAboutTitle">Tarnhelm について</string>
-    <string name="mainRankToast">Tarnhelmについての感想をお聞かせください。</string>
+    <string name="mainRankToast">Tarnhelm についての感想をお聞かせください。</string>
     <string name="mainRankToastAction">評価</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
