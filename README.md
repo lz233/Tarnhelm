@@ -1,8 +1,14 @@
 <p align="center">
-<img class="icon1" src="./art/icon-color.png" alt="icon-color" width="15%"/>
+<img src="./art/icon-color.png" width="15%"/>
 </p>
 
 <h1 align="center">Tarnhelm</h1>
+
+<p align="center">
+<a  href="https://play.google.com/store/apps/details?id=cn.ac.lz233.tarnhelm">
+<img src="./art/google-play-badge.png" width="20%"/>
+</a>
+</p>
 
 The magic to clean sharing links up.
 
