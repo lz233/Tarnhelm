@@ -6,6 +6,8 @@ import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), flags)
 
@@ -49,7 +51,7 @@ fun String.doTarnhelm(): CharSequence {
                 }
             }
         }
-        result = httpUrl.toString()
+        result = URLDecoder.decode(httpUrl.toString(), StandardCharsets.UTF_8.name())
         LogUtil._d(result)
     }
     val regexRules = App.regexRuleDao.getAll()
