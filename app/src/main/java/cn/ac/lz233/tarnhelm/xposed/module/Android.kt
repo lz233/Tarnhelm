@@ -3,6 +3,7 @@ package cn.ac.lz233.tarnhelm.xposed.module
 import android.annotation.SuppressLint
 import android.content.*
 import cn.ac.lz233.tarnhelm.util.LogUtil
+import cn.ac.lz233.tarnhelm.xposed.Config
 import cn.ac.lz233.tarnhelm.xposed.util.*
 
 @SuppressLint("StaticFieldLeak")
@@ -32,6 +33,7 @@ object Android {
             }
         }.onFailure { LogUtil._d(it) }
         try {
+            disableBackgroundCheck()
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
             systemReadyMethod.hookAfterMethod { param ->
                 runCatching {
@@ -104,6 +106,24 @@ object Android {
         } catch (e: Throwable) {
             LogUtil._d(e)
         }
+    }
+
+    private fun disableBackgroundCheck() {
+        runCatching {
+            "com.android.server.am.UidRecord".hookBeforeMethod("isIdle") { param ->
+                runCatching {
+                    val ams = param.thisObject.getObjectField("mService") ?: throw Exception("AMS is null")
+                    val context = ams.getObjectField("mContext") as Context
+                    val uid = param.thisObject.getIntField("mUid")
+                    context.packageManager.getPackagesForUid(uid)?.let {
+                        if (it.contains(Config.packageName)) {
+                            LogUtil._d("isIdle hooked, set result to false")
+                            param.result = false
+                        }
+                    }
+                }.onFailure { LogUtil._d(it) }
+            }
+        }.onFailure { LogUtil._d(it) }
     }
 
     @SuppressLint("PrivateApi")
