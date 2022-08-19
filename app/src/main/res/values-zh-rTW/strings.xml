@@ -1,46 +1,46 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
     <string name="copy_label">Tarnhelm 複製</string>
-    <string name="read_only_toast">只讀文本</string>
-    <string name="rule_added_toast">「%s」已添加</string>
+    <string name="read_only_toast">只讀文字</string>
+    <string name="rule_added_toast">「%s」已新增</string>
 
     <string name="mainStatusTitle">狀態</string>
     <string name="mainStatusErrorSummary">沒有工作模式被啟動</string>
     <string name="mainStatusPassSummary">工作在 %s 模式</string>
     <string name="mainStatusPunctuation">、</string>
     <string name="mainStatusPunctuationLast">和</string>
-    <string name="mainStatusWorkModeEditTextMenu">編輯菜單</string>
-    <string name="mainStatusWorkModeCopyMenu">複製菜單</string>
-    <string name="mainStatusWorkModeShare">分享對話框</string>
+    <string name="mainStatusWorkModeEditTextMenu">編輯選單</string>
+    <string name="mainStatusWorkModeCopyMenu">複製選單</string>
+    <string name="mainStatusWorkModeShare">分享對話方塊</string>
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">規則庫</string>
     <string name="mainRulesSummary">已記錄 %s 個規則</string>
-    <string name="mainSettingsTitle">設置</string>
+    <string name="mainSettingsTitle">設定</string>
     <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">關於</string>
     <string name="mainRankToast">喜歡這個應用嗎？請在商店給我們評分！</string>
     <string name="mainRankToastAction">評分</string>
 
-    <string name="aboutViewSourceCode"><![CDATA[在 %s 查看原始碼]]></string>
+    <string name="aboutViewSourceCode"><![CDATA[在 %s 檢視原始碼]]></string>
 
     <string name="rulesTitle">規則庫</string>
-    <string name="rulesParametersTitle">參數</string>
+    <string name="rulesParametersTitle">引數</string>
     <string name="rulesRegexesTitle">正則</string>
-    <string name="rulesAddFab">添加</string>
-    <string name="rulesPasteFailedToast">黏貼失敗。錯誤的格式？</string>
+    <string name="rulesAddFab">新增</string>
+    <string name="rulesPasteFailedToast">貼上失敗，格式錯誤？</string>
 
-    <string name="parameterRulesAddDialogTitle">添加一個參數規則</string>
-    <string name="parameterRulesEditDialogTitle">編輯一個參數規則</string>
+    <string name="parameterRulesAddDialogTitle">新增一個引數規則</string>
+    <string name="parameterRulesEditDialogTitle">編輯一個引數規則</string>
     <string name="parameterRulesItemMode">模式</string>
     <string name="parameterRulesItemWhiteListMode">白名單</string>
     <string name="parameterRulesItemBlackListMode">黑名單</string>
     <string name="parameterRulesItemDescription">描述</string>
     <string name="parameterRulesItemDomain">域名</string>
-    <string name="parameterRulesItemParameters">參數</string>
+    <string name="parameterRulesItemParameters">引數</string>
     <string name="parameterRulesItemAuthor">作者</string>
     <string name="parameterRulesDialogPositiveButton">確認</string>
 
-    <string name="regexRulesAddDialogTitle">添加一個正則規則</string>
+    <string name="regexRulesAddDialogTitle">新增一個正則規則</string>
     <string name="regexRulesEditDialogTitle">編輯一個正則規則</string>
     <string name="regexRulesItemDescription">描述</string>
     <string name="regexRulesItemRegexes">正則</string>
@@ -48,20 +48,20 @@
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">確認</string>
 
-    <string name="settingsTitle">設置</string>
+    <string name="settingsTitle">設定</string>
     <string name="settingsWorkModeTitle">工作模式</string>
-    <string name="settingsWorkModeEditTextMenu">編輯菜單</string>
-    <string name="settingsWorkModeCopyMenu">複製菜單</string>
-    <string name="settingsWorkModeShare">分享對話框</string>
+    <string name="settingsWorkModeEditTextMenu">編輯選單</string>
+    <string name="settingsWorkModeCopyMenu">複製選單</string>
+    <string name="settingsWorkModeShare">分享對話方塊</string>
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosed">在 LSPosed 中啟動並重啟來修改</string>
     <string name="settingsBehavior">行為</string>
-    <string name="settingsBehaviorExportRulesAsLink">以連結形式導出規則</string>
+    <string name="settingsBehaviorExportRulesAsLink">以連結形式匯出規則</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannelTitle">Telegram 頻道</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslatorTitle">譯者</string>
-    <string name="settingsOthersTranslatorSummary">lz233</string>
+    <string name="settingsOthersTranslatorSummary">lz233、OrStudio</string>
 </resources>
