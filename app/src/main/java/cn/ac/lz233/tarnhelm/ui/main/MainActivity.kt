@@ -14,6 +14,7 @@ import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.logic.dao.ConfigDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
+import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
@@ -45,7 +46,7 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
 
         AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
-        //App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
+        startService(Intent(App.context, ClipboardService::class.java))
         init()
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
