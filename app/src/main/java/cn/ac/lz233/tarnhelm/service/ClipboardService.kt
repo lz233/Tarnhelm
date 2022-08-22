@@ -21,7 +21,7 @@ import java.io.InputStreamReader
 
 class ClipboardService : Service() {
 
-    private var lastText = ""
+    private var enable = true
     private var readerID = 0L
 
     override fun onCreate() {
@@ -70,10 +70,10 @@ class ClipboardService : Service() {
 
     private fun doClipboard() {
         App.clipboard.primaryClip?.getItemAt(0)?.text?.let {
-            if (lastText != it) {
-                lastText = it.doTarnhelms()
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", lastText))
+            if (enable) {
+                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", it.doTarnhelms()))
             }
+            enable = !enable
         }
     }
 
