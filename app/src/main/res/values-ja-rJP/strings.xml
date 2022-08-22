@@ -55,7 +55,7 @@
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">LSPosedで有効化し、端末を再起動して変更できます。</string>
+    <string name="settingsWorkModeOpenLSPosedToast">LSPosedで有効化し、端末を再起動して変更できます。</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>

@@ -5,6 +5,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
+import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
@@ -28,16 +31,22 @@ class App : Application() {
         const val TAG = "Tarnhelm"
 
         @JvmStatic
-        fun isEditTextMenuActive(): Boolean = SettingsDao.workModeEditTextMenu
+        fun isEditTextMenuActive() = SettingsDao.workModeEditTextMenu
 
         @JvmStatic
-        fun isCopyMenuActive(): Boolean = SettingsDao.workModeCopyMenu
+        fun isCopyMenuActive() = SettingsDao.workModeCopyMenu
 
         @JvmStatic
-        fun isShareActive(): Boolean = SettingsDao.workModeShare
+        fun isShareActive() = SettingsDao.workModeShare
+
+        @JvmStatic
+        fun isBackgroundMonitoringActive() = SettingsDao.workModeBackgroundMonitoring
 
         @JvmStatic
         fun isXposedActive(): Boolean = false
+
+        fun checkClipboardPermission() =
+            (Build.VERSION.SDK_INT < 29) or (Settings.canDrawOverlays(context) && context.checkSelfPermission("android.permission.READ_LOGS") == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onCreate() {

@@ -18,6 +18,10 @@
             android:title="@string/settingsWorkModeShare" />
 
         <rikka.material.preference.MaterialSwitchPreference
+            android:key="workModeBackgroundMonitoring"
+            android:title="@string/settingsWorkModeBackgroundMonitoring" />
+
+        <rikka.material.preference.MaterialSwitchPreference
             android:key="workModeXposed"
             android:title="@string/settingsWorkModeXposed" />
     </PreferenceCategory>
@@ -39,6 +43,11 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">
+        <Preference
+            android:key="website"
+            android:summary="@string/settingsOthersWebsiteSummary"
+            android:title="@string/settingsOthersWebSiteTitle" />
+
         <Preference
             android:key="telegramChannel"
             android:summary="@string/settingsOthersTelegramChannelSummary"

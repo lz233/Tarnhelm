@@ -15,6 +15,7 @@ import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.ui.main.MainActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
+import cn.ac.lz233.tarnhelm.util.ktx.getString
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -26,8 +27,9 @@ class ClipboardService : Service() {
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
+        LogUtil.toast(R.string.clipboard_service_started.getString())
         App.clipboard.addPrimaryClipChangedListener { doClipboard() }
-        magic()
+        if (Build.VERSION.SDK_INT >= 29 && App.checkClipboardPermission()) magic()
     }
 
     // From Android 10, Google limited the access to clipboard data in background

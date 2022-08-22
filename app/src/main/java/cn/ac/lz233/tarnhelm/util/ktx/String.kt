@@ -1,5 +1,7 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Base64
 import androidx.core.text.HtmlCompat
 import cn.ac.lz233.tarnhelm.App
@@ -8,6 +10,11 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
+
+fun String.openUrl() = App.context.startActivity(Intent(Intent.ACTION_VIEW).apply {
+    data = Uri.parse(this@openUrl)
+    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})
 
 fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), flags)
 

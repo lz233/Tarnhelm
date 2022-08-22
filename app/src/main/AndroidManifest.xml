@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.ac.lz233.tarnhelm">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -19,28 +17,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tarnhelm">
-        <service
-            android:name=".service.ClipboardService"
-            android:enabled="true"
-            android:exported="true"></service>
 
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.rules.RulesActivity"
             android:exported="false"
             android:theme="@style/Theme.Tarnhelm.FuckToolbar" />
+
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.process.ProcessRulesActivity"
             android:exported="true"
@@ -48,15 +44,14 @@
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="rule"
                     android:scheme="tarnhelm" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.process.ProcessEditTextActivity"
             android:exported="true"
@@ -64,12 +59,11 @@
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.process.ProcessCopyActivity"
             android:exported="true"
@@ -78,12 +72,11 @@
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.process.ProcessShareActivity"
             android:exported="true"
@@ -91,12 +84,20 @@
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".receiver.BootBroadcast"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".service.ModuleDataBridgeService"
@@ -106,6 +107,11 @@
                 <action android:name="cn.ac.lz233.tarnhelm.bridge" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".service.ClipboardService"
+            android:enabled="false"
+            android:exported="false" />
 
         <meta-data
             android:name="xposeddescription"
