@@ -5,6 +5,7 @@ import android.content.*
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
 import cn.ac.lz233.tarnhelm.xposed.util.*
+import kotlin.concurrent.thread
 
 @SuppressLint("StaticFieldLeak")
 object Android {
@@ -16,11 +17,14 @@ object Android {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context, p1: Intent) {
-            runCatching {
-                startModuleAppProcess()
-                ModuleBridgeHelper.bindBridgeService()
-                mContext?.unregisterReceiver(this)
-            }.onFailure { LogUtil._d(it) }
+            thread {
+                runCatching {
+                    Thread.sleep(1000)
+                    startModuleAppProcess()
+                    ModuleBridgeHelper.bindBridgeService()
+                    mContext?.unregisterReceiver(this)
+                }.onFailure { LogUtil._d(it) }
+            }
         }
     }
 
