@@ -97,7 +97,7 @@
             android:name=".ui.process.ProcessServiceActivity"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Tarnhelm.NoDisplay"></activity>
+            android:theme="@style/Theme.Tarnhelm.NoDisplay" />
 
         <receiver
             android:name=".receiver.BootBroadcast"
