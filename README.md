@@ -10,10 +10,10 @@
 </a>
 </p>
 
-The magic to clean sharing links up.
-
-きれいなリンクを、あなたに。
-
-清理分享链接的魔法。
+<p align="center">The magic to clean sharing links up.</p>
+<p align="center">きれいなリンクを、あなたに。</p>
+<p align="center">清理分享链接的魔法。</p>
 
 更多信息，参见：[tarnhelm.project.ac.cn](https://tarnhelm.project.ac.cn/)
+
+也可以从 LSPosed Repository 获取 APK：https://modules.lsposed.org/module/cn.ac.lz233.tarnhelm
