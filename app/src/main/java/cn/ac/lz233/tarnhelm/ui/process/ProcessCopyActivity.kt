@@ -12,7 +12,7 @@ class ProcessCopyActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
-        App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text.doTarnhelms()))
+        App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text.doTarnhelms()))
         finish()
     }
 }

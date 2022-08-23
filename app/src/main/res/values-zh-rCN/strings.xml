@@ -3,6 +3,7 @@
     <string name="copy_label">Tarnhelm 复制</string>
     <string name="read_only_toast">只读文本</string>
     <string name="rule_added_toast">「%s」已添加</string>
+    <string name="clipboard_service_channel_name">后台监听</string>
     <string name="clipboard_service_started">后台监听已开启</string>
 
     <string name="mainStatusTitle">状态</string>

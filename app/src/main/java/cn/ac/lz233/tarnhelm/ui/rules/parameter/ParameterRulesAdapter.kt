@@ -67,7 +67,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                 }
                 .show()
             dialogBinding.copyImageView.setOnClickListener {
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", base64Text))
+                App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", base64Text))
                 dialog.dismiss()
             }
             dialogBinding.shareImageView.setOnClickListener {

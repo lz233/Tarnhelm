@@ -1,9 +1,10 @@
 package cn.ac.lz233.tarnhelm.service
 
-import android.app.*
+import android.app.Notification
+import android.app.PendingIntent
+import android.app.Service
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
@@ -34,7 +35,7 @@ class ClipboardService : Service() {
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
-        App.clipboard.addPrimaryClipChangedListener(primaryClipChangedListener)
+        App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
         if (Build.VERSION.SDK_INT >= 29 && App.checkClipboardPermission()) magic()
         if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
             createNotification()
@@ -46,7 +47,7 @@ class ClipboardService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         LogUtil._d("ClipboardService onDestroy")
-        App.clipboard.removePrimaryClipChangedListener(primaryClipChangedListener)
+        App.clipboardManager.removePrimaryClipChangedListener(primaryClipChangedListener)
         App.context.startActivity(Intent(App.context, ProcessServiceActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         })
@@ -90,32 +91,23 @@ class ClipboardService : Service() {
 
     private fun doClipboard() {
         LogUtil._d("doClipboard")
-        App.clipboard.primaryClip?.getItemAt(0)?.text?.let {
+        App.clipboardManager.primaryClip?.getItemAt(0)?.text?.let {
             if (it != text1 && it != text2) {
                 text1 = it
                 text2 = it.doTarnhelms()
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
+                App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
             }
         }
     }
 
     private fun createNotification() {
-        val pendingIntent: PendingIntent =
-            Intent(this, MainActivity::class.java).let { notificationIntent ->
-                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
-            }
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notificationChannel = NotificationChannel("233", "test", NotificationManager.IMPORTANCE_LOW).apply {
-            description = "description"
-        }
-        notificationManager.createNotificationChannel(notificationChannel)
-
-        val notification: Notification = Notification.Builder(this, "233")
+        val notification = Notification.Builder(this, "233")
             .setContentTitle(R.string.clipboard_service_started.getString())
             //.setContentText("text")
             .setSmallIcon(R.drawable.ic_icon)
-            .setContentIntent(pendingIntent)
+            .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
+            })
             .build()
         startForeground(233, notification)
     }

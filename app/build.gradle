@@ -14,7 +14,7 @@ android {
         minSdk 26
         targetSdk 32
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "0.9"
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
