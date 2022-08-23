@@ -12,6 +12,7 @@ import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.logic.dao.ConfigDao
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.service.ClipboardService
@@ -85,8 +86,12 @@ class MainActivity : BaseActivity() {
             }
             binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, (App.regexRuleDao.getCount() + App.parameterRuleDao.getCount()).toString())
         }
-        if (App.spSettings.getBoolean("workModeBackgroundMonitoring", false)) {
-            startService(Intent(App.context, ClipboardService::class.java))
+        if (SettingsDao.workModeBackgroundMonitoring) {
+            if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
+                startForegroundService(Intent(App.context, ClipboardService::class.java))
+            } else {
+                startService(Intent(App.context, ClipboardService::class.java))
+            }
         }
     }
 

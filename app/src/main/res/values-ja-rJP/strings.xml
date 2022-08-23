@@ -64,13 +64,15 @@
     <string name="settingsWorkModeRecommendationToast">「Background Monitoring」と「Xposed」のうちの1つを選んで有効にすることをお勧めします。</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Background Monitoring モードを有効にする時にフォアグラウンド サービスを使用する</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">オフにすると多くの非予期な問題が発生する可能性があります</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">その他</string>
-    <string name="settingsOthersWebSiteTitle">ドキュメント（中国語）</string>
+    <string name="settingsOthersWebSite">ドキュメント（中国語）</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
-    <string name="settingsOthersTranslatorTitle">翻訳者</string>
+    <string name="settingsOthersTranslator">翻訳者</string>
     <string name="settingsOthersTranslatorSummary">蜜柑@9_bishi</string>
 </resources>

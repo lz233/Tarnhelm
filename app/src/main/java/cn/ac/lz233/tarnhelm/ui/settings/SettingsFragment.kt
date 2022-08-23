@@ -20,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 
-class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
+class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         val workModeEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
@@ -29,6 +29,7 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         val workModeBackgroundMonitoring: TwoStatePreference = findPreference("workModeBackgroundMonitoring")!!
         val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
+        val useForegroundServiceOnBackgroundMonitoring: TwoStatePreference = findPreference("useForegroundServiceOnBackgroundMonitoring")!!
         val analytics: TwoStatePreference = findPreference("analytics")!!
         val crashes: TwoStatePreference = findPreference("crashes")!!
         val website: Preference = findPreference("website")!!
@@ -118,6 +119,19 @@ class SettingsFragment(val rootView: View) : PreferenceFragmentCompat() {
         workModeXposed.setOnPreferenceChangeListener { preference, newValue ->
             Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
             false
+        }
+
+        useForegroundServiceOnBackgroundMonitoring.setOnPreferenceChangeListener { preference, newValue ->
+            if (workModeBackgroundMonitoring.isChecked) {
+                if (newValue as Boolean) {
+                    App.context.stopService(Intent(App.context, ClipboardService::class.java))
+                    App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
+                } else {
+                    App.context.stopService(Intent(App.context, ClipboardService::class.java))
+                    App.context.startService(Intent(App.context, ClipboardService::class.java))
+                }
+            }
+            true
         }
 
         analytics.setOnPreferenceChangeListener { preference, newValue ->

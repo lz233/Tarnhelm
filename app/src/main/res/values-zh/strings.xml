@@ -63,13 +63,15 @@
     <string name="settingsWorkModeRecommendationToast">推荐只打开「后台监听」或「Xposed」的其中一个</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>
-    <string name="settingsOthersWebSiteTitle">网站</string>
+    <string name="settingsOthersWebSite">网站</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
-    <string name="settingsOthersTranslatorTitle">译者</string>
+    <string name="settingsOthersTranslator">译者</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

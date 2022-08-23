@@ -2,6 +2,7 @@ package cn.ac.lz233.tarnhelm.service
 
 import android.app.*
 import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,7 +13,9 @@ import android.view.WindowManager
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.ui.main.MainActivity
+import cn.ac.lz233.tarnhelm.ui.process.ProcessServiceActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import cn.ac.lz233.tarnhelm.util.ktx.getString
@@ -21,15 +24,32 @@ import java.io.InputStreamReader
 
 class ClipboardService : Service() {
 
-    private var enable = true
+    private var text1: CharSequence = ""
+    private var text2: CharSequence = ""
     private var readerID = 0L
+    private val primaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
+        if (Build.VERSION.SDK_INT < 29) doClipboard()
+    }
 
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
-        LogUtil.toast(R.string.clipboard_service_started.getString())
-        App.clipboard.addPrimaryClipChangedListener { doClipboard() }
+        App.clipboard.addPrimaryClipChangedListener(primaryClipChangedListener)
         if (Build.VERSION.SDK_INT >= 29 && App.checkClipboardPermission()) magic()
+        if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
+            createNotification()
+        } else {
+            LogUtil.toast(R.string.clipboard_service_started.getString())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LogUtil._d("ClipboardService onDestroy")
+        App.clipboard.removePrimaryClipChangedListener(primaryClipChangedListener)
+        App.context.startActivity(Intent(App.context, ProcessServiceActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
     }
 
     // From Android 10, Google limited the access to clipboard data in background
@@ -69,11 +89,13 @@ class ClipboardService : Service() {
     }
 
     private fun doClipboard() {
+        LogUtil._d("doClipboard")
         App.clipboard.primaryClip?.getItemAt(0)?.text?.let {
-            if (enable) {
-                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", it.doTarnhelms()))
+            if (it != text1 && it != text2) {
+                text1 = it
+                text2 = it.doTarnhelms()
+                App.clipboard.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
             }
-            enable = !enable
         }
     }
 
@@ -90,11 +112,10 @@ class ClipboardService : Service() {
         notificationManager.createNotificationChannel(notificationChannel)
 
         val notification: Notification = Notification.Builder(this, "233")
-            .setContentTitle("title")
-            .setContentText("text")
+            .setContentTitle(R.string.clipboard_service_started.getString())
+            //.setContentText("text")
             .setSmallIcon(R.drawable.ic_icon)
             .setContentIntent(pendingIntent)
-            .setTicker("ticker")
             .build()
         startForeground(233, notification)
     }

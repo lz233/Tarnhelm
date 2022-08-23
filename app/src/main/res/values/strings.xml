@@ -3,7 +3,7 @@
     <string name="copy_label">Tarnhelm copy</string>
     <string name="read_only_toast">Read only</string>
     <string name="rule_added_toast">\"%s\" added</string>
-    <string name="clipboard_service_started">Background monitoring enabled</string>
+    <string name="clipboard_service_started">Background Monitoring enabled</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>
@@ -63,13 +63,15 @@
     <string name="settingsWorkModeRecommendationToast">Recommend to only enable one of Background Monitoring or Xposed</string>
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">Turning off may cause a lot of unnecessary problems</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">Others</string>
-    <string name="settingsOthersWebSiteTitle">Website</string>
+    <string name="settingsOthersWebSite">Website</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
-    <string name="settingsOthersTranslatorTitle">Translator</string>
+    <string name="settingsOthersTranslator">Translator</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

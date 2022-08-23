@@ -33,6 +33,12 @@
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
+            android:key="useForegroundServiceOnBackgroundMonitoring"
+            android:summary="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary"
+            android:title="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoring" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
             android:key="analytics"
             android:title="@string/settingsBehaviorAnalytics" />
 
@@ -46,15 +52,15 @@
         <Preference
             android:key="website"
             android:summary="@string/settingsOthersWebsiteSummary"
-            android:title="@string/settingsOthersWebSiteTitle" />
+            android:title="@string/settingsOthersWebSite" />
 
         <Preference
             android:key="telegramChannel"
             android:summary="@string/settingsOthersTelegramChannelSummary"
-            android:title="@string/settingsOthersTelegramChannelTitle" />
+            android:title="@string/settingsOthersTelegramChannel" />
 
         <Preference
             android:summary="@string/settingsOthersTranslatorSummary"
-            android:title="@string/settingsOthersTranslatorTitle" />
+            android:title="@string/settingsOthersTranslator" />
     </PreferenceCategory>
 </PreferenceScreen>
