@@ -4,6 +4,8 @@
     <string name="copy_label">Tarnhelm でコピー</string>
     <string name="read_only_toast">読み取り専用テキスト</string>
     <string name="rule_added_toast">「%s」追加済み</string>
+    <string name="clipboard_service_channel_name">Background Monitoring</string>
+    <string name="clipboard_service_started">Background Monitoring モードは有効にしました</string>
 
     <string name="mainStatusTitle">スターテス</string>
     <string name="mainStatusErrorSummary">実行モードが有効になっておりません</string>
@@ -13,6 +15,7 @@
     <string name="mainStatusWorkModeEditTextMenu">EditText Menu</string>
     <string name="mainStatusWorkModeCopyMenu">Copy Menu</string>
     <string name="mainStatusWorkModeShare">Sharing Dialog</string>
+    <string name="mainStatusBackgroundMonitoring">Background Monitoring</string>
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">ルール</string>
     <string name="mainRulesSummary">%s ルール</string>
@@ -54,15 +57,23 @@
     <string name="settingsWorkModeEditTextMenu">EditText Menu</string>
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
+    <string name="settingsWorkModeBackgroundMonitoring">Background Monitoring</string>
+    <string name="settingsWorkModeBackgroundMonitoringToast">有効にする方法については、ドキュメントを参照してください。</string>
+    <string name="settingsWorkModeBackgroundMonitoringToastAction">有効化</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">LSPosedで有効化し、端末を再起動して変更できます。</string>
+    <string name="settingsWorkModeOpenLSPosedToast">LSPosedで有効化し、端末を再起動して変更できます。</string>
+    <string name="settingsWorkModeRecommendationToast">「Background Monitoring」と「Xposed」のうちの1つを選んで有効にすることをお勧めします。</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Background Monitoring モードを有効にする時にフォアグラウンド サービスを使用する</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">オフにすると多くの非予期な問題が発生する可能性があります</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">その他</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersWebSite">ドキュメント（中国語）</string>
+    <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
+    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
-    <string name="settingsOthersTranslatorTitle">翻訳者</string>
+    <string name="settingsOthersTranslator">翻訳者</string>
     <string name="settingsOthersTranslatorSummary">蜜柑@9_bishi</string>
 </resources>

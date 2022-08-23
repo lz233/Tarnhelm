@@ -12,8 +12,10 @@ import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.logic.dao.ConfigDao
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
+import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity() {
             if (App.isEditTextMenuActive()) add(R.string.mainStatusWorkModeEditTextMenu.getString())
             if (App.isCopyMenuActive()) add(R.string.mainStatusWorkModeCopyMenu.getString())
             if (App.isShareActive()) add(R.string.mainStatusWorkModeShare.getString())
+            if (App.isBackgroundMonitoringActive()) add(R.string.mainStatusBackgroundMonitoring.getString())
             if (App.isXposedActive()) add(R.string.mainStatusWorkModeXposed.getString())
         }
 
@@ -45,7 +48,6 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
 
         AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
-        //App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
         init()
         binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
@@ -83,6 +85,13 @@ class MainActivity : BaseActivity() {
                     getString(R.string.mainStatusPassSummary, workModeList.toString(R.string.mainStatusPunctuation.getString(), R.string.mainStatusPunctuationLast.getString()))
             }
             binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, (App.regexRuleDao.getCount() + App.parameterRuleDao.getCount()).toString())
+        }
+        if (SettingsDao.workModeBackgroundMonitoring) {
+            if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
+                startForegroundService(Intent(App.context, ClipboardService::class.java))
+            } else {
+                startService(Intent(App.context, ClipboardService::class.java))
+            }
         }
     }
 
@@ -134,21 +143,6 @@ class MainActivity : BaseActivity() {
                     }.toString(),
                     JSONArray().apply {
                         put("vxtwitter.com")
-                        put("")
-                    }.toString(),
-                    "lz233",
-                    1,
-                    true
-                ),
-                RegexRule(
-                    2,
-                    "酷安",
-                    JSONArray().apply {
-                        put("coolapk.com/feed/")
-                        put("""\?.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("coolapk1s.com/feed/")
                         put("")
                     }.toString(),
                     "lz233",

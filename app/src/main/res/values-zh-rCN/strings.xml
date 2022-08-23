@@ -3,6 +3,8 @@
     <string name="copy_label">Tarnhelm 复制</string>
     <string name="read_only_toast">只读文本</string>
     <string name="rule_added_toast">「%s」已添加</string>
+    <string name="clipboard_service_channel_name">后台监听</string>
+    <string name="clipboard_service_started">后台监听已开启</string>
 
     <string name="mainStatusTitle">状态</string>
     <string name="mainStatusErrorSummary">没有工作模式被激活</string>
@@ -12,6 +14,7 @@
     <string name="mainStatusWorkModeEditTextMenu">编辑菜单</string>
     <string name="mainStatusWorkModeCopyMenu">复制菜单</string>
     <string name="mainStatusWorkModeShare">分享对话框</string>
+    <string name="mainStatusBackgroundMonitoring">后台监听</string>
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">规则库</string>
     <string name="mainRulesSummary">已记录 %s 个规则</string>
@@ -53,15 +56,23 @@
     <string name="settingsWorkModeEditTextMenu">编辑菜单</string>
     <string name="settingsWorkModeCopyMenu">复制菜单</string>
     <string name="settingsWorkModeShare">分享对话框</string>
+    <string name="settingsWorkModeBackgroundMonitoring">后台监听</string>
+    <string name="settingsWorkModeBackgroundMonitoringToast">阅读文档了解如何开启</string>
+    <string name="settingsWorkModeBackgroundMonitoringToastAction">打开</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosed">在 LSPosed 中激活并重启来修改</string>
+    <string name="settingsWorkModeOpenLSPosedToast">在 LSPosed 中激活并重启来修改</string>
+    <string name="settingsWorkModeRecommendationToast">推荐只打开「后台监听」或「Xposed」的其中一个</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>
-    <string name="settingsOthersTelegramChannelTitle">Telegram Channel</string>
+    <string name="settingsOthersWebSite">网站</string>
+    <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
+    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
-    <string name="settingsOthersTranslatorTitle">译者</string>
+    <string name="settingsOthersTranslator">译者</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
 </resources>

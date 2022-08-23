@@ -1,10 +1,15 @@
 package cn.ac.lz233.tarnhelm
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
+import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
@@ -12,6 +17,7 @@ import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
+import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.xposed.Config
 import com.google.android.material.color.DynamicColors
 
@@ -24,20 +30,27 @@ class App : Application() {
         lateinit var db: AppDatabase
         lateinit var parameterRuleDao: ParameterRuleDao
         lateinit var regexRuleDao: RegexRuleDao
-        lateinit var clipboard: ClipboardManager
+        lateinit var clipboardManager: ClipboardManager
+        lateinit var notificationManager: NotificationManager
         const val TAG = "Tarnhelm"
 
         @JvmStatic
-        fun isEditTextMenuActive(): Boolean = SettingsDao.workModeEditTextMenu
+        fun isEditTextMenuActive() = SettingsDao.workModeEditTextMenu
 
         @JvmStatic
-        fun isCopyMenuActive(): Boolean = SettingsDao.workModeCopyMenu
+        fun isCopyMenuActive() = SettingsDao.workModeCopyMenu
 
         @JvmStatic
-        fun isShareActive(): Boolean = SettingsDao.workModeShare
+        fun isShareActive() = SettingsDao.workModeShare
+
+        @JvmStatic
+        fun isBackgroundMonitoringActive() = SettingsDao.workModeBackgroundMonitoring
 
         @JvmStatic
         fun isXposedActive(): Boolean = false
+
+        fun checkClipboardPermission() =
+            (Build.VERSION.SDK_INT < 29) or (Settings.canDrawOverlays(context) && context.checkSelfPermission("android.permission.READ_LOGS") == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onCreate() {
@@ -50,7 +63,8 @@ class App : Application() {
         db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
-        clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (isXposedActive()) context.startService(
             Intent().apply {
                 `package` = Config.packageName
@@ -58,5 +72,10 @@ class App : Application() {
             }
         )
         DynamicColors.applyToActivitiesIfAvailable(this)
+        initNotificationChannel()
+    }
+
+    private fun initNotificationChannel() {
+        notificationManager.createNotificationChannel(NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW))
     }
 }

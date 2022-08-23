@@ -18,6 +18,10 @@
             android:title="@string/settingsWorkModeShare" />
 
         <rikka.material.preference.MaterialSwitchPreference
+            android:key="workModeBackgroundMonitoring"
+            android:title="@string/settingsWorkModeBackgroundMonitoring" />
+
+        <rikka.material.preference.MaterialSwitchPreference
             android:key="workModeXposed"
             android:title="@string/settingsWorkModeXposed" />
     </PreferenceCategory>
@@ -26,6 +30,12 @@
         <rikka.material.preference.MaterialSwitchPreference
             android:key="exportRulesAsLink"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="useForegroundServiceOnBackgroundMonitoring"
+            android:summary="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary"
+            android:title="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoring" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
@@ -40,12 +50,17 @@
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">
         <Preference
+            android:key="website"
+            android:summary="@string/settingsOthersWebsiteSummary"
+            android:title="@string/settingsOthersWebSite" />
+
+        <Preference
             android:key="telegramChannel"
             android:summary="@string/settingsOthersTelegramChannelSummary"
-            android:title="@string/settingsOthersTelegramChannelTitle" />
+            android:title="@string/settingsOthersTelegramChannel" />
 
         <Preference
             android:summary="@string/settingsOthersTranslatorSummary"
-            android:title="@string/settingsOthersTranslatorTitle" />
+            android:title="@string/settingsOthersTranslator" />
     </PreferenceCategory>
 </PreferenceScreen>
