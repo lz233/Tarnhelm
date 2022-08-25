@@ -59,7 +59,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                         dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
                         rule.sourceType,
-                        true
+                        rule.enabled
                     )
                     App.parameterRuleDao.insert(item)
                     rulesList[position] = item

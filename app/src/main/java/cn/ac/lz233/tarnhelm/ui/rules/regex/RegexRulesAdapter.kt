@@ -56,7 +56,7 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
                         dialogBinding.replacementsEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
                         rule.sourceType,
-                        true
+                        rule.enabled
                     )
                     App.regexRuleDao.insert(item)
                     rulesList[position] = item
