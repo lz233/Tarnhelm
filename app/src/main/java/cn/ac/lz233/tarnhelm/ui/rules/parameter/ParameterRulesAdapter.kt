@@ -41,7 +41,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogParameterRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
-            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?parameter=" else "") + rule.toJSONObject().toString().encodeBase64()
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?parameter=" else "") + rule.toJSONObject().toString().encodeBase64().encodeURL()
             dialogBinding.modeToggleButton.check(rule.mode.getModeButtonId())
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.domainEditText.setText(rule.domain)

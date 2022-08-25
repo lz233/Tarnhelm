@@ -14,10 +14,7 @@ import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
-import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
+import cn.ac.lz233.tarnhelm.util.ktx.*
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -43,7 +40,7 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
-            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?regex=" else "") + rule.toJSONObject().toString().encodeBase64()
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?regex=" else "") + rule.toJSONObject().toString().encodeBase64().encodeURL()
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.regexesEditText.setText(JSONArray(rule.regexArray).toMultiString())
             dialogBinding.replacementsEditText.setText(JSONArray(rule.replaceArray).toMultiString())

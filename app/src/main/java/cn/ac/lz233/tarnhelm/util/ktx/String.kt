@@ -9,6 +9,7 @@ import cn.ac.lz233.tarnhelm.util.LogUtil
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 import java.net.URLDecoder
+import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 fun String.openUrl() = App.context.startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -21,6 +22,10 @@ fun CharSequence.toHtml(flags: Int = 0) = HtmlCompat.fromHtml(this.toString(), f
 fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT).replace("\n", "")
 
 fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
+
+fun String.encodeURL() = URLEncoder.encode(this, StandardCharsets.UTF_8.name())
+
+fun String.decodeURL() = URLDecoder.decode(this, StandardCharsets.UTF_8.name())
 
 fun String.toJSONArray() = JSONArray().apply {
     val stringList = split('\n')
@@ -58,7 +63,7 @@ fun String.doTarnhelm(): CharSequence {
                 }
             }
         }
-        result = URLDecoder.decode(httpUrl.toString(), StandardCharsets.UTF_8.name())
+        result = httpUrl.toString().decodeURL()
         LogUtil._d(result)
     }
     val regexRules = App.regexRuleDao.getAll()

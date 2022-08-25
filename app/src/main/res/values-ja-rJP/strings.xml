@@ -4,6 +4,7 @@
     <string name="copy_label">Tarnhelm でコピー</string>
     <string name="read_only_toast">読み取り専用テキスト</string>
     <string name="rule_added_toast">「%s」追加済み</string>
+    <string name="rule_added_failed_toast">ルールを追加できませんでした。リンクフォーマットを確認してください。</string>
     <string name="clipboard_service_channel_name">Background Monitoring</string>
     <string name="clipboard_service_started">Background Monitoring モードは有効にしました</string>
 

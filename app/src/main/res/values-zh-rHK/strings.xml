@@ -3,6 +3,7 @@
     <string name="copy_label">Tarnhelm 複製</string>
     <string name="read_only_toast">只讀文本</string>
     <string name="rule_added_toast">「%s」已添加</string>
+    <string name="rule_added_failed_toast">添加失敗。錯誤的格式？</string>
     <string name="clipboard_service_channel_name">後台監聽</string>
     <string name="clipboard_service_started">後台監聽已開啟</string>
 
