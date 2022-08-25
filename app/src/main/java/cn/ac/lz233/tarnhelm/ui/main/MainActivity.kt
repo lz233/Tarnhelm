@@ -139,11 +139,11 @@ class MainActivity : BaseActivity() {
                     1,
                     "Twitter",
                     JSONArray().apply {
-                        put("twitter.com")
+                        put("""(http|https)://twitter.com""")
                         put("""\?.*""")
                     }.toString(),
                     JSONArray().apply {
-                        put("vxtwitter.com")
+                        put("https://vxtwitter.com")
                         put("")
                     }.toString(),
                     "lz233",
