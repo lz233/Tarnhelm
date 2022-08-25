@@ -58,7 +58,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                         dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
                         dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
-                        0,
+                        rule.sourceType,
                         true
                     )
                     App.parameterRuleDao.insert(item)
