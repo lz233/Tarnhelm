@@ -20,7 +20,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 
-class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() {
+class SettingsFragment() : PreferenceFragmentCompat() {
+    private lateinit var rootView: View
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         val workModeEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
@@ -153,5 +154,9 @@ class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() 
             "https://t.me/tarnhelm_app".openUrl()
             false
         }
+    }
+
+    constructor(rootView: View) : this() {
+        this.rootView = rootView
     }
 }
