@@ -23,6 +23,10 @@
         <entry key="app/src/main/res/drawable/ic_rule_folder.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.177" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.134375" />
+        <entry key="app/src/main/res/layout-land/activity_rules.xml" value="0.134375" />
+        <entry key="app/src/main/res/layout-land/activity_settings.xml" value="0.134375" />
+        <entry key="app/src/main/res/layout-land/dialog_about.xml" value="0.134375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1838768115942029" />
         <entry key="app/src/main/res/layout/activity_rules.xml" value="0.1838768115942029" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.1840435176790571" />
@@ -31,7 +35,7 @@
         <entry key="app/src/main/res/layout/dialog_about.xml" value="0.1840435176790571" />
         <entry key="app/src/main/res/layout/dialog_add.xml" value="0.1840435176790571" />
         <entry key="app/src/main/res/layout/dialog_edit.xml" value="0.1403985507246377" />
-        <entry key="app/src/main/res/layout/dialog_parameter_rule_add.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_parameter_rule_add.xml" value="0.11" />
         <entry key="app/src/main/res/layout/dialog_parameter_rule_edit.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_regex_rule_add.xml" value="0.3502824858757062" />
         <entry key="app/src/main/res/layout/dialog_regex_rule_edit.xml" value="0.14052583862194015" />
