@@ -16,7 +16,7 @@
     <string name="mainStatusWorkModeCopyMenu">复制菜单</string>
     <string name="mainStatusWorkModeShare">分享对话框</string>
     <string name="mainStatusBackgroundMonitoring">后台监听</string>
-    <string name="mainStatusWorkModeXposed">Xposed</string>
+    <string name="mainStatusWorkModeXposed"> Xposed</string>
     <string name="mainRulesTitle">规则库</string>
     <string name="mainRulesSummary">已记录 %s 个规则</string>
     <string name="mainSettingsTitle">设置</string>
@@ -67,13 +67,13 @@
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
-    <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
-    <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
+    <string name="settingsBehaviorAnalytics">AppCenter 分析</string>
+    <string name="settingsBehaviorCrashes">AppCenter 诊断</string>
     <string name="settingsOthersTitle">其他</string>
     <string name="settingsOthersWebSite">网站</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
-    <string name="settingsOthersTelegramChannel">Telegram Channel</string>
+    <string name="settingsOthersTelegramChannel">Telegram 频道</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslator">译者</string>
-    <string name="settingsOthersTranslatorSummary">lz233</string>
+    <string name="settingsOthersTranslatorSummary">lz233、JohnsonRan</string>
 </resources>
