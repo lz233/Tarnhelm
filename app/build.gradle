@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         Date date = new Date()
         applicationId "cn.ac.lz233.tarnhelm"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode = date.format("yyyyMMdd").toInteger()
         versionName "1.2"
 
@@ -85,6 +85,8 @@ dependencies {
     //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
+
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

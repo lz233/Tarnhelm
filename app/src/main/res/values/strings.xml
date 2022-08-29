@@ -8,6 +8,7 @@
     <string name="process_result_channel_name">Process Result</string>
     <string name="clipboard_service_started">Background Monitoring enabled</string>
     <string name="process_result_success">Processed successfully</string>
+    <string name="process_result_failed">Processing failed</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>
@@ -26,6 +27,7 @@
     <string name="mainAboutTitle">About</string>
     <string name="mainRankToast">Like it? Please rank us at App Store!</string>
     <string name="mainRankToastAction">Rank</string>
+    <string name="mainRequestPermissionFailedToast">You should grant this permission to continue</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 

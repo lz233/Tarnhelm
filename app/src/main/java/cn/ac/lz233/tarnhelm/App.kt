@@ -1,7 +1,6 @@
 package cn.ac.lz233.tarnhelm
 
 import android.app.Application
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ClipboardManager
 import android.content.Context
@@ -17,7 +16,6 @@ import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.xposed.Config
 import com.google.android.material.color.DynamicColors
 
@@ -72,18 +70,5 @@ class App : Application() {
             }
         )
         DynamicColors.applyToActivitiesIfAvailable(this)
-        initNotificationChannel()
-    }
-
-    private fun initNotificationChannel() {
-        notificationManager.createNotificationChannels(listOf(
-            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW),
-            NotificationChannel("234", R.string.process_result_channel_name.getString(), NotificationManager.IMPORTANCE_HIGH).apply {
-                setSound(null, null)
-                enableLights(false)
-                enableVibration(false)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) setAllowBubbles(false)
-            }
-        ))
     }
 }

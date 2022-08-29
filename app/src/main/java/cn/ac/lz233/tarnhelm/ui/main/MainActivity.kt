@@ -1,7 +1,11 @@
 package cn.ac.lz233.tarnhelm.ui.main
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -25,6 +29,7 @@ import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
@@ -165,6 +170,17 @@ class MainActivity : BaseActivity() {
             )
             App.editor.putBoolean("isFirstTestRun", false).apply()
         }
+
+        PermissionX.init(this)
+            .permissions(Manifest.permission.POST_NOTIFICATIONS)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted or (Build.VERSION.SDK_INT < 33)) {
+                    initNotificationChannel()
+                } else {
+                    Snackbar.make(binding.root, R.string.mainRequestPermissionFailedToast, Toast.LENGTH_SHORT).show()
+                }
+            }
+
         ConfigDao.openTimes++
         //if (true){
         if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
@@ -176,5 +192,17 @@ class MainActivity : BaseActivity() {
                     })
                 }.show()
         }
+    }
+
+    private fun initNotificationChannel() {
+        App.notificationManager.createNotificationChannels(listOf(
+            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW),
+            NotificationChannel("234", R.string.process_result_channel_name.getString(), NotificationManager.IMPORTANCE_HIGH).apply {
+                setSound(null, null)
+                enableLights(false)
+                enableVibration(false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) setAllowBubbles(false)
+            }
+        ))
     }
 }
