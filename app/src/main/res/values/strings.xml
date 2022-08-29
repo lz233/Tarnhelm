@@ -5,7 +5,9 @@
     <string name="rule_added_toast">\"%s\" added</string>
     <string name="rule_added_failed_toast">Add failed. Wrong format?</string>
     <string name="clipboard_service_channel_name">Background Monitoring</string>
+    <string name="process_result_channel_name">Process Result</string>
     <string name="clipboard_service_started">Background Monitoring enabled</string>
+    <string name="process_result_success">Processed successfully</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>

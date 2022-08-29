@@ -104,7 +104,6 @@ class ClipboardService : Service() {
     private fun createNotification() {
         val notification = Notification.Builder(this, "233")
             .setContentTitle(R.string.clipboard_service_started.getString())
-            //.setContentText("text")
             .setSmallIcon(R.drawable.ic_icon)
             .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)

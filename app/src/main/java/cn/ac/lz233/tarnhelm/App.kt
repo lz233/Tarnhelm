@@ -76,6 +76,14 @@ class App : Application() {
     }
 
     private fun initNotificationChannel() {
-        notificationManager.createNotificationChannel(NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW))
+        notificationManager.createNotificationChannels(listOf(
+            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW),
+            NotificationChannel("234", R.string.process_result_channel_name.getString(), NotificationManager.IMPORTANCE_HIGH).apply {
+                setSound(null, null)
+                enableLights(false)
+                enableVibration(false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) setAllowBubbles(false)
+            }
+        ))
     }
 }

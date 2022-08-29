@@ -48,7 +48,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
             dialogBinding.domainEditText.setText(rule.domain)
             dialogBinding.parametersEditText.setText(JSONArray(rule.parametersArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
-            if (!((rule.sourceType == 0) or BuildConfig.DEBUG)) dialogBinding.authorEditText.isEnabled = false
+            dialogBinding.authorEditText.isEnabled = (rule.sourceType == 0) or BuildConfig.DEBUG
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.parameterRulesDialogPositiveButton) { _, _ ->
