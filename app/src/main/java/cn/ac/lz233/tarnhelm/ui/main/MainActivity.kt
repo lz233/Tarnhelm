@@ -19,14 +19,12 @@ import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
+import cn.ac.lz233.tarnhelm.util.AppCenterUtil
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
@@ -47,7 +45,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
+        AppCenterUtil.initAppCenter(application)
         init()
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
@@ -63,7 +61,7 @@ class MainActivity : BaseActivity() {
         }
         binding.aboutCardView.setOnClickListener {
             val dialogBinding = DialogAboutBinding.inflate(layoutInflater)
-            dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.BUILD_TYPE}"
+            dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE}"
             dialogBinding.sourceCodeTextView.movementMethod = LinkMovementMethod.getInstance()
             dialogBinding.sourceCodeTextView.text = getString(R.string.aboutViewSourceCode, "<b><a href='https://github.com/lz233/Tarnhelm'>GitHub</a></b>").toHtml()
             MaterialAlertDialogBuilder(this)

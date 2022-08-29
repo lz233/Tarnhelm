@@ -26,11 +26,17 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        google {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    flavorDimensions "version"
+    productFlavors{
+        github{
+            buildConfigField 'String','FLAVOR','"github"'
+        }
+        google{
+            buildConfigField 'String','FLAVOR','"google"'
+        }
+        fdroid{
+            buildConfigField 'String','FLAVOR','"fdroid"'
         }
     }
     compileOptions {
@@ -71,8 +77,10 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    implementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    implementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    githubImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    githubImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
     //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'
