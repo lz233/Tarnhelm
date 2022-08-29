@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleEditBinding
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
@@ -47,7 +48,7 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
             dialogBinding.domainEditText.setText(rule.domain)
             dialogBinding.parametersEditText.setText(JSONArray(rule.parametersArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
-            if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
+            if (!((rule.sourceType == 0) or BuildConfig.DEBUG)) dialogBinding.authorEditText.isEnabled = false
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.parameterRulesDialogPositiveButton) { _, _ ->

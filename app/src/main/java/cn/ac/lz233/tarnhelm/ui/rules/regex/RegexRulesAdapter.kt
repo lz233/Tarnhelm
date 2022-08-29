@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
@@ -45,7 +46,7 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
             dialogBinding.regexesEditText.setText(JSONArray(rule.regexArray).toMultiString())
             dialogBinding.replacementsEditText.setText(JSONArray(rule.replaceArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
-            if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
+            if (!((rule.sourceType == 0) or BuildConfig.DEBUG)) dialogBinding.authorEditText.isEnabled = false
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
