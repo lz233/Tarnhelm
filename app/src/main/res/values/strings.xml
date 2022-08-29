@@ -7,8 +7,8 @@
     <string name="clipboard_service_channel_name">Background Monitoring</string>
     <string name="process_result_channel_name">Process Result</string>
     <string name="clipboard_service_started">Background Monitoring enabled</string>
-    <string name="process_result_success">Processed successfully</string>
-    <string name="process_result_failed">Processing failed</string>
+    <string name="process_result_success">🎉 Processed successfully</string>
+    <string name="process_result_failed">🥲 Processing failed</string>
 
     <string name="mainStatusTitle">Status</string>
     <string name="mainStatusErrorSummary">No work mode enabled</string>

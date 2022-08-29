@@ -6,7 +6,10 @@
     <string name="rule_added_toast">「%s」追加済み</string>
     <string name="rule_added_failed_toast">ルールを追加できませんでした。リンクフォーマットを確認してください。</string>
     <string name="clipboard_service_channel_name">Background Monitoring</string>
+    <string name="process_result_channel_name">プロセスの結果</string>
     <string name="clipboard_service_started">Background Monitoring モードは有効にしました</string>
+    <string name="process_result_success">🎉 プロセスは成功しました</string>
+    <string name="process_result_failed">🥲 プロセスは失敗しました</string>
 
     <string name="mainStatusTitle">スターテス</string>
     <string name="mainStatusErrorSummary">実行モードが有効になっておりません</string>
@@ -25,6 +28,7 @@
     <string name="mainAboutTitle">Tarnhelm について</string>
     <string name="mainRankToast">Tarnhelm についての感想をお聞かせください。</string>
     <string name="mainRankToastAction">評価</string>
+    <string name="mainRequestPermissionFailedToast">続行するには、この権限を与える必要があります</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 

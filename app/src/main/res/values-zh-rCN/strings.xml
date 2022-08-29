@@ -5,7 +5,10 @@
     <string name="rule_added_toast">「%s」已添加</string>
     <string name="rule_added_failed_toast">添加失败。错误的格式？</string>
     <string name="clipboard_service_channel_name">后台监听</string>
+    <string name="process_result_channel_name">处理结果</string>
     <string name="clipboard_service_started">后台监听已开启</string>
+    <string name="process_result_success">🎉 处理成功</string>
+    <string name="process_result_failed">🥲 处理失败</string>
 
     <string name="mainStatusTitle">状态</string>
     <string name="mainStatusErrorSummary">没有工作模式被激活</string>
@@ -24,6 +27,7 @@
     <string name="mainAboutTitle">关于</string>
     <string name="mainRankToast">喜欢这个应用吗？请在商店给我们评分！</string>
     <string name="mainRankToastAction">评分</string>
+    <string name="mainRequestPermissionFailedToast">你需要授予此权限来继续</string>
 
     <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源码]]></string>
 
