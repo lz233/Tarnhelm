@@ -21,20 +21,20 @@ fun Class<*>.hookMethod(method: String?, vararg args: Any?) = try {
     LogUtil._d(tag = App.TAG, obj = "Hook ${name}.$method Successful")
     findAndHookMethod(this, method, *args)
 } catch (e: NoSuchMethodError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 fun Member.hookMethod(callback: XC_MethodHook) = try {
     hookMethod(this, callback)
 } catch (e: Throwable) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
@@ -42,7 +42,7 @@ inline fun Member.replaceMethod(crossinline hooker: (MethodHookParam) -> Any?) =
     override fun replaceHookedMethod(param: MethodHookParam) = try {
         hooker(param)
     } catch (e: Throwable) {
-        LogUtil.e(e)
+        LogUtil.xpe(e)
         null
     }
 })
@@ -52,7 +52,7 @@ inline fun Member.hookAfterMethod(crossinline hooker: (MethodHookParam) -> Unit)
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -62,7 +62,7 @@ inline fun Member.hookBeforeMethod(crossinline hooker: (MethodHookParam) -> Unit
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -72,7 +72,7 @@ inline fun Class<*>.hookBeforeMethod(method: String?, vararg args: Any?, crossin
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -82,7 +82,7 @@ inline fun Class<*>.hookAfterMethod(method: String?, vararg args: Any?, crossinl
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -90,7 +90,7 @@ inline fun Class<*>.hookAfterMethod(method: String?, vararg args: Any?, crossinl
 fun Class<*>.setReturnConstant(methodName: String?, vararg args: Any?, result: Any?): XC_MethodHook.Unhook? = try {
     hookMethod(methodName, *args, XC_MethodReplacement.returnConstant(result))
 } catch (e: Throwable) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
@@ -98,7 +98,7 @@ inline fun Class<*>.replaceMethod(method: String?, vararg args: Any?, crossinlin
     override fun replaceHookedMethod(param: MethodHookParam) = try {
         hooker(param)
     } catch (e: Throwable) {
-        LogUtil.e(e)
+        LogUtil.xpe(e)
         null
     }
 })
@@ -106,13 +106,13 @@ inline fun Class<*>.replaceMethod(method: String?, vararg args: Any?, crossinlin
 fun Class<*>.hookAllMethods(methodName: String?, hooker: XC_MethodHook): Set<XC_MethodHook.Unhook> = try {
     hookAllMethods(this, methodName, hooker)
 } catch (e: NoSuchMethodError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 }
 
@@ -121,7 +121,7 @@ inline fun Class<*>.hookBeforeAllMethods(methodName: String?, crossinline hooker
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -131,7 +131,7 @@ inline fun Class<*>.hookAfterAllMethods(methodName: String?, crossinline hooker:
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -140,7 +140,7 @@ inline fun Class<*>.replaceAfterAllMethods(methodName: String?, crossinline hook
     override fun replaceHookedMethod(param: MethodHookParam) = try {
         hooker(param)
     } catch (e: Throwable) {
-        LogUtil.e(e)
+        LogUtil.xpe(e)
         null
     }
 })
@@ -148,13 +148,13 @@ inline fun Class<*>.replaceAfterAllMethods(methodName: String?, crossinline hook
 fun Class<*>.hookConstructor(vararg args: Any?) = try {
     findAndHookConstructor(this, *args)
 } catch (e: NoSuchMethodError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
@@ -163,7 +163,7 @@ inline fun Class<*>.hookBeforeConstructor(vararg args: Any?, crossinline hooker:
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -173,7 +173,7 @@ inline fun Class<*>.hookAfterConstructor(vararg args: Any?, crossinline hooker: 
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -183,7 +183,7 @@ inline fun Class<*>.replaceConstructor(vararg args: Any?, crossinline hooker: (M
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -191,13 +191,13 @@ inline fun Class<*>.replaceConstructor(vararg args: Any?, crossinline hooker: (M
 fun Class<*>.hookAllConstructors(hooker: XC_MethodHook): Set<XC_MethodHook.Unhook> = try {
     hookAllConstructors(this, hooker)
 } catch (e: NoSuchMethodError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     emptySet()
 }
 
@@ -206,7 +206,7 @@ inline fun Class<*>.hookAfterAllConstructors(crossinline hooker: (MethodHookPara
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -216,7 +216,7 @@ inline fun Class<*>.hookBeforeAllConstructors(crossinline hooker: (MethodHookPar
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -226,7 +226,7 @@ inline fun Class<*>.replaceAfterAllConstructors(crossinline hooker: (MethodHookP
         try {
             hooker(param)
         } catch (e: Throwable) {
-            LogUtil.e(e)
+            LogUtil.xpe(e)
         }
     }
 })
@@ -234,60 +234,60 @@ inline fun Class<*>.replaceAfterAllConstructors(crossinline hooker: (MethodHookP
 fun String.hookMethod(method: String?, vararg args: Any?, classLoader: ClassLoader = Config.classLoader) = try {
     findClass(classLoader).hookMethod(method, *args)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 inline fun String.hookBeforeMethod(method: String?, vararg args: Any?, classLoader: ClassLoader = Config.classLoader, crossinline hooker: (MethodHookParam) -> Unit) = try {
     findClass(classLoader).hookBeforeMethod(method, *args, hooker = hooker)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 inline fun String.hookAfterMethod(method: String?, vararg args: Any?, classLoader: ClassLoader = Config.classLoader, crossinline hooker: (MethodHookParam) -> Unit) = try {
     findClass(classLoader).hookAfterMethod(method, *args, hooker = hooker)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 fun String.setReturnConstant(method: String?, vararg args: Any?, result: Any?, classLoader: ClassLoader = Config.classLoader) = try {
     findClass(classLoader).setReturnConstant(method, *args, result = result)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 inline fun String.replaceMethod(method: String?, vararg args: Any?, classLoader: ClassLoader = Config.classLoader, crossinline hooker: (MethodHookParam) -> Any?) = try {
     findClass(this, classLoader).replaceMethod(method, *args, hooker = hooker)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
 inline fun String.replaceAfterAllMethods(methodName: String?, classLoader: ClassLoader = Config.classLoader, crossinline hooker: (MethodHookParam) -> Any?) = try {
     findClass(classLoader).replaceAfterAllMethods(methodName, hooker)
 } catch (e: ClassNotFoundError) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 } catch (e: ClassNotFoundException) {
-    LogUtil.e(e)
+    LogUtil.xpe(e)
     null
 }
 
@@ -297,7 +297,7 @@ inline fun String.hookBeforeConstructor(vararg args: Any?, classLoader: ClassLoa
             try {
                 hooker(param)
             } catch (e: Throwable) {
-                LogUtil.e(e)
+                LogUtil.xpe(e)
             }
         }
     })
@@ -308,7 +308,7 @@ inline fun String.hookAfterConstructor(vararg args: Any?, classLoader: ClassLoad
             try {
                 hooker(param)
             } catch (e: Throwable) {
-                LogUtil.e(e)
+                LogUtil.xpe(e)
             }
         }
     })
@@ -319,7 +319,7 @@ inline fun String.replaceConstructor(vararg args: Any?, classLoader: ClassLoader
             try {
                 hooker(param)
             } catch (e: Throwable) {
-                LogUtil.e(e)
+                LogUtil.xpe(e)
             }
         }
     })
@@ -400,12 +400,12 @@ inline fun XResources.hookLayout(id: Int, crossinline hooker: (XC_LayoutInflated
                 try {
                     hooker(liparam)
                 } catch (e: Throwable) {
-                    LogUtil.e(e)
+                    LogUtil.xpe(e)
                 }
             }
         })
     } catch (e: Throwable) {
-        LogUtil.e(e)
+        LogUtil.xpe(e)
     }
 }
 
@@ -414,7 +414,7 @@ inline fun XResources.hookLayout(pkg: String, type: String, name: String, crossi
         val id = getIdentifier(name, type, pkg)
         hookLayout(id, hooker)
     } catch (e: Throwable) {
-        LogUtil.e(e)
+        LogUtil.xpe(e)
     }
 }
 

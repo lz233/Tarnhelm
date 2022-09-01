@@ -49,7 +49,7 @@ object ModuleBridgeHelper {
 
     @SuppressLint("MissingPermission")
     fun bindBridgeService(context: Context? = mContext) {
-        LogUtil._d("bind bridge service")
+        LogUtil.xp("bind bridge service")
         runCatching {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 HiddenApiBypass.addHiddenApiExemptions("")
@@ -74,11 +74,11 @@ object ModuleBridgeHelper {
                     Context.BIND_AUTO_CREATE
                 )
             }
-        }.onFailure { LogUtil.d(it) }
+        }.onFailure { LogUtil.xpe(it) }
     }
 
     fun unbindBridgeService(context: Context? = mContext) {
-        LogUtil.d("unbind bridge service")
+        LogUtil.xp("unbind bridge service")
         runCatching {
             context?.unbindService(serviceConnection)
         }

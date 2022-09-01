@@ -5,6 +5,7 @@ import android.os.Looper
 import android.widget.Toast
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.App.Companion.TAG
+import de.robv.android.xposed.XposedBridge
 import android.util.Log as ALog
 
 object LogUtil {
@@ -70,5 +71,36 @@ object LogUtil {
     @JvmOverloads
     fun w(obj: Any?, tag: String = TAG) {
         doLog(ALog::w, tag = tag, obj = obj)
+    }
+
+    @JvmStatic
+    fun xp(obj: Any?, level: String = "normal") {
+        doLog(::xposed, tag = level, obj = obj)
+    }
+
+    @JvmStatic
+    fun xpw(obj: Any?, level: String = "warn") {
+        doLog(::xposed, tag = level, obj = obj)
+    }
+
+    @JvmStatic
+    fun xpd(obj: Any?, level: String = "debug") {
+        doLog(::xposed, tag = level, obj = obj)
+    }
+
+    @JvmStatic
+    fun xpe(obj: Any?, level: String = "error") {
+        doLog(::xposed, tag = level, obj = obj)
+    }
+
+    private fun xposed(level: String, msg: String): Int {
+        when(level) {
+            "normal" -> XposedBridge.log("[${TAG}] $msg")
+            "warn" -> XposedBridge.log("[$TAG] warn: $msg")
+            "error" -> XposedBridge.log("[$TAG] error: $msg")
+            "debug" -> XposedBridge.log("[$TAG] debug: $msg")
+            else -> XposedBridge.log("[$TAG] $msg")
+        }
+        return 0
     }
 }
