@@ -23,19 +23,19 @@ object Android {
                     startModuleAppProcess()
                     ModuleBridgeHelper.bindBridgeService()
                     mContext?.unregisterReceiver(this)
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.xpe(it) }
             }
         }
     }
 
     fun init() {
         runCatching {
-            LogUtil._d("start find methods")
+            LogUtil.xp("start find methods")
             val methods = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.filter { it.name == "startProcessLocked" }
             methods.forEach {
-                LogUtil._d(it)
+                LogUtil.xp(it)
             }
-        }.onFailure { LogUtil._d(it) }
+        }.onFailure { LogUtil.xpe(it) }
         try {
             disableBackgroundCheck()
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
@@ -45,13 +45,13 @@ object Android {
                     mContext = param.thisObject.getObjectField("mContext") as Context
                     ModuleBridgeHelper.mContext = mContext
                     mContext?.registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT))
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.xpe(it) }
             }
 
             val clipboardServiceClazz = "com.android.server.clipboard.ClipboardService\$ClipboardImpl".findClass()
             val setClipMethod = clipboardServiceClazz.declaredMethods.first { it.name == "setPrimaryClip" }
             setClipMethod.hookBeforeMethod { param ->
-                LogUtil._d("setPrimaryClip")
+                LogUtil.xp("setPrimaryClip")
                 runCatching {
                     val data = param.args[0] as ClipData? ?: return@hookBeforeMethod
                     if (data.itemCount == 0) return@hookBeforeMethod
@@ -66,16 +66,16 @@ object Android {
                             item.setObjectField("mText", it.doTarnhelms(text.toString()))
                         }
                     }
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.xpe(it) }
             }
 
             /*Intent::class.java.hookBeforeAllMethods("putExtra"){
-                LogUtil._d(it.method)
-                LogUtil._d("1 ${it.args[0]}")
-                LogUtil._d("2 ${it.args[1]}")
+                LogUtil.xp(it.method)
+                LogUtil.xp("1 ${it.args[0]}")
+                LogUtil.xp("2 ${it.args[1]}")
             }
             Intent::class.java.hookBeforeMethod("putExtra", String::class.java, String::class.java) { param ->
-                LogUtil._d("putExtraString ${param.args[0]} ${param.args[1]}")
+                LogUtil.xp("putExtraString ${param.args[0]} ${param.args[1]}")
                 if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
                     startModuleAppProcess()
                     ModuleBridgeHelper.bindBridgeService()
@@ -85,7 +85,7 @@ object Android {
                 }*/
             }
             Intent::class.java.hookBeforeMethod("putExtra", String::class.java, CharSequence::class.java) { param ->
-                LogUtil._d("putExtraCharSequence ${param.args[0]} ${param.args[1]}")
+                LogUtil.xp("putExtraCharSequence ${param.args[0]} ${param.args[1]}")
                 if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
                     startModuleAppProcess()
                     ModuleBridgeHelper.bindBridgeService()
@@ -95,7 +95,7 @@ object Android {
                 }*/
             }*/
             /*Intent::class.java.hookBeforeAllMethods("createChooser") { param ->
-                LogUtil._d("createChooser")
+                LogUtil.xp("createChooser")
                 val target = param.args[0] as Intent
                 if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
                     startModuleAppProcess()
@@ -108,7 +108,7 @@ object Android {
                 }
             }*/
         } catch (e: Throwable) {
-            LogUtil._d(e)
+            LogUtil.xpe(e)
         }
     }
 
@@ -121,13 +121,13 @@ object Android {
                     val uid = param.thisObject.getIntField("mUid")
                     context.packageManager.getPackagesForUid(uid)?.let {
                         if (it.contains(Config.packageName)) {
-                            LogUtil._d("isIdle hooked, set result to false")
+                            LogUtil.xpe("isIdle hooked, set result to false")
                             param.result = false
                         }
                     }
-                }.onFailure { LogUtil._d(it) }
+                }.onFailure { LogUtil.xpe(it) }
             }
-        }.onFailure { LogUtil._d(it) }
+        }.onFailure { LogUtil.xpe(it) }
     }
 
     @SuppressLint("PrivateApi")
