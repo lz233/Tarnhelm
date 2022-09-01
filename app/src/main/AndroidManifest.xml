@@ -10,6 +10,7 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".App"
@@ -33,7 +34,7 @@
         <activity
             android:name=".ui.rules.RulesActivity"
             android:exported="false"
-            android:theme="@style/Theme.Tarnhelm.FuckToolbar" />
+            android:theme="@style/Theme.Tarnhelm" />
 
         <activity
             android:name=".ui.settings.SettingsActivity"

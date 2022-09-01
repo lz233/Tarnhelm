@@ -16,4 +16,4 @@
 
 更多信息，参见：[tarnhelm.project.ac.cn](https://tarnhelm.project.ac.cn/)
 
-也可以从 LSPosed Repository 获取 APK：https://modules.lsposed.org/module/cn.ac.lz233.tarnhelm
+也可以从 LSPosed Repository 获取 APK：https://github.com/Xposed-Modules-Repo/cn.ac.lz233.tarnhelm

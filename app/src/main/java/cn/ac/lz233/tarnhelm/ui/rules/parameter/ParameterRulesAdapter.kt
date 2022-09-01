@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleEditBinding
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
@@ -41,13 +42,13 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogParameterRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
-            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?parameter=" else "") + rule.toJSONObject().toString().encodeBase64()
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?parameter=" else "") + rule.toJSONObject().toString().encodeBase64().encodeURL()
             dialogBinding.modeToggleButton.check(rule.mode.getModeButtonId())
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.domainEditText.setText(rule.domain)
             dialogBinding.parametersEditText.setText(JSONArray(rule.parametersArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
-            if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
+            dialogBinding.authorEditText.isEnabled = (rule.sourceType == 0) or BuildConfig.DEBUG
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.parameterRulesDialogPositiveButton) { _, _ ->
@@ -58,8 +59,8 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
                         dialogBinding.modeToggleButton.checkedButtonId.getModeId(),
                         dialogBinding.parametersEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
-                        0,
-                        true
+                        rule.sourceType,
+                        rule.enabled
                     )
                     App.parameterRuleDao.insert(item)
                     rulesList[position] = item

@@ -22,6 +22,7 @@ import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import kotlin.concurrent.thread
 
 class ClipboardService : Service() {
 
@@ -59,7 +60,7 @@ class ClipboardService : Service() {
         val nanoTime = System.nanoTime()
         val handler = Handler(this.mainLooper)
         readerID = nanoTime
-        Thread {
+        thread {
             try {
                 Runtime.getRuntime().exec("logcat -c").waitFor()
                 val exec = Runtime.getRuntime().exec("""logcat ClipboardService:E *:S -T 1""")
@@ -86,7 +87,7 @@ class ClipboardService : Service() {
             } catch (th: Throwable) {
                 LogUtil.e(th)
             }
-        }.start()
+        }
     }
 
     private fun doClipboard() {
@@ -103,7 +104,6 @@ class ClipboardService : Service() {
     private fun createNotification() {
         val notification = Notification.Builder(this, "233")
             .setContentTitle(R.string.clipboard_service_started.getString())
-            //.setContentText("text")
             .setSmallIcon(R.drawable.ic_icon)
             .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)

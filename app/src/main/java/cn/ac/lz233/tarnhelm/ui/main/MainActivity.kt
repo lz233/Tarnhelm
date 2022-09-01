@@ -1,7 +1,11 @@
 package cn.ac.lz233.tarnhelm.ui.main
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -19,14 +23,13 @@ import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
+import cn.ac.lz233.tarnhelm.util.AppCenterUtil
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
+import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
@@ -47,9 +50,9 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        AppCenter.start(application, "d6f67bf8-858b-451a-98e9-c2c295474e9a", Analytics::class.java, Crashes::class.java)
+        AppCenterUtil.initAppCenter(application)
         init()
-        binding.toolbar.subtitle = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
         binding.shareCardView.setOnClickListener {
@@ -63,7 +66,7 @@ class MainActivity : BaseActivity() {
         }
         binding.aboutCardView.setOnClickListener {
             val dialogBinding = DialogAboutBinding.inflate(layoutInflater)
-            dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.BUILD_TYPE}"
+            dialogBinding.versionNameTextView.text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE}"
             dialogBinding.sourceCodeTextView.movementMethod = LinkMovementMethod.getInstance()
             dialogBinding.sourceCodeTextView.text = getString(R.string.aboutViewSourceCode, "<b><a href='https://github.com/lz233/Tarnhelm'>GitHub</a></b>").toHtml()
             MaterialAlertDialogBuilder(this)
@@ -138,11 +141,11 @@ class MainActivity : BaseActivity() {
                     1,
                     "Twitter",
                     JSONArray().apply {
-                        put("twitter.com")
+                        put("""(http|https)://twitter.com""")
                         put("""\?.*""")
                     }.toString(),
                     JSONArray().apply {
-                        put("vxtwitter.com")
+                        put("https://vxtwitter.com")
                         put("")
                     }.toString(),
                     "lz233",
@@ -167,6 +170,17 @@ class MainActivity : BaseActivity() {
             )
             App.editor.putBoolean("isFirstTestRun", false).apply()
         }
+
+        PermissionX.init(this)
+            .permissions(Manifest.permission.POST_NOTIFICATIONS)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted or (Build.VERSION.SDK_INT < 33)) {
+                    initNotificationChannel()
+                } else {
+                    Snackbar.make(binding.root, R.string.mainRequestPermissionFailedToast, Toast.LENGTH_SHORT).show()
+                }
+            }
+
         ConfigDao.openTimes++
         //if (true){
         if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
@@ -178,5 +192,17 @@ class MainActivity : BaseActivity() {
                     })
                 }.show()
         }
+    }
+
+    private fun initNotificationChannel() {
+        App.notificationManager.createNotificationChannels(listOf(
+            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW),
+            NotificationChannel("234", R.string.process_result_channel_name.getString(), NotificationManager.IMPORTANCE_HIGH).apply {
+                setSound(null, null)
+                enableLights(false)
+                enableVibration(false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) setAllowBubbles(false)
+            }
+        ))
     }
 }

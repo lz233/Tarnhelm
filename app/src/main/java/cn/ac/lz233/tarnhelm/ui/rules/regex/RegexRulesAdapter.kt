@@ -8,16 +8,14 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleEditBinding
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
-import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
-import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
+import cn.ac.lz233.tarnhelm.util.ktx.*
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -43,12 +41,12 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         val rule = rulesList[position]
         holder.ruleContentCardView.setOnClickListener {
             val dialogBinding = DialogRegexRuleEditBinding.inflate(LayoutInflater.from(holder.itemView.context))
-            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?regex=" else "") + rule.toJSONObject().toString().encodeBase64()
+            val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?regex=" else "") + rule.toJSONObject().toString().encodeBase64().encodeURL()
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.regexesEditText.setText(JSONArray(rule.regexArray).toMultiString())
             dialogBinding.replacementsEditText.setText(JSONArray(rule.replaceArray).toMultiString())
             dialogBinding.authorEditText.setText(rule.author)
-            if (rule.sourceType != 0) dialogBinding.authorEditText.isEnabled = false
+            dialogBinding.authorEditText.isEnabled = (rule.sourceType == 0) or BuildConfig.DEBUG
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
                 .setView(dialogBinding.root)
                 .setPositiveButton(R.string.regexRulesDialogPositiveButton) { _, _ ->
@@ -58,8 +56,8 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
                         dialogBinding.regexesEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.replacementsEditText.text.toString().toJSONArray().toString(),
                         dialogBinding.authorEditText.text.toString(),
-                        0,
-                        true
+                        rule.sourceType,
+                        rule.enabled
                     )
                     App.regexRuleDao.insert(item)
                     rulesList[position] = item

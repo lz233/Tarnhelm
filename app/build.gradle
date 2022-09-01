@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         Date date = new Date()
         applicationId "cn.ac.lz233.tarnhelm"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.0"
+        versionName "1.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,11 +26,17 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        google {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    flavorDimensions "version"
+    productFlavors{
+        github{
+            buildConfigField 'String','FLAVOR','"github"'
+        }
+        google{
+            buildConfigField 'String','FLAVOR','"google"'
+        }
+        fdroid{
+            buildConfigField 'String','FLAVOR','"fdroid"'
         }
     }
     compileOptions {
@@ -71,12 +77,16 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    implementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    implementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    githubImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    githubImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
     //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
+
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

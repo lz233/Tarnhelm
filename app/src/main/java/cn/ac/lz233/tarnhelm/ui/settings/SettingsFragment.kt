@@ -10,17 +10,18 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.process.ProcessCopyActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessEditTextActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessShareActivity
+import cn.ac.lz233.tarnhelm.util.AppCenterUtil
 import cn.ac.lz233.tarnhelm.util.ktx.openUrl
 import com.google.android.material.snackbar.Snackbar
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 
-class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() {
+class SettingsFragment() : PreferenceFragmentCompat() {
+    private lateinit var rootView: View
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         val workModeEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
@@ -134,13 +135,15 @@ class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() 
             true
         }
 
+        if (BuildConfig.FLAVOR == "fdroid") analytics.isVisible = false
         analytics.setOnPreferenceChangeListener { preference, newValue ->
-            Analytics.setEnabled(newValue as Boolean)
+            AppCenterUtil.setAnalyticsEnabled(newValue as Boolean)
             true
         }
 
+        if (BuildConfig.FLAVOR == "fdroid") crashes.isVisible = false
         crashes.setOnPreferenceChangeListener { preference, newValue ->
-            Crashes.setEnabled(newValue as Boolean)
+            AppCenterUtil.setCrashesEnabled(newValue as Boolean)
             true
         }
 
@@ -153,5 +156,9 @@ class SettingsFragment(private val rootView: View) : PreferenceFragmentCompat() 
             "https://t.me/tarnhelm_app".openUrl()
             false
         }
+    }
+
+    constructor(rootView: View) : this() {
+        this.rootView = rootView
     }
 }
