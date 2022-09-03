@@ -28,6 +28,10 @@
     <string name="mainRankToast">Like it? Please rank us at App Store!</string>
     <string name="mainRankToastAction">Rank</string>
     <string name="mainRequestPermissionFailedToast">You should grant this permission to continue</string>
+    <string name="mainPrivacyPolicyDialogTitle">Privacy Policy</string>
+    <string name="mainPrivacyPolicyDialogContent">According to the requirements of the Chinese application market, Please read the <a href="https://tarnhelm.project.ac.cn/privacy.html">Privacy Policy</a> and agree it before start.</string>
+    <string name="mainPrivacyPolicyDialogPositiveButton">Agree</string>
+    <string name="mainPrivacyPolicyDialogNegativeButton">Disagree</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 

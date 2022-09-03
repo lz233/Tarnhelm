@@ -32,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
 
@@ -99,6 +100,23 @@ class MainActivity : BaseActivity() {
     }
 
     private fun init() {
+        initRules()
+        showPrivacyPolicyDialog()
+
+        ConfigDao.openTimes++
+        //if (true){
+        if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
+            ConfigDao.ranked = true
+            Snackbar.make(binding.root, R.string.mainRankToast, Toast.LENGTH_SHORT)
+                .setAction(R.string.mainRankToastAction) {
+                    startActivity(Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
+                    })
+                }.show()
+        }
+    }
+
+    private fun initRules() {
         if (App.sp.getBoolean("isFirstTestRun", true)) {
             App.parameterRuleDao.insert(
                 ParameterRule(
@@ -170,7 +188,29 @@ class MainActivity : BaseActivity() {
             )
             App.editor.putBoolean("isFirstTestRun", false).apply()
         }
+    }
 
+    private fun showPrivacyPolicyDialog() {
+        if (!ConfigDao.agreedPrivacyPolicy && BuildConfig.FLAVOR == "coolapk") {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.mainPrivacyPolicyDialogTitle)
+                .setMessage(R.string.mainPrivacyPolicyDialogContent)
+                .setCancelable(false)
+                .setPositiveButton(R.string.mainPrivacyPolicyDialogPositiveButton) { _, _ ->
+                    ConfigDao.agreedPrivacyPolicy = true
+                    checkPermissions()
+                }
+                .setNegativeButton(R.string.mainPrivacyPolicyDialogNegativeButton) { _, _ ->
+                    exitProcess(0)
+                }
+                .show()
+        } else {
+            ConfigDao.agreedPrivacyPolicy = true
+            checkPermissions()
+        }
+    }
+
+    private fun checkPermissions() {
         PermissionX.init(this)
             .permissions(Manifest.permission.POST_NOTIFICATIONS)
             .request { allGranted, grantedList, deniedList ->
@@ -180,18 +220,6 @@ class MainActivity : BaseActivity() {
                     Snackbar.make(binding.root, R.string.mainRequestPermissionFailedToast, Toast.LENGTH_SHORT).show()
                 }
             }
-
-        ConfigDao.openTimes++
-        //if (true){
-        if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
-            ConfigDao.ranked = true
-            Snackbar.make(binding.root, R.string.mainRankToast, Toast.LENGTH_SHORT)
-                .setAction(R.string.mainRankToastAction) {
-                    startActivity(Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
-                    })
-                }.show()
-        }
     }
 
     private fun initNotificationChannel() {

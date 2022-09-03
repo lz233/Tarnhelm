@@ -29,6 +29,10 @@
     <string name="mainRankToast">Tarnhelm についての感想をお聞かせください。</string>
     <string name="mainRankToastAction">評価</string>
     <string name="mainRequestPermissionFailedToast">続行するには、この権限を与える必要があります</string>
+    <string name="mainPrivacyPolicyDialogTitle">プライバシーポリシー</string>
+    <string name="mainPrivacyPolicyDialogContent">中国のアプリケーション市場の要件に従って、開始する前に<a href="https://tarnhelm.project.ac.cn/privacy.html">プライバシー ポリシー</a>を読み、同意してください。</string>
+    <string name="mainPrivacyPolicyDialogPositiveButton">同意</string>
+    <string name="mainPrivacyPolicyDialogNegativeButton">拒否</string>
 
     <string name="aboutViewSourceCode"><![CDATA[View source code at %s]]></string>
 

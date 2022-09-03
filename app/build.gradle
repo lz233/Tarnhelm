@@ -14,7 +14,7 @@ android {
         minSdk 26
         targetSdk 33
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.3"
+        versionName "1.3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,6 +37,9 @@ android {
         }
         fdroid{
             buildConfigField 'String','FLAVOR','"fdroid"'
+        }
+        coolapk{
+            buildConfigField 'String','FLAVOR','"coolapk"'
         }
     }
     compileOptions {
@@ -77,10 +80,12 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
     githubImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
     githubImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
+    coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
     //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'

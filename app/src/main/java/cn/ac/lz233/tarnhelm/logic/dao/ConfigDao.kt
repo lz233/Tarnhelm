@@ -3,6 +3,10 @@ package cn.ac.lz233.tarnhelm.logic.dao
 import cn.ac.lz233.tarnhelm.App
 
 object ConfigDao {
+    var agreedPrivacyPolicy: Boolean
+        get() = App.sp.getBoolean("agreedPrivacyPolicy", false)
+        set(value) = App.editor.putBoolean("agreedPrivacyPolicy", value).apply()
+
     var ranked: Boolean
         get() = App.sp.getBoolean("ranked", false)
         set(value) = App.editor.putBoolean("ranked", value).apply()

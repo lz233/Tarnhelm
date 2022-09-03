@@ -28,6 +28,10 @@
     <string name="mainRankToast">喜歡這個應用嗎？請在商店給我們評分！</string>
     <string name="mainRankToastAction">評分</string>
     <string name="mainRequestPermissionFailedToast">你需要授予此權限來繼續</string>
+    <string name="mainPrivacyPolicyDialogTitle">私隱權政策與條款</string>
+    <string name="mainPrivacyPolicyDialogContent">根據國內應用市場的相關要求，在開始前請先閱讀並同意<a href="https://tarnhelm.project.ac.cn/privacy.html">私隱權政策與條款</a>。</string>
+    <string name="mainPrivacyPolicyDialogPositiveButton">同意</string>
+    <string name="mainPrivacyPolicyDialogNegativeButton">不同意</string>
 
     <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源碼]]></string>
 
