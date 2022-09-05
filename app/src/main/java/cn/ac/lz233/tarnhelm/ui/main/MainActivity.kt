@@ -21,6 +21,7 @@ import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
 import cn.ac.lz233.tarnhelm.util.AppCenterUtil
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity() {
         init()
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
+        binding.extensionsCardView?.setOnClickListener { ExtensionsActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
         binding.shareCardView.setOnClickListener {
             startActivity(Intent.createChooser(Intent().apply {
@@ -102,7 +104,10 @@ class MainActivity : BaseActivity() {
     private fun init() {
         initRules()
         showPrivacyPolicyDialog()
+        showRankDialog()
+    }
 
+    private fun showRankDialog() {
         ConfigDao.openTimes++
         //if (true){
         if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {

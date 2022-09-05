@@ -33,8 +33,11 @@
 
         <activity
             android:name=".ui.rules.RulesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Tarnhelm" />
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.extensions.ExtensionsActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ui.settings.SettingsActivity"

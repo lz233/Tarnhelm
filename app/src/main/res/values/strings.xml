@@ -22,6 +22,8 @@
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">Rules</string>
     <string name="mainRulesSummary">%s rule(s) recorded</string>
+    <string name="mainExtensionsTitle">Extensions</string>
+    <string name="mainExtensionsSummary">%s extension(s) recorded</string>
     <string name="mainSettingsTitle">Settings</string>
     <string name="mainShareTitle">Share</string>
     <string name="mainAboutTitle">About</string>
@@ -59,6 +61,9 @@
     <string name="regexRulesItemReplacements">Replacements</string>
     <string name="regexRulesItemAuthor">Author</string>
     <string name="regexRulesDialogPositiveButton">OK</string>
+
+    <string name="extensionsTitle">Extensions</string>
+    <string name="extensionsImportFab">Import</string>
 
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>

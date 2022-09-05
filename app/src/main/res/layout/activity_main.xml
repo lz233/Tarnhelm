@@ -156,7 +156,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="?attr/colorPrimaryContainer"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
@@ -194,6 +194,59 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/rulesTitleTextView"
                         android:layout_alignStart="@id/rulesTitleTextView"
+                        android:layout_marginTop="5dp"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="?attr/colorOnPrimaryContainer" />
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/extensionsCardView"
+                style="?attr/materialCardViewFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="20dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/extensionsIconView"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_extension"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/extensionsTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/extensionsIconView"
+                        android:text="@string/mainExtensionsTitle"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textColor="?attr/colorOnPrimaryContainer" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/extensionsSummaryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/extensionsTitleTextView"
+                        android:layout_alignStart="@id/extensionsTitleTextView"
                         android:layout_marginTop="5dp"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                         android:textColor="?attr/colorOnPrimaryContainer" />
