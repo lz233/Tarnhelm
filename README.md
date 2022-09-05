@@ -11,7 +11,7 @@
 </a>
 </a>
   <a href="https://f-droid.org/packages/cn.ac.lz233.tarnhelm/">
-<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" width="25%"/>
+<img src="./art/fdroid-badge.png" width="25%"/>
 </a>
 </p>
 
