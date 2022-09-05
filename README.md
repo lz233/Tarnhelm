@@ -5,10 +5,12 @@
 <h1 align="center">Tarnhelm</h1>
 
 <p align="center">
-<a  href="https://play.google.com/store/apps/details?id=cn.ac.lz233.tarnhelm">
+</a>
+  <a href="https://play.google.com/store/apps/details?id=cn.ac.lz233.tarnhelm">
 <img src="./art/google-play-badge.png" width="25%"/>
 </a>
-  <a  href="https://f-droid.org/packages/cn.ac.lz233.tarnhelm/">
+</a>
+  <a href="https://f-droid.org/packages/cn.ac.lz233.tarnhelm/">
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" width="25%"/>
 </a>
 </p>
