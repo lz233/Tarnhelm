@@ -12,6 +12,7 @@ import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
+import cn.ac.lz233.tarnhelm.logic.dao.ExtensionDao
 import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
@@ -28,6 +29,7 @@ class App : Application() {
         lateinit var db: AppDatabase
         lateinit var parameterRuleDao: ParameterRuleDao
         lateinit var regexRuleDao: RegexRuleDao
+        lateinit var extensionDao: ExtensionDao
         lateinit var clipboardManager: ClipboardManager
         lateinit var notificationManager: NotificationManager
         const val TAG = "Tarnhelm"
@@ -61,6 +63,7 @@ class App : Application() {
         db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
+        extensionDao = db.extensionDao()
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (isXposedActive()) context.startService(

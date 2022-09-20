@@ -64,6 +64,10 @@
 
     <string name="extensionsTitle">Extensions</string>
     <string name="extensionsImportFab">Import</string>
+    <string name="extensionsItemName">Name</string>
+    <string name="extensionsItemDescription">Description</string>
+    <string name="extensionsItemRegexes">Regexes</string>
+    <string name="extensionsItemAuthor">Author</string>
 
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>

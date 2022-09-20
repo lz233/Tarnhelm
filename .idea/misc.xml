@@ -47,6 +47,7 @@
         <entry key="app/src/main/res/layout/fragment_regex.xml" value="0.20308250226654578" />
         <entry key="app/src/main/res/layout/fragment_regex_rules.xml" value="0.14052583862194015" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1838768115942029" />
+        <entry key="app/src/main/res/layout/item_extension.xml" value="0.11322188449848024" />
         <entry key="app/src/main/res/layout/item_parameter_rule.xml" value="0.1840435176790571" />
         <entry key="app/src/main/res/layout/item_regex_rule.xml" value="0.1840435176790571" />
         <entry key="app/src/main/res/layout/item_rule.xml" value="0.25" />
