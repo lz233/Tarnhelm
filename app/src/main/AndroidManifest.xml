@@ -17,7 +17,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tarnhelm">
+        android:theme="@style/Theme.Tarnhelm"
+        android:localeConfig="@xml/locale_config">
 
         <activity
             android:name=".ui.main.MainActivity"

@@ -6,7 +6,7 @@
     <string name="rule_added_failed_toast">添加失敗。錯誤的格式？</string>
     <string name="clipboard_service_channel_name">後台監聽</string>
     <string name="process_result_channel_name">處理結果</string>
-    <string name="clipboard_service_started">後台監聽已開啟</string>
+    <string name="clipboard_service_started">背景監聽服務已開啟</string>
     <string name="process_result_success">🎉 處理成功</string>
     <string name="process_result_failed">🥲 處理失敗</string>
 
@@ -22,6 +22,8 @@
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">規則庫</string>
     <string name="mainRulesSummary">已記錄 %s 個規則</string>
+    <string name="mainExtensionsTitle">外掛</string>
+    <string name="mainExtensionsSummary">已有 %s 个外掛</string>
     <string name="mainSettingsTitle">設定</string>
     <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">關於</string>
@@ -29,7 +31,7 @@
     <string name="mainRankToastAction">評分</string>
     <string name="mainRequestPermissionFailedToast">你需要授予此權限來繼續</string>
     <string name="mainPrivacyPolicyDialogTitle">隱私權政策與條款</string>
-    <string name="mainPrivacyPolicyDialogContent">根據國內應用市場的相關要求，在開始前請先閱讀並同意<a href="https://tarnhelm.project.ac.cn/privacy.html">隱私權政策與條款</a>。</string>
+    <string name="mainPrivacyPolicyDialogContent">根據大陸應用市場的相關要求，在開始前請先閱讀並同意<a href="https://tarnhelm.project.ac.cn/privacy.html">隱私權政策與條款</a>。</string>
     <string name="mainPrivacyPolicyDialogPositiveButton">同意</string>
     <string name="mainPrivacyPolicyDialogNegativeButton">不同意</string>
 
@@ -59,6 +61,9 @@
     <string name="regexRulesItemReplacements">替換</string>
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">確認</string>
+
+    <string name="extensionsTitle">擴展</string>
+    <string name="extensionsImportFab">導入</string>
 
     <string name="settingsTitle">設定</string>
     <string name="settingsWorkModeTitle">工作模式</string>

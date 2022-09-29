@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
     <string name="copy_label">Tarnhelm 复制</string>
-    <string name="read_only_toast">只读文本</string>
-    <string name="rule_added_toast">「%s」已添加</string>
-    <string name="rule_added_failed_toast">添加失败。错误的格式？</string>
+    <string name="read_only_toast">文本只读</string>
+    <string name="rule_added_toast">已经添加咗「%s」</string>
+    <string name="rule_added_failed_toast">添加失败。格式喺咪错咗？</string>
     <string name="clipboard_service_channel_name">后台监听</string>
     <string name="process_result_channel_name">处理结果</string>
     <string name="clipboard_service_started">后台监听已开启</string>
@@ -11,37 +11,37 @@
     <string name="process_result_failed">🥲 处理失败</string>
 
     <string name="mainStatusTitle">状态</string>
-    <string name="mainStatusErrorSummary">没有工作模式被激活</string>
-    <string name="mainStatusPassSummary">工作在 %s 模式</string>
+    <string name="mainStatusErrorSummary">冇任何工作模式激活咗</string>
+    <string name="mainStatusPassSummary">工作于 %s 模式</string>
     <string name="mainStatusPunctuation">、</string>
-    <string name="mainStatusPunctuationLast">和</string>
+    <string name="mainStatusPunctuationLast">同</string>
     <string name="mainStatusWorkModeEditTextMenu">编辑菜单</string>
     <string name="mainStatusWorkModeCopyMenu">复制菜单</string>
     <string name="mainStatusWorkModeShare">分享对话框</string>
     <string name="mainStatusBackgroundMonitoring">后台监听</string>
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">规则库</string>
-    <string name="mainRulesSummary">已记录 %s 条规则</string>
+    <string name="mainRulesSummary">已经记录咗 %s 条规则</string>
     <string name="mainExtensionsTitle">扩展</string>
-    <string name="mainExtensionsSummary">已记录 %s 个扩展</string>
+    <string name="mainExtensionsSummary">已经记录咗 %s 个扩展</string>
     <string name="mainSettingsTitle">设置</string>
     <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">关于</string>
-    <string name="mainRankToast">喜欢这个应用吗？请在商店给我们评分！</string>
+    <string name="mainRankToast">钟唔钟意呢个应用呀？喺商店畀我们评分啦！</string>
     <string name="mainRankToastAction">评分</string>
-    <string name="mainRequestPermissionFailedToast">你需要授予此权限来继续</string>
+    <string name="mainRequestPermissionFailedToast">你需要畀我哋呢个权限来继续</string>
     <string name="mainPrivacyPolicyDialogTitle">隐私权政策与条款</string>
-    <string name="mainPrivacyPolicyDialogContent">根据国内应用市场的相关要求，在开始前请先阅读并同意<a href="https://tarnhelm.project.ac.cn/privacy.html">隐私权政策与条款</a>。</string>
+    <string name="mainPrivacyPolicyDialogContent">根据国内应用市场嘅相关要求，开始使用前需要先阅读并同意<a href="https://tarnhelm.project.ac.cn/privacy.html">隐私权政策同条款</a>。</string>
     <string name="mainPrivacyPolicyDialogPositiveButton">同意</string>
     <string name="mainPrivacyPolicyDialogNegativeButton">不同意</string>
 
-    <string name="aboutViewSourceCode"><![CDATA[在 %s 查看源码]]></string>
+    <string name="aboutViewSourceCode"><![CDATA[喺 %s 查看源码]]></string>
 
     <string name="rulesTitle">规则库</string>
     <string name="rulesParametersTitle">参数</string>
     <string name="rulesRegexesTitle">正则</string>
     <string name="rulesAddFab">添加</string>
-    <string name="rulesPasteFailedToast">粘贴失败。错误的格式？</string>
+    <string name="rulesPasteFailedToast">粘贴失败。喺咪格式错咗？</string>
 
     <string name="parameterRulesAddDialogTitle">添加一个参数规则</string>
     <string name="parameterRulesEditDialogTitle">编辑一个参数规则</string>
@@ -74,13 +74,13 @@
     <string name="settingsWorkModeBackgroundMonitoringToast">阅读文档了解如何开启</string>
     <string name="settingsWorkModeBackgroundMonitoringToastAction">打开</string>
     <string name="settingsWorkModeXposed">Xposed</string>
-    <string name="settingsWorkModeOpenLSPosedToast">在 LSPosed 中激活并重启来修改</string>
-    <string name="settingsWorkModeRecommendationToast">推荐只打开「后台监听」或「Xposed」的其中一个</string>
+    <string name="settingsWorkModeOpenLSPosedToast">喺 LSPosed 入面激活然后重启嚟切换开关</string>
+    <string name="settingsWorkModeRecommendationToast">推荐净喺係打开「后台监听」或「Xposed」嘅其中一个</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
-    <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
+    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭可能会有好鬼多麻烦嘢</string>
+    <string name="settingsBehaviorAnalytics">AppCenter 分析</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>
     <string name="settingsOthersWebSite">网站</string>
@@ -88,5 +88,5 @@
     <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslator">译者</string>
-    <string name="settingsOthersTranslatorSummary">lz差不多是条咸鱼了, 欧式fifty</string>
+    <string name="settingsOthersTranslatorSummary">欧式fifty</string>
 </resources>

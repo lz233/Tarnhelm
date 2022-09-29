@@ -22,6 +22,8 @@
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">規則庫</string>
     <string name="mainRulesSummary">已記錄 %s 個規則</string>
+    <string name="mainExtensionsTitle">擴展</string>
+    <string name="mainExtensionsSummary">已記錄 %s 个擴展</string>
     <string name="mainSettingsTitle">設置</string>
     <string name="mainShareTitle">分享</string>
     <string name="mainAboutTitle">關於</string>
@@ -29,7 +31,7 @@
     <string name="mainRankToastAction">評分</string>
     <string name="mainRequestPermissionFailedToast">你需要授予此權限來繼續</string>
     <string name="mainPrivacyPolicyDialogTitle">私隱權政策與條款</string>
-    <string name="mainPrivacyPolicyDialogContent">根據國內應用市場的相關要求，在開始前請先閱讀並同意<a href="https://tarnhelm.project.ac.cn/privacy.html">私隱權政策與條款</a>。</string>
+    <string name="mainPrivacyPolicyDialogContent">根據內地應用市場的相關要求，在開始前請先閱讀並同意<a href="https://tarnhelm.project.ac.cn/privacy.html">私隱權政策與條款</a>。</string>
     <string name="mainPrivacyPolicyDialogPositiveButton">同意</string>
     <string name="mainPrivacyPolicyDialogNegativeButton">不同意</string>
 
@@ -60,6 +62,9 @@
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">確認</string>
 
+    <string name="extensionsTitle">擴展</string>
+    <string name="extensionsImportFab">導入</string>
+
     <string name="settingsTitle">設置</string>
     <string name="settingsWorkModeTitle">工作模式</string>
     <string name="settingsWorkModeEditTextMenu">編輯菜單</string>
@@ -83,5 +88,5 @@
     <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslator">譯者</string>
-    <string name="settingsOthersTranslatorSummary">lz233</string>
+    <string name="settingsOthersTranslatorSummary">lz233, ous50</string>
 </resources>

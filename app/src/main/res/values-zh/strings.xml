@@ -60,6 +60,8 @@
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">确认</string>
 
+    <string name="extensionsTitle">扩展</string>
+    <string name="extensionsImportFab">导入</string>
     <string name="settingsTitle">设置</string>
     <string name="settingsWorkModeTitle">工作模式</string>
     <string name="settingsWorkModeEditTextMenu">编辑菜单</string>
