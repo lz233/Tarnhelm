@@ -9,7 +9,7 @@ import cn.ac.lz233.tarnhelm.logic.module.meta.Extension
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 
-@Database(entities = [RegexRule::class, ParameterRule::class, Extension::class], version = 2, exportSchema = false)
+@Database(entities = [RegexRule::class, ParameterRule::class, Extension::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun regexRuleDao(): RegexRuleDao
     abstract fun parameterRuleDao(): ParameterRuleDao
