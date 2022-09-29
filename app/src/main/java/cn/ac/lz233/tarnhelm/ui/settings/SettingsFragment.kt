@@ -118,7 +118,8 @@ class SettingsFragment() : PreferenceFragmentCompat() {
 
         workModeXposed.isChecked = App.isXposedActive()
         workModeXposed.setOnPreferenceChangeListener { preference, newValue ->
-            Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
+            if (!workModeXposed.isChecked)
+                Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
             false
         }
 
