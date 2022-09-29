@@ -22,7 +22,7 @@
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">規則庫</string>
     <string name="mainRulesSummary">已記錄 %s 個規則</string>
-    <string name="mainExtensionsTitle">擴展</string>
+    <string name="mainExtensionsTitle">擴展（WIP）</string>
     <string name="mainExtensionsSummary">已記錄 %s 个擴展</string>
     <string name="mainSettingsTitle">設置</string>
     <string name="mainShareTitle">分享</string>

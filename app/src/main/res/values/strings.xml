@@ -22,7 +22,7 @@
     <string name="mainStatusWorkModeXposed">Xposed</string>
     <string name="mainRulesTitle">Rules</string>
     <string name="mainRulesSummary">%s rule(s) recorded</string>
-    <string name="mainExtensionsTitle">Extensions</string>
+    <string name="mainExtensionsTitle">Extensions (WIP)</string>
     <string name="mainExtensionsSummary">%s extension(s) recorded</string>
     <string name="mainSettingsTitle">Settings</string>
     <string name="mainShareTitle">Share</string>
