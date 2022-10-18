@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
         init()
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
-        binding.extensionsCardView?.setOnClickListener { ExtensionsActivity.actionStart(this) }
+        binding.extensionsCardView.setOnClickListener { ExtensionsActivity.actionStart(this) }
         binding.settingsCardView.setOnClickListener { SettingsActivity.actionStart(this) }
         binding.shareCardView.setOnClickListener {
             startActivity(Intent.createChooser(Intent().apply {
