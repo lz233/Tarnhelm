@@ -60,6 +60,7 @@ android {
             excludes += ['META-INF/**', 'kotlin/**', 'okhttp3/**', 'org/**', '**.properties', '**.bin']
         }
     }
+    namespace 'cn.ac.lz233.tarnhelm'
 }
 
 configurations.all {
@@ -89,7 +90,7 @@ dependencies {
     coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
     coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
 
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
 
     //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'
@@ -106,6 +107,6 @@ dependencies {
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }
