@@ -28,20 +28,21 @@ android {
         }
     }
     flavorDimensions "version"
-    productFlavors{
-        github{
-            buildConfigField 'String','FLAVOR','"github"'
+    productFlavors {
+        github {
+            buildConfigField 'String', 'FLAVOR', '"github"'
         }
-        google{
-            buildConfigField 'String','FLAVOR','"google"'
+        google {
+            buildConfigField 'String', 'FLAVOR', '"google"'
         }
-        fdroid{
-            buildConfigField 'String','FLAVOR','"fdroid"'
+        fdroid {
+            buildConfigField 'String', 'FLAVOR', '"fdroid"'
         }
-        coolapk{
-            buildConfigField 'String','FLAVOR','"coolapk"'
+        coolapk {
+            buildConfigField 'String', 'FLAVOR', '"coolapk"'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -96,7 +97,7 @@ dependencies {
     //implementation 'dev.rikka.rikkax.material:material:2.5.1'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
 
-    implementation 'com.guolindev.permissionx:permissionx:1.7.0'
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
