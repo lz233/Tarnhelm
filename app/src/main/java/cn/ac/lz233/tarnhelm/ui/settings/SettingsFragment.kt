@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import cn.ac.lz233.tarnhelm.App
@@ -31,6 +32,7 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         val workModeShare: TwoStatePreference = findPreference("workModeShare")!!
         val workModeBackgroundMonitoring: TwoStatePreference = findPreference("workModeBackgroundMonitoring")!!
         val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
+        val xposed: PreferenceCategory = findPreference("xposed")!!
         val rewriteClipboard: TwoStatePreference = findPreference("rewriteClipboard")!!
         val overrideClipboardOverlay: TwoStatePreference = findPreference("overrideClipboardOverlay")!!
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
@@ -127,6 +129,8 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             false
         }
 
+        xposed.isVisible = workModeXposed.isChecked
+
         rewriteClipboard.setOnPreferenceChangeListener { preference, newValue ->
             App.editorXposed?.putBoolean("rewriteClipboard", newValue as Boolean)?.apply()
             true
@@ -151,13 +155,13 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
-        if (BuildConfig.FLAVOR == "fdroid") analytics.isVisible = false
+        analytics.isVisible = BuildConfig.FLAVOR != "fdroid"
         analytics.setOnPreferenceChangeListener { preference, newValue ->
             AppCenterUtil.setAnalyticsEnabled(newValue as Boolean)
             true
         }
 
-        if (BuildConfig.FLAVOR == "fdroid") crashes.isVisible = false
+        crashes.isVisible = BuildConfig.FLAVOR != "fdroid"
         crashes.setOnPreferenceChangeListener { preference, newValue ->
             AppCenterUtil.setCrashesEnabled(newValue as Boolean)
             true
