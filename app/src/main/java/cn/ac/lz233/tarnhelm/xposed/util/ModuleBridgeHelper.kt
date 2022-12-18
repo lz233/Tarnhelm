@@ -15,7 +15,7 @@ import cn.ac.lz233.tarnhelm.xposed.module.Android
 @SuppressLint("StaticFieldLeak")
 object ModuleBridgeHelper {
 
-    var bridge: ModuleDataBridge? = null
+    private var bridge: ModuleDataBridge? = null
     var isBridgeAvailable = false
     var mContext: Context? = null
 
@@ -77,6 +77,17 @@ object ModuleBridgeHelper {
         runCatching {
             context?.unbindService(serviceConnection)
         }
+    }
+
+    fun doTarnhelms(string: String): String {
+        if (!(isBridgeAvailable && isBridgeActive())) {
+            Android.startModuleAppProcess()
+            bindBridgeService()
+        }
+        bridge?.let {
+            return it.doTarnhelms(string)
+        }
+        throw Exception("Bridge is not available")
     }
 
 }
