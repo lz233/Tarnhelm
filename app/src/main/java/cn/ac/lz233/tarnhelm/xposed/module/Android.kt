@@ -11,9 +11,7 @@ import kotlin.concurrent.thread
 @SuppressLint("StaticFieldLeak")
 object Android {
 
-    private lateinit var activityManagerService: Any
-    private val isActivityManagerServiceInit: Boolean
-        get() = ::activityManagerService.isInitialized
+    private var activityManagerService: Any? = null
     private var mContext: Context? = null
 
     private val receiver = object : BroadcastReceiver() {
@@ -62,13 +60,7 @@ object Android {
                     for (i in 0 until data.itemCount) {
                         val item = data.getItemAt(i)
                         val text = item.getObjectField("mText") as CharSequence? ?: continue
-                        if (!(ModuleBridgeHelper.isBridgeAvailable && ModuleBridgeHelper.isBridgeActive())) {
-                            startModuleAppProcess()
-                            ModuleBridgeHelper.bindBridgeService()
-                        }
-                        ModuleBridgeHelper.bridge?.let {
-                            item.setObjectField("mText", it.doTarnhelms(text.toString()))
-                        }
+                        item.setObjectField("mText", ModuleBridgeHelper.doTarnhelms(text.toString()))
                     }
                 }.onFailure { LogUtil.xpe(it) }
             }
@@ -144,8 +136,11 @@ object Android {
 
     @SuppressLint("PrivateApi")
     fun startModuleAppProcess(): Boolean {
-        val ams = if (isActivityManagerServiceInit) activityManagerService else throw Exception("starting module app process but AMS isn't init")
-        return AMSHelper.startModuleAppProcess(ams)
+        if (activityManagerService == null) {
+            throw Exception("starting module app process but AMS isn't init")
+        } else {
+            return AMSHelper.startModuleAppProcess(activityManagerService!!)
+        }
     }
 
 }
