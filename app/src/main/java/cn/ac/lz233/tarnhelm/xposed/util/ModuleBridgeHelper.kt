@@ -7,12 +7,10 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
-import android.os.UserHandle
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
 import cn.ac.lz233.tarnhelm.xposed.ModuleDataBridge
 import cn.ac.lz233.tarnhelm.xposed.module.Android
-import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 @SuppressLint("StaticFieldLeak")
 object ModuleBridgeHelper {
@@ -52,8 +50,6 @@ object ModuleBridgeHelper {
         LogUtil.xp("bind bridge service")
         runCatching {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                HiddenApiBypass.addHiddenApiExemptions("")
-                val userHandle = UserHandle::class.java.getDeclaredField("CURRENT").get(null) as UserHandle
                 context?.bindServiceAsUser(
                     Intent().apply {
                         `package` = Config.packageName
@@ -61,9 +57,8 @@ object ModuleBridgeHelper {
                     },
                     serviceConnection,
                     Context.BIND_AUTO_CREATE,
-                    userHandle
+                    android.os.Process.myUserHandle()
                 )
-                HiddenApiBypass.clearHiddenApiExemptions()
             } else {
                 context?.bindService(
                     Intent().apply {
