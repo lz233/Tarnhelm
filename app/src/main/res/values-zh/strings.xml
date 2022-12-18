@@ -73,6 +73,9 @@
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosedToast">在 LSPosed 中激活并重启来修改</string>
     <string name="settingsWorkModeRecommendationToast">推荐只打开「后台监听」或「Xposed」的其中一个</string>
+    <string name="settingsXposedTitle">Xposed</string>
+    <string name="settingsXposedRewriteClipboard">重写剪切板</string>
+    <string name="settingsXposedOverrideClipboardOverlay">覆写剪切板悬浮窗</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>

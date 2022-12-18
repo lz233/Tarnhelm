@@ -26,6 +26,17 @@
             android:title="@string/settingsWorkModeXposed" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settingsXposedTitle">
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="rewriteClipboard"
+            android:title="@string/settingsXposedRewriteClipboard" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:key="overrideClipboardOverlay"
+            android:title="@string/settingsXposedOverrideClipboardOverlay" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settingsBehavior">
         <rikka.material.preference.MaterialSwitchPreference
             android:key="exportRulesAsLink"

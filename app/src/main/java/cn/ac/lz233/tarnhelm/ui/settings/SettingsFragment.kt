@@ -3,6 +3,7 @@ package cn.ac.lz233.tarnhelm.ui.settings
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -24,11 +25,14 @@ class SettingsFragment() : PreferenceFragmentCompat() {
     private lateinit var rootView: View
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+
         val workModeEditTextMenu: TwoStatePreference = findPreference("workModeEditTextMenu")!!
         val workModeCopyMenu: TwoStatePreference = findPreference("workModeCopyMenu")!!
         val workModeShare: TwoStatePreference = findPreference("workModeShare")!!
         val workModeBackgroundMonitoring: TwoStatePreference = findPreference("workModeBackgroundMonitoring")!!
         val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
+        val rewriteClipboard: TwoStatePreference = findPreference("rewriteClipboard")!!
+        val overrideClipboardOverlay: TwoStatePreference = findPreference("overrideClipboardOverlay")!!
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
         val useForegroundServiceOnBackgroundMonitoring: TwoStatePreference = findPreference("useForegroundServiceOnBackgroundMonitoring")!!
         val analytics: TwoStatePreference = findPreference("analytics")!!
@@ -121,6 +125,17 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             if (!workModeXposed.isChecked)
                 Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
             false
+        }
+
+        rewriteClipboard.setOnPreferenceChangeListener { preference, newValue ->
+            App.editorXposed?.putBoolean("rewriteClipboard", newValue as Boolean)?.apply()
+            true
+        }
+
+        overrideClipboardOverlay.isVisible = Build.VERSION.SDK_INT >= 33
+        overrideClipboardOverlay.setOnPreferenceChangeListener { preference, newValue ->
+            App.editorXposed?.putBoolean("overrideClipboardOverlay", newValue as Boolean)?.apply()
+            true
         }
 
         useForegroundServiceOnBackgroundMonitoring.setOnPreferenceChangeListener { preference, newValue ->

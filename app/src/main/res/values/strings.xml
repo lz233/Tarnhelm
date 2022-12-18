@@ -80,6 +80,9 @@
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosedToast">Activate in LSPosed and reboot to modify</string>
     <string name="settingsWorkModeRecommendationToast">Recommend to only enable one of Background Monitoring or Xposed</string>
+    <string name="settingsXposedTitle">Xposed</string>
+    <string name="settingsXposedRewriteClipboard">Rewrite clipboard</string>
+    <string name="settingsXposedOverrideClipboardOverlay">Override clipboard overlay</string>
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>

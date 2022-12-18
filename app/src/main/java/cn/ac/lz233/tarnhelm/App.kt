@@ -26,6 +26,8 @@ class App : Application() {
         lateinit var sp: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
         lateinit var spSettings: SharedPreferences
+        var spXposed: SharedPreferences? = null
+        var editorXposed: SharedPreferences.Editor? = null
         lateinit var db: AppDatabase
         lateinit var parameterRuleDao: ParameterRuleDao
         lateinit var regexRuleDao: RegexRuleDao
@@ -59,6 +61,10 @@ class App : Application() {
         context = applicationContext
         sp = context.getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)
         spSettings = PreferenceManager.getDefaultSharedPreferences(context)
+        runCatching {
+            spXposed = context.getSharedPreferences("${BuildConfig.APPLICATION_ID}_xposed", MODE_WORLD_READABLE)
+            editorXposed = spXposed?.edit()
+        }
         editor = sp.edit()
         db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         parameterRuleDao = db.parameterRuleDao()

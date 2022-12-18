@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Tarnhelm" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Customize your light theme here. -->
@@ -29,15 +29,15 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
-        <!--<item name="android:windowBackground">?attr/colorSurface</item>-->
+
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch
-        </item>
+        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
     </style>
 
     <style name="Theme.Tarnhelm.FuckToolbar" parent="Theme.Tarnhelm">

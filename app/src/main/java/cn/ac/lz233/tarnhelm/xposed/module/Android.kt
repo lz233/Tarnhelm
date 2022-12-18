@@ -2,6 +2,7 @@ package cn.ac.lz233.tarnhelm.xposed.module
 
 import android.annotation.SuppressLint
 import android.content.*
+import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
 import cn.ac.lz233.tarnhelm.xposed.util.*
@@ -36,6 +37,7 @@ object Android {
                 LogUtil.xp(it)
             }
         }.onFailure { LogUtil.xpe(it) }
+
         try {
             disableBackgroundCheck()
             val systemReadyMethod = "com.android.server.am.ActivityManagerService".findClass().declaredMethods.first { it.name == "systemReady" }
@@ -52,6 +54,8 @@ object Android {
             val setClipMethod = clipboardServiceClazz.declaredMethods.first { it.name == "setPrimaryClip" }
             setClipMethod.hookBeforeMethod { param ->
                 LogUtil.xp("setPrimaryClip")
+                if (!Config.sp.getBoolean("rewriteClipboard", true)) return@hookBeforeMethod
+
                 runCatching {
                     val data = param.args[0] as ClipData? ?: return@hookBeforeMethod
                     if (data.itemCount == 0) return@hookBeforeMethod
@@ -109,6 +113,14 @@ object Android {
             }*/
         } catch (e: Throwable) {
             LogUtil.xpe(e)
+        }
+
+        "com.android.server.clipboard.ClipboardService".hookBeforeMethod(
+            "isDefaultIme",
+            Int::class.javaPrimitiveType,
+            String::class.java
+        ) {
+            if ((it.args[1] as String) == BuildConfig.APPLICATION_ID) it.result = true
         }
     }
 
