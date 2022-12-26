@@ -17,6 +17,7 @@ class ProcessShareActivity : BaseActivity() {
         overridePendingTransition(0, 0)
         super.onCreate(savedInstanceState)
 
+        // must have a delay because Android has a very fool method to detect if app is in focus
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
