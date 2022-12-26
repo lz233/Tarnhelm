@@ -45,6 +45,7 @@
 
         <activity
             android:name=".ui.process.ProcessRulesActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
@@ -62,6 +63,7 @@
 
         <activity
             android:name=".ui.process.ProcessEditTextActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
@@ -74,6 +76,7 @@
 
         <activity
             android:name=".ui.process.ProcessCopyActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:label="@string/copy_label"
             android:launchMode="singleInstance"
@@ -87,12 +90,14 @@
 
         <activity
             android:name=".ui.process.ProcessOverlayActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay" />
 
         <activity
             android:name=".ui.process.ProcessShareActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay">
@@ -107,6 +112,7 @@
 
         <activity
             android:name=".ui.process.ProcessServiceActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay" />
