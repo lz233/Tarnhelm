@@ -62,8 +62,13 @@ class MainActivity : BaseActivity() {
             startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_SUBJECT, R.string.app_name.getString())
-                // TODO: redirect to f-droid
-                putExtra(Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+                putExtra(
+                    Intent.EXTRA_TEXT, when (BuildConfig.FLAVOR) {
+                        "google" -> "http://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+                        "fdroid" -> "https://f-droid.org/packages/${BuildConfig.APPLICATION_ID}"
+                        else -> "https://github.com/lz233/Tarnhelm"
+                    }
+                )
                 type = "text/plain"
             }, R.string.app_name.getString()))
         }
