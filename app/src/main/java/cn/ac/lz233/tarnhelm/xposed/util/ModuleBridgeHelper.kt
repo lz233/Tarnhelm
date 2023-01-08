@@ -87,7 +87,8 @@ object ModuleBridgeHelper {
         bridge?.let {
             return it.doTarnhelms(string)
         }
-        throw Exception("Bridge is not available")
+        LogUtil.xpe("Bridge is not available")
+        return string
     }
 
 }
