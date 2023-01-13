@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="Theme.Tarnhelm.DynamicColors" parent="Base.Tarnhelm">
+        <item name="android:colorBackground">@android:color/system_neutral1_50</item>
+        <item name="android:windowBackground">@android:color/system_neutral1_50</item>
+        <item name="colorSurface">@android:color/system_neutral1_50</item>
+    </style>
+
+</resources>

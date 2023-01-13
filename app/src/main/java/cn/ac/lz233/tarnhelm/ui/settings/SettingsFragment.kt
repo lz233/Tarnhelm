@@ -6,11 +6,15 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.view.updatePadding
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
+import androidx.recyclerview.widget.RecyclerView
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
@@ -175,6 +179,15 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         telegramChannel.setOnPreferenceClickListener {
             "https://t.me/tarnhelm_app".openUrl()
             false
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // get the root view of this fragment
+        (((this.requireView() as LinearLayout).getChildAt(0) as FrameLayout).getChildAt(0) as RecyclerView).apply {
+            updatePadding(top = resources.getDimensionPixelSize(R.dimen.collapsingToolbarLayoutContentPaddingTop))
+            clipToPadding = false
         }
     }
 

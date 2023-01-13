@@ -19,6 +19,7 @@ import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.DynamicColorsOptions
 
 class App : Application() {
     companion object {
@@ -78,6 +79,10 @@ class App : Application() {
                 action = "cn.ac.lz233.tarnhelm.bridge"
             }
         )
-        DynamicColors.applyToActivitiesIfAvailable(this)
+        DynamicColors.applyToActivitiesIfAvailable(
+            this, DynamicColorsOptions.Builder()
+                .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
+                .build()
+        )
     }
 }

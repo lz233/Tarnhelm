@@ -76,4 +76,6 @@
             android:summary="@string/settingsOthersTranslatorSummary"
             android:title="@string/settingsOthersTranslator" />
     </PreferenceCategory>
+
+    <Preference android:enabled="false" />
 </PreferenceScreen>

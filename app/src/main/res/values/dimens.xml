@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="collapsingToolbarLayoutHeight">158dp</dimen>
+    <dimen name="collapsingToolbarLayoutWithNavigationIconHeight">162dp</dimen>
+    <dimen name="collapsingToolbarLayoutContentPaddingTop">16dp</dimen>
+    <dimen name="collapsingToolbarLayoutContentPaddingBottom">100dp</dimen>
 </resources>

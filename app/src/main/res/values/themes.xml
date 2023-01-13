@@ -1,6 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.Tarnhelm" parent="Theme.Material3.DynamicColors.DayNight">
+
+    <style name="Base.Tarnhelm" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Tarnhelm.Material3</item>
+        <item name="collapsingToolbarLayoutLargeStyle">@style/Widget.Tarnhelm.CollapsingToolbar.Large</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+        <item name="android:fontFamily">google-sans</item>
+    </style>
+
+    <style name="Theme.Tarnhelm" parent="Base.Tarnhelm">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_primary</item> -->
         <item name="colorPrimary">@color/md_theme_primary</item>
@@ -19,7 +34,6 @@
         <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
         <item name="colorOnError">@color/md_theme_onError</item>
         <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
-        <item name="android:colorBackground">@color/md_theme_background</item>
         <item name="colorOnBackground">@color/md_theme_onBackground</item>
         <item name="colorSurface">@color/md_theme_surface</item>
         <item name="colorOnSurface">@color/md_theme_onSurface</item>
@@ -29,25 +43,25 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
-
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
-        <item name="materialSwitchStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
     </style>
 
-    <style name="Theme.Tarnhelm.FuckToolbar" parent="Theme.Tarnhelm">
-        <item name="android:statusBarColor">@color/md_theme_surface</item>
-    </style>
-
-    <style name="Theme.Tarnhelm.NoDisplay" parent="Theme.Tarnhelm">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Widget.Tarnhelm.CollapsingToolbar.Large" parent="Widget.Material3.CollapsingToolbar.Large">
+        <item name="expandedTitleMarginStart">24dp</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Tarnhelm.HeadlineLarge</item>
+    </style>
+
+    <style name="TextAppearance.Tarnhelm.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">google-sans</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="PreferenceThemeOverlay.Tarnhelm.Material3" parent="@style/PreferenceThemeOverlay">
+        <item name="materialSwitchPreferenceStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
     </style>
 </resources>

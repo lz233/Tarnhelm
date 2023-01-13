@@ -32,8 +32,9 @@ class RulesActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toolbar = binding.toolbar
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
 
         binding.viewPager2.adapter = object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int) = fragments[position]

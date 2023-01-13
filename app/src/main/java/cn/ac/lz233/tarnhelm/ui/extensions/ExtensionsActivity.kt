@@ -13,8 +13,9 @@ class ExtensionsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toolbar = binding.toolbar
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
 
 
 

@@ -13,11 +13,12 @@ class SettingsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme.applyStyle(rikka.material.preference.R.style.ThemeOverlay_Rikka_Material3_Preference, true)
+        toolbar = binding.toolbar
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.preferenceFragment, SettingsFragment(rootView))
+            .replace(R.id.preferenceFragment, SettingsFragment(binding.root))
             .commit()
     }
 

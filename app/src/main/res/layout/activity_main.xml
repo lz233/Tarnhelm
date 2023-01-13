@@ -16,7 +16,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="@dimen/collapsingToolbarLayoutHeight"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -37,8 +37,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="@dimen/collapsingToolbarLayoutContentPaddingTop"
+            android:layout_marginBottom="@dimen/collapsingToolbarLayoutContentPaddingBottom"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
