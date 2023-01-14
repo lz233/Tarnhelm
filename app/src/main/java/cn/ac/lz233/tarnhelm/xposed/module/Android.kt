@@ -132,6 +132,21 @@ object Android {
                 }.onFailure { LogUtil.xpe(it) }
             }
         }.onFailure { LogUtil.xpe(it) }
+        runCatching {
+            "com.android.server.am.UidRecord".hookBeforeMethod("isSetIdle") { param ->
+                runCatching {
+                    val ams = param.thisObject.getObjectField("mService") ?: throw Exception("AMS is null")
+                    val context = ams.getObjectField("mContext") as Context
+                    val uid = param.thisObject.getIntField("mUid")
+                    context.packageManager.getPackagesForUid(uid)?.let {
+                        if (it.contains(Config.packageName)) {
+                            LogUtil.xpe("isSetIdle hooked, set result to false")
+                            param.result = false
+                        }
+                    }
+                }.onFailure { LogUtil.xpe(it) }
+            }
+        }
     }
 
     @SuppressLint("PrivateApi")
