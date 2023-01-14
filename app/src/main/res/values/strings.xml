@@ -73,12 +73,17 @@
     <string name="settingsTitle">Settings</string>
     <string name="settingsWorkModeTitle">Work Mode</string>
     <string name="settingsWorkModeEditTextMenu">EditText Menu</string>
+    <string name="settingsWorkModeEditTextMenuSummary">Click \"Tarnhelm\" in the editable EditText</string>
     <string name="settingsWorkModeCopyMenu">Copy Menu</string>
+    <string name="settingsWorkModeCopyMenuSummary">Click \"Tarnhelm Copy\" after selecting</string>
     <string name="settingsWorkModeShare">Sharing Dialog</string>
+    <string name="settingsWorkModeShareSummary">Check \"Tarnhelm\" on sharing dialog</string>
     <string name="settingsWorkModeBackgroundMonitoring">Background Monitoring</string>
+    <string name="settingsWorkModeBackgroundMonitoringSummary">Process contents in background real time</string>
     <string name="settingsWorkModeBackgroundMonitoringToast">Read the document to learn how to enable it</string>
     <string name="settingsWorkModeBackgroundMonitoringToastAction">Open</string>
     <string name="settingsWorkModeXposed">Xposed</string>
+    <string name="settingsWorkModeXposedSummary">Hook framework to modify clipboard</string>
     <string name="settingsWorkModeOpenLSPosedToast">Activate in LSPosed and reboot to modify</string>
     <string name="settingsWorkModeRecommendationToast">Recommend to only enable one of Background Monitoring or Xposed</string>
     <string name="settingsXposedTitle">Xposed</string>
@@ -86,6 +91,7 @@
     <string name="settingsXposedOverrideClipboardOverlay">Override clipboard overlay</string>
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
+    <string name="settingsBehaviorExportRulesAsLinkSummary">Add \"tarnhelm://\" on exported rules</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>
     <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">Turning off may cause a lot of unnecessary problems</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>

@@ -5,24 +5,29 @@
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
             android:key="workModeEditTextMenu"
+            android:summary="@string/settingsWorkModeEditTextMenuSummary"
             android:title="@string/settingsWorkModeEditTextMenu" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
             android:key="workModeCopyMenu"
+            android:summary="@string/settingsWorkModeCopyMenuSummary"
             android:title="@string/settingsWorkModeCopyMenu" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
             android:key="workModeShare"
+            android:summary="@string/settingsWorkModeShareSummary"
             android:title="@string/settingsWorkModeShare" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:key="workModeBackgroundMonitoring"
+            android:summary="@string/settingsWorkModeBackgroundMonitoringSummary"
             android:title="@string/settingsWorkModeBackgroundMonitoring" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:key="workModeXposed"
+            android:summary="@string/settingsWorkModeXposedSummary"
             android:title="@string/settingsWorkModeXposed" />
     </PreferenceCategory>
 
@@ -42,6 +47,7 @@
     <PreferenceCategory android:title="@string/settingsBehavior">
         <rikka.material.preference.MaterialSwitchPreference
             android:key="exportRulesAsLink"
+            android:summary="@string/settingsBehaviorExportRulesAsLinkSummary"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
 
         <rikka.material.preference.MaterialSwitchPreference
