@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Tarnhelm" parent="Theme.Material3.DynamicColors.DayNight">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Tarnhelm.Material3</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Rikka.Material3</item>
         <item name="collapsingToolbarLayoutLargeStyle">@style/Widget.Tarnhelm.CollapsingToolbar.Large</item>
 
         <item name="windowActionBar">false</item>
@@ -46,7 +46,10 @@
     </style>
 
     <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
@@ -59,9 +62,5 @@
         <item name="fontFamily">google-sans</item>
         <item name="android:textSize">36sp</item>
         <item name="android:letterSpacing">0</item>
-    </style>
-
-    <style name="PreferenceThemeOverlay.Tarnhelm.Material3" parent="@style/PreferenceThemeOverlay">
-        <item name="materialSwitchPreferenceStyle">@style/Widget.Material3.CompoundButton.MaterialSwitch</item>
     </style>
 </resources>

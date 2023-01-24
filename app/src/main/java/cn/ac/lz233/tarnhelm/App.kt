@@ -80,8 +80,12 @@ class App : Application() {
             }
         )
         DynamicColors.applyToActivitiesIfAvailable(
-            this, DynamicColorsOptions.Builder()
+            this,
+            DynamicColorsOptions.Builder()
                 .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
+                .setPrecondition { activity, theme ->
+                    !activity.localClassName.startsWith("ui.process")
+                }
                 .build()
         )
     }
