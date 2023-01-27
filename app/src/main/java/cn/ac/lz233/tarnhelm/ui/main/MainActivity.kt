@@ -17,8 +17,6 @@ import cn.ac.lz233.tarnhelm.databinding.ActivityMainBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogAboutBinding
 import cn.ac.lz233.tarnhelm.logic.dao.ConfigDao
 import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
-import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
-import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
@@ -32,7 +30,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
@@ -108,7 +105,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun init() {
-        initRules()
         showPrivacyPolicyDialog()
         showRankDialog()
     }
@@ -124,80 +120,6 @@ class MainActivity : BaseActivity() {
                         data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
                     })
                 }.show()
-        }
-    }
-
-    private fun initRules() {
-        if (App.sp.getBoolean("isFirstTestRun", true)) {
-            App.parameterRuleDao.insert(
-                ParameterRule(
-                    1,
-                    "微信读书",
-                    "weread.qq.com",
-                    0,
-                    JSONArray().apply {
-                        put("v")
-                    }.toString(),
-                    "lz233",
-                    1,
-                    true
-                ),
-                ParameterRule(
-                    2,
-                    "网易云音乐",
-                    "y.music.163.com",
-                    0,
-                    JSONArray().apply {
-                        put("id")
-                    }.toString(),
-                    "lz233",
-                    1,
-                    true
-                ),
-                ParameterRule(
-                    3,
-                    "淘宝/闲鱼",
-                    "m.tb.cn",
-                    0,
-                    JSONArray().apply { put("") }.toString(),
-                    "lz233",
-                    1,
-                    true
-                )
-            )
-            App.regexRuleDao.insert(
-                RegexRule(
-                    1,
-                    "Twitter",
-                    JSONArray().apply {
-                        put("""(http|https)://twitter.com""")
-                        put("""\?.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("https://vxtwitter.com")
-                        put("")
-                    }.toString(),
-                    "lz233",
-                    1,
-                    true
-                ),
-                RegexRule(
-                    3,
-                    "京东",
-                    JSONArray().apply {
-                        put("item.m.jd.com")
-                        put("""\?.*""")
-                    }.toString(),
-                    JSONArray().apply {
-                        put("item.jd.com")
-                        put("")
-                    }.toString(),
-                    "lz233",
-                    1,
-                    true
-                )
-            )
-            App.editor.putBoolean("isFirstTestRun", false).apply()
         }
     }
 
