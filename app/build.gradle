@@ -1,8 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    //id 'dev.rikka.tools.materialthemebuilder'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -22,12 +21,11 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "version"
+    flavorDimensions = ["version"]
     productFlavors {
         github {
             buildConfigField 'String', 'FLAVOR', '"github"'
@@ -64,7 +62,7 @@ android {
     namespace 'cn.ac.lz233.tarnhelm'
 }
 
-configurations.all {
+configurations.configureEach {
     exclude group: 'dev.rikka.rikkax.appcompat', module: 'appcompat'
 }
 
@@ -72,34 +70,31 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.room:room-runtime:2.5.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.room:room-runtime:2.5.1'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-    kapt 'androidx.room:room-compiler:2.5.0'
+    ksp 'androidx.room:room-compiler:2.5.1'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    githubImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    githubImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
-    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
-    coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:4.4.5'
-    coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:4.4.5'
+    githubImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.1'
+    githubImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.1'
+    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.1'
+    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.1'
+    coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.1'
+    coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.1'
 
-    implementation 'com.google.android.material:material:1.7.0'
-
-    //implementation 'dev.rikka.rikkax.appcompat:appcompat:1.5.0'
-    //implementation 'dev.rikka.rikkax.material:material:2.5.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
 
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
