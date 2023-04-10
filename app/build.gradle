@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace 'cn.ac.lz233.tarnhelm'
     compileSdk 33
 
     defaultConfig {
@@ -59,7 +60,6 @@ android {
             excludes += ['META-INF/**', 'kotlin/**', 'okhttp3/**', 'org/**', '**.properties', '**.bin']
         }
     }
-    namespace 'cn.ac.lz233.tarnhelm'
 }
 
 configurations.configureEach {
