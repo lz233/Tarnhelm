@@ -26,37 +26,69 @@ object SystemUI {
     @SuppressLint("ResourceType")
     fun init() {
         runCatching {
-            "com.android.systemui.clipboardoverlay.ClipboardOverlayController".hookAfterMethod(
-                "setClipData",
-                ClipData::class.java,
-                String::class.java
-            ) {
-                LogUtil.xpd("setClipData")
-                if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
+            if ("com.android.systemui.clipboardoverlay.ClipboardOverlayView".findClassOrNull() == null) {
+                // ????<=x<=TQ2A
+                "com.android.systemui.clipboardoverlay.ClipboardOverlayController".hookAfterMethod(
+                    "setClipData",
+                    ClipData::class.java,
+                    String::class.java
+                ) {
+                    if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
+                    LogUtil.xpd("setClipData ????<=x<=TQ2A")
 
-                val clipboardOverlayController = it.thisObject
-                val context = clipboardOverlayController.getObjectField("mContext") as Context
-                //val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val actionContainer = clipboardOverlayController.getObjectField("mActionContainer") as LinearLayout
-                // Android may call setClipData twice
-                if ((actionContainer[actionContainer.size - 1] as View).contentDescription != "Tarnhelm") {
-                    val chip = it.thisObject.callMethod(
-                        "constructActionChip",
+                    val clipboardOverlayController = it.thisObject
+                    val context = clipboardOverlayController.getObjectField("mContext") as Context
+                    //val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val actionContainer = clipboardOverlayController.getObjectField("mActionContainer") as LinearLayout
+                    // Android may call setClipData twice
+                    if ((actionContainer[actionContainer.size - 1] as View).contentDescription != "Tarnhelm") {
+                        val chip = it.thisObject.callMethod(
+                            "constructActionChip",
+                            RemoteAction(
+                                Icon.createWithResource(BuildConfig.APPLICATION_ID, R.drawable.ic_icon),
+                                "",
+                                "Tarnhelm",
+                                PendingIntent.getActivity(context, 1, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
+                            )
+                        ) as View
+                        chip.contentDescription = "Tarnhelm"
+                        chip.setOnClickListener {
+                            clipboardOverlayController.callMethod("animateOut")
+                            context.startActivity(Intent().setClassName(BuildConfig.APPLICATION_ID, ProcessOverlayActivity::class.java.name).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            })
+                        }
+                        actionContainer.addView(chip)
+                    }
+                }
+            } else {
+                // >=TQ2A
+                "com.android.systemui.clipboardoverlay.ClipboardOverlayView".hookAfterMethod(
+                    "resetActionChips"
+                ) {
+                    if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
+                    LogUtil.xpd("setClipData >=TQ2A")
+
+                    val clipboardOverlayView = it.thisObject as View
+                    clipboardOverlayView.callMethod(
+                        "setActionChip",
                         RemoteAction(
                             Icon.createWithResource(BuildConfig.APPLICATION_ID, R.drawable.ic_icon),
                             "",
                             "Tarnhelm",
-                            PendingIntent.getActivity(context, 1, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
-                        )
-                    ) as View
-                    chip.contentDescription = "Tarnhelm"
-                    chip.setOnClickListener {
-                        clipboardOverlayController.callMethod("animateOut")
-                        context.startActivity(Intent().setClassName(BuildConfig.APPLICATION_ID, ProcessOverlayActivity::class.java.name).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        })
-                    }
-                    actionContainer.addView(chip)
+                            PendingIntent.getActivity(
+                                clipboardOverlayView.context,
+                                1,
+                                Intent().setClassName(BuildConfig.APPLICATION_ID, ProcessOverlayActivity::class.java.name),
+                                PendingIntent.FLAG_IMMUTABLE
+                            )
+                        ),
+                        object : Runnable {
+                            override fun run() {
+                                //clipboardOverlayController.callMethod("animateOut")
+                            }
+                        }
+                    )
                 }
             }
         }.onFailure { LogUtil.xpe(it) }
