@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_icon"
+        android:shortcutId="doTarnhelm"
+        android:shortcutShortLabel="@string/tarnhelm_shortcuts">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="doTarnhelm"
+            android:targetClass="cn.ac.lz233.tarnhelm.ui.process.ProcessShortcutActivity"
+            android:targetPackage="cn.ac.lz233.tarnhelm" />
+    </shortcut>
+</shortcuts>

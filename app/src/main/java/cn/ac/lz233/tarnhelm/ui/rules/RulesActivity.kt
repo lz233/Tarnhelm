@@ -13,17 +13,23 @@ import cn.ac.lz233.tarnhelm.databinding.DialogParameterRuleAddBinding
 import cn.ac.lz233.tarnhelm.databinding.DialogRegexRuleAddBinding
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
-import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.ui.SecondaryBaseActivity
 import cn.ac.lz233.tarnhelm.ui.rules.parameter.ParameterRulesFragment
 import cn.ac.lz233.tarnhelm.ui.rules.regex.RegexRulesFragment
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.*
+import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.decodeURL
+import cn.ac.lz233.tarnhelm.util.ktx.getModeId
+import cn.ac.lz233.tarnhelm.util.ktx.getString
+import cn.ac.lz233.tarnhelm.util.ktx.insertToParameterRules
+import cn.ac.lz233.tarnhelm.util.ktx.insertToRegexRules
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
 
-class RulesActivity : BaseActivity() {
+class RulesActivity : SecondaryBaseActivity() {
 
     private val binding by lazy { ActivityRulesBinding.inflate(layoutInflater) }
     private val parameterRulesFragment = ParameterRulesFragment()

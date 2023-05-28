@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Tarnhelm</string>
     <string name="app_description">The magic to clean sharing links up.</string>
-    <string name="copy_label">Tarnhelm copy</string>
+    <string name="tarnhelm_shortcuts">Process Clipboard</string>
+    <string name="copy_label">Tarnhelm Copy</string>
     <string name="read_only_toast">Read only text</string>
     <string name="rule_added_toast">\"%s\" added</string>
     <string name="rule_added_failed_toast">Add failed. Wrong format?</string>

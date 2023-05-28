@@ -15,9 +15,9 @@ object SettingsDao {
     val workModeBackgroundMonitoring
         get() = App.spSettings.getBoolean("workModeBackgroundMonitoring", false)
 
-    val exportRulesAsLink
-        get() = App.spSettings.getBoolean("exportRulesAsLink", false)
-
     val useForegroundServiceOnBackgroundMonitoring
         get() = App.spSettings.getBoolean("useForegroundServiceOnBackgroundMonitoring", true)
+
+    val exportRulesAsLink
+        get() = App.spSettings.getBoolean("exportRulesAsLink", false)
 }

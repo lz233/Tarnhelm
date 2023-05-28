@@ -5,9 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import cn.ac.lz233.tarnhelm.databinding.ActivityExtensionsBinding
-import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.ui.SecondaryBaseActivity
 
-class ExtensionsActivity : BaseActivity() {
+class ExtensionsActivity : SecondaryBaseActivity() {
 
     private val binding by lazy { ActivityExtensionsBinding.inflate(layoutInflater) }
 

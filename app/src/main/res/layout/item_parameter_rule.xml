@@ -5,17 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_alignTop="@id/ruleContentCardView"
-        android:layout_alignBottom="@id/ruleContentCardView"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="-80dp"
-        android:layout_toEndOf="@id/ruleContentCardView"
-        app:srcCompat="@drawable/ic_delete"
-        app:tint="?attr/colorOnSurface" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/ruleContentCardView"
         style="?attr/materialCardViewFilledStyle"

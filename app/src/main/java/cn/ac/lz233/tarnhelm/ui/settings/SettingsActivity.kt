@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.databinding.ActivitySettingsBinding
-import cn.ac.lz233.tarnhelm.ui.BaseActivity
+import cn.ac.lz233.tarnhelm.ui.SecondaryBaseActivity
 
-class SettingsActivity : BaseActivity() {
+class SettingsActivity : SecondaryBaseActivity() {
 
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {

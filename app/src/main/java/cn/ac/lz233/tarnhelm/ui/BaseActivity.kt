@@ -27,9 +27,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
 
     override fun onStart() {
         super.onStart()
-        toolbar?.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
     }
 
     override fun attachBaseContext(newBase: Context) {
