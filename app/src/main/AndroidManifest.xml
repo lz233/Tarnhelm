@@ -9,6 +9,7 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -148,16 +149,21 @@
         <service
             android:name=".service.ModuleDataBridgeService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:foregroundServiceType="specialUse">
             <intent-filter>
                 <action android:name="cn.ac.lz233.tarnhelm.bridge" />
             </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Send module data to app. It will be called by system via Xposed." />
         </service>
 
         <service
             android:name=".service.ClipboardService"
             android:enabled="false"
-            android:exported="false">
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Process clipboard context in background real-time." />

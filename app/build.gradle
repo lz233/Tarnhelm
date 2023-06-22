@@ -6,15 +6,15 @@ plugins {
 
 android {
     namespace 'cn.ac.lz233.tarnhelm'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         Date date = new Date()
         applicationId "cn.ac.lz233.tarnhelm"
         minSdk 27
-        targetSdk 33
+        targetSdk 34
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.5.2"
+        versionName "1.5.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
