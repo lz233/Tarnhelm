@@ -35,7 +35,7 @@ fun String.toJSONArray() = JSONArray().apply {
 }
 
 fun String.doTarnhelm(): CharSequence {
-    LogUtil._d(this)
+    LogUtil._d("Original Url: $this")
     var result = this
     val parameterRules = App.parameterRuleDao.getAll()
     var httpUrl = result.toHttpUrlOrNull()
@@ -55,6 +55,7 @@ fun String.doTarnhelm(): CharSequence {
                         0 -> aloneParameterNames.forEach {
                             httpUrlBuilder = httpUrlBuilder.removeAllQueryParameters(it)
                         }
+
                         1 -> overlapParameterNames.forEach {
                             httpUrlBuilder = httpUrlBuilder.removeAllQueryParameters(it)
                         }
@@ -63,8 +64,8 @@ fun String.doTarnhelm(): CharSequence {
                 }
             }
         }
-        result = httpUrl.toString().decodeURL()
-        LogUtil._d(result)
+        //result = httpUrl.toString().decodeURL()
+        LogUtil._d("After Parameters: $result")
     }
     val regexRules = App.regexRuleDao.getAll()
     var skipRuleID = -1
@@ -83,14 +84,14 @@ fun String.doTarnhelm(): CharSequence {
             }
         }
     }
-    LogUtil._d(result)
+    LogUtil._d("Result: $result")
     return result
 }
 
 fun CharSequence.doTarnhelms(): String {
     var result = this.toString()
     result =
-        Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})""")
+        Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\u2E80-\u9FFF]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\u2E80-\u9FFF]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\u2E80-\u9FFF]{2,}|www\.[a-zA-Z0-9]+\.[^\s\u2E80-\u9FFF]{2,})""")
             .replace(this) { it.value.doTarnhelm() }
     /*val notification = Notification.Builder(App.context, "234")
         .setContentTitle(R.string.process_result_success.getString())

@@ -77,12 +77,10 @@
     <string name="settingsWorkModeShareSummary">共有ダイアログで「Tarnhelm」を選択できます</string>
     <string name="settingsWorkModeBackgroundMonitoring">バックグラウンドでモリタニング</string>
     <string name="settingsWorkModeBackgroundMonitoringSummary">バックグラウンドでのクリップボードの内容のリアルタイム処理します</string>
-    <string name="settingsWorkModeBackgroundMonitoringSummary">バックグラウンドでのクリップボードの内容のリアルタイム処理します</string>
     <string name="settingsWorkModeBackgroundMonitoringToast">有効にする方法については、ドキュメントを参照してください。</string>
     <string name="settingsWorkModeBackgroundMonitoringToastAction">有効化</string>
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeXposedSummary">クリップボードを変更するためにシステムフレームワークをフックする必要があります</string>
-    <string name="settingsWorkModeXposedSummary">クリップボードを変更するためにシステムフレームワークをホックする必要があります</string>
     <string name="settingsWorkModeOpenLSPosedToast">LSPosedで有効化し、端末を再起動して変更できます。</string>
     <string name="settingsWorkModeRecommendationToast">「Background Monitoring」と「Xposed」のうちの1つを選んで有効にすることをお勧めします。</string>
     <string name="settingsXposedTitle">Xposed</string>

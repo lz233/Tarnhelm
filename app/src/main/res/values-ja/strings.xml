@@ -70,12 +70,10 @@
     <string name="settingsTitle">設定</string>
     <string name="settingsWorkModeTitle">実行モード</string>
     <string name="settingsWorkModeEditTextMenu">テキスト編集メニュー</string>
-    <string name="settingsWorkModeEditTextMenuSummary">編集可能なテキストボックスで「Tarnhelm」を選択できます</string>
     <string name="settingsWorkModeEditTextMenuSummary">編集可能なテキストボックスで「Tarnhelm」を選択します</string>
     <string name="settingsWorkModeCopyMenu">コピーメニュー</string>
     <string name="settingsWorkModeCopyMenuSummary">テキストを選択して「Tarnhelm でコピー」をクリックできます</string>
     <string name="settingsWorkModeShare">共有ダイアログ</string>
-    <string name="settingsWorkModeShareSummary">共有ダイアログで「Tarnhelm」を選択できます</string>
     <string name="settingsWorkModeShareSummary">共有ダイアログで「Tarnhelm」を選択します</string>
     <string name="settingsWorkModeBackgroundMonitoring">バックグラウンドでモリタニング</string>
     <string name="settingsWorkModeBackgroundMonitoringSummary">バックグラウンドでのクリップボードの内容のリアルタイム処理します</string>

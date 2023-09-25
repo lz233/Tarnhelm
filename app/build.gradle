@@ -14,7 +14,7 @@ android {
         minSdk 27
         targetSdk 34
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.5.3"
+        versionName "1.5.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +58,7 @@ android {
             excludes += []
         }
         resources {
-            excludes += ['META-INF/**', 'kotlin/**', 'okhttp3/**', 'org/**', '**.properties', '**.bin']
+            excludes += ['META-INF/**', 'kotlin/**', 'okhttp3/**', 'org/**', '**.properties', '**.bin', '**kotlin**']
         }
     }
 }
@@ -72,17 +72,17 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.room:room-runtime:2.5.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.room:room-runtime:2.5.2'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta02'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-    implementation 'androidx.window:window:1.2.0-alpha01'
-    ksp 'androidx.room:room-compiler:2.5.1'
+    implementation 'androidx.window:window:1.2.0-beta03'
+    ksp 'androidx.room:room-compiler:2.5.2'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
     githubImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.1'
     githubImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.1'
