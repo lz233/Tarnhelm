@@ -14,7 +14,6 @@ class XposedEntry : IXposedHookLoadPackage {
             Config.packageName -> Self.init()
             "android" -> Android.init()
             "com.android.systemui" -> SystemUI.init()
-            "com.maimemo.android.momo" -> Android.init()
         }
     }
 

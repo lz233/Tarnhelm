@@ -2,7 +2,6 @@ package cn.ac.lz233.tarnhelm.xposed.module
 
 import android.annotation.SuppressLint
 import android.content.*
-import android.widget.TextView
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
@@ -114,45 +113,6 @@ object Android {
             String::class.java
         ) {
             if ((it.args[1] as String) == BuildConfig.APPLICATION_ID) it.result = true
-        }
-
-        TextView::class.java.hookAfterAllConstructors {
-            (it.thisObject as TextView).setOnClickListener { textView ->
-                val clipboardManager = textView.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", (textView as TextView).text))
-            }
-        }
-
-        "com.maimemo.android.momo.util.EncryptUtils".hookBeforeMethod(
-            "symmetricTemplate",
-            ByteArray::class.java,
-            ByteArray::class.java,
-            String::class.java,
-            String::class.java,
-            ByteArray::class.java,
-            Boolean::class.javaPrimitiveType
-        ) {
-            //LogUtil.xpd((it.args[1] as ByteArray).toList())
-        }
-
-        "com.maimemo.android.momo.util.EncryptUtils".hookAfterMethod(
-            "decryptAES",
-            ByteArray::class.java, // content
-            ByteArray::class.java, // key
-            ByteArray::class.java, // IV
-            String::class.java // CIPHER_ALGORITHM
-        ) {
-            LogUtil.xpd("content ${String(it.args[0] as ByteArray)}")
-            LogUtil.xpd("key ${String(it.args[1] as ByteArray)}")
-            LogUtil.xpd("IV ${String(it.args[2] as ByteArray)}")
-            LogUtil.xpd("result ${String(it.result as ByteArray)}")
-        }
-
-        "com.maimemo.android.momo.util.Functions".hookAfterMethod(
-            "b",
-            String::class.java
-        ) {
-            LogUtil.xpd("string ${it.args[0] as String} \n ${it.result as String}")
         }
     }
 
