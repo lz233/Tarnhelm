@@ -15,7 +15,14 @@ import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.*
+import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.encodeURL
+import cn.ac.lz233.tarnhelm.util.ktx.getModeButtonId
+import cn.ac.lz233.tarnhelm.util.ktx.getModeId
+import cn.ac.lz233.tarnhelm.util.ktx.getString
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
+import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -89,18 +96,20 @@ class ParameterRulesAdapter(private val rulesList: MutableList<ParameterRule>) :
         }
         holder.ruleEnableSwitch.isChecked = rule.enabled
         holder.ruleEnableSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            val item = ParameterRule(
-                rule.id,
-                rule.description,
-                rule.domain,
-                rule.mode,
-                rule.parametersArray,
-                rule.author,
-                rule.sourceType,
-                b
-            )
-            App.parameterRuleDao.insert(item)
-            rulesList[position] = item
+            if (compoundButton.isShown) {
+                val item = ParameterRule(
+                    rule.id,
+                    rule.description,
+                    rule.domain,
+                    rule.mode,
+                    rule.parametersArray,
+                    rule.author,
+                    rule.sourceType,
+                    b
+                )
+                App.parameterRuleDao.insert(item)
+                rulesList[position] = item
+            }
         }
         holder.descriptionContentTextView.text = rule.description
         holder.domainContentTextView.text = rule.domain

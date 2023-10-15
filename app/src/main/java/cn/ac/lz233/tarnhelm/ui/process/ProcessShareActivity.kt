@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
-import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,8 +20,6 @@ class ProcessShareActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
-                LogUtil._d(App.clipboardManager.primaryClip?.getItemAt(0)?.text)
-                LogUtil._d(intent.getStringExtra(Intent.EXTRA_TEXT))
                 if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
                     copyToClipboard()
                 else
@@ -43,7 +40,7 @@ class ProcessShareActivity : BaseActivity() {
             putExtra(Intent.EXTRA_SUBJECT, (intent.getStringExtra(Intent.EXTRA_SUBJECT)?.doTarnhelms()))
             putExtra(Intent.EXTRA_TEXT, (intent.getStringExtra(Intent.EXTRA_TEXT)?.doTarnhelms()))
             //putExtra(Intent.EXTRA_TITLE, (intent.getStringExtra(Intent.EXTRA_TITLE)?.doTarnhelms() ?: ""))
-            type = "text/plain"
+            type = intent.type
         }, null).apply {
             putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, arrayOf(ComponentName(App.context, ProcessShareActivity::class.java)))
         })

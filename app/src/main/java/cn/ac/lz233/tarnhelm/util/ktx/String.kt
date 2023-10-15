@@ -35,10 +35,11 @@ fun String.toJSONArray() = JSONArray().apply {
 }
 
 fun String.doTarnhelm(): CharSequence {
-    LogUtil._d("Original Url: $this")
+    LogUtil._d("Original URL: $this")
     var result = this
     val parameterRules = App.parameterRuleDao.getAll()
     var httpUrl = result.toHttpUrlOrNull()
+    LogUtil._d("HTTP URL: $httpUrl")
     if (httpUrl != null) {
         for (rule in parameterRules) {
             if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
@@ -64,7 +65,7 @@ fun String.doTarnhelm(): CharSequence {
                 }
             }
         }
-        //result = httpUrl.toString().decodeURL()
+        result = httpUrl.toString()//.decodeURL()
         LogUtil._d("After Parameters: $result")
     }
     val regexRules = App.regexRuleDao.getAll()

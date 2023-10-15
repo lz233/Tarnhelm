@@ -15,7 +15,11 @@ import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import cn.ac.lz233.tarnhelm.ui.rules.IDragSwipe
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.*
+import cn.ac.lz233.tarnhelm.util.ktx.encodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.encodeURL
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
+import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
+import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -86,17 +90,19 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
         }
         holder.ruleEnableSwitch.isChecked = rule.enabled
         holder.ruleEnableSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            val item = RegexRule(
-                rule.id,
-                rule.description,
-                rule.regexArray,
-                rule.replaceArray,
-                rule.author,
-                rule.sourceType,
-                b
-            )
-            App.regexRuleDao.insert(item)
-            rulesList[position] = item
+            if (compoundButton.isShown) {
+                val item = RegexRule(
+                    rule.id,
+                    rule.description,
+                    rule.regexArray,
+                    rule.replaceArray,
+                    rule.author,
+                    rule.sourceType,
+                    b
+                )
+                App.regexRuleDao.insert(item)
+                rulesList[position] = item
+            }
         }
         holder.descriptionContentTextView.text = rule.description
         holder.regexesContentTextView.text = JSONArray(rule.regexArray).toMultiString()
