@@ -39,7 +39,7 @@ fun String.toJSONArray() = JSONArray().apply {
 
 fun getRedirectUrl(url: String): String {
     val client = OkHttpClient.Builder().followRedirects(false).build()
-    val request = Request.Builder().url(url).build()
+    val request = Request.Builder().url(url).head().build()
     var response: Response? = null
 
     return try {
