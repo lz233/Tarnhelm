@@ -2,29 +2,18 @@ package cn.ac.lz233.tarnhelm
 
 import android.app.Application
 import android.app.NotificationManager
-import android.content.ClipboardManager
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.window.embedding.ActivityFilter
-import androidx.window.embedding.RuleController
-import androidx.window.embedding.SplitAttributes
-import androidx.window.embedding.SplitPairFilter
-import androidx.window.embedding.SplitPairRule
-import androidx.window.embedding.SplitPlaceholderRule
-import androidx.window.embedding.SplitRule
+import androidx.window.embedding.*
 import androidx.window.layout.WindowInfoTracker
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
-import cn.ac.lz233.tarnhelm.logic.dao.ExtensionDao
-import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
-import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
-import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
+import cn.ac.lz233.tarnhelm.logic.dao.*
 import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
 import cn.ac.lz233.tarnhelm.ui.main.MainActivity
 import cn.ac.lz233.tarnhelm.ui.main.PlaceHolderActivity
@@ -34,6 +23,7 @@ import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
+
 
 class App : Application() {
     companion object {
@@ -46,6 +36,7 @@ class App : Application() {
         lateinit var db: AppDatabase
         lateinit var parameterRuleDao: ParameterRuleDao
         lateinit var regexRuleDao: RegexRuleDao
+        lateinit var redirectRuleDao: RedirectRuleDao
         lateinit var extensionDao: ExtensionDao
         lateinit var clipboardManager: ClipboardManager
         lateinit var notificationManager: NotificationManager
@@ -74,6 +65,9 @@ class App : Application() {
         super.onCreate()
         LogUtil._d("App started")
 
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         context = applicationContext
         sp = context.getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)
         spSettings = PreferenceManager.getDefaultSharedPreferences(context)
@@ -85,6 +79,7 @@ class App : Application() {
         db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
+        redirectRuleDao = db.redirectRuleDao()
         extensionDao = db.extensionDao()
 
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

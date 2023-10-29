@@ -1,6 +1,7 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
 import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
+import cn.ac.lz233.tarnhelm.logic.module.meta.RedirectRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,5 +18,11 @@ fun ParameterRule.toJSONObject() = JSONObject().apply {
     put("e", this@toJSONObject.domain)
     put("f", this@toJSONObject.mode)
     put("g", JSONArray(this@toJSONObject.parametersArray))
+    put("d", this@toJSONObject.author)
+}
+
+fun RedirectRule.toJSONObject() = JSONObject().apply {
+    put("a", this@toJSONObject.description)
+    put("e", this@toJSONObject.domain)
     put("d", this@toJSONObject.author)
 }

@@ -93,7 +93,7 @@ class MainActivity : BaseActivity() {
                 binding.statusPassSummaryTextView.text =
                     getString(R.string.mainStatusPassSummary, workModeList.toString(R.string.mainStatusPunctuation.getString(), R.string.mainStatusPunctuationLast.getString()))
             }
-            binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, (App.regexRuleDao.getCount() + App.parameterRuleDao.getCount()).toString())
+            binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, (App.regexRuleDao.getCount() + App.parameterRuleDao.getCount() + App.redirectRuleDao.getCount()).toString())
         }
         if (SettingsDao.workModeBackgroundMonitoring) {
             if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {

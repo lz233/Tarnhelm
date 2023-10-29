@@ -42,6 +42,7 @@
     <string name="rulesTitle">規則庫</string>
     <string name="rulesParametersTitle">參數</string>
     <string name="rulesRegexesTitle">正則</string>
+    <string name="rulesRedirectsTitle">重定向</string>
     <string name="rulesAddFab">添加</string>
     <string name="rulesPasteFailedToast">黏貼失敗。錯誤的格式？</string>
 
@@ -63,6 +64,13 @@
     <string name="regexRulesItemReplacements">替換</string>
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">確認</string>
+
+    <string name="redirectRulesEditDialogTitle">编辑一个重定向规则</string>
+    <string name="redirectRulesAddDialogTitle">添加一个重定向规则</string>
+    <string name="redirectRulesItemDescription">描述</string>
+    <string name="redirectRulesItemDomain">域名</string>
+    <string name="redirectRulesItemAuthor">作者</string>
+    <string name="redirectRulesDialogPositiveButton">確認</string>
 
     <string name="extensionsTitle">擴展</string>
     <string name="extensionsImportFab">導入</string>

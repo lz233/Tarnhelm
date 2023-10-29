@@ -42,6 +42,7 @@
     <string name="rulesTitle">Rules</string>
     <string name="rulesParametersTitle">Parameters</string>
     <string name="rulesRegexesTitle">Regexes</string>
+    <string name="rulesRedirectsTitle">Redirects</string>
     <string name="rulesAddFab">Add</string>
     <string name="rulesPasteFailedToast">Paste failed. Wrong format?</string>
 
@@ -63,6 +64,13 @@
     <string name="regexRulesItemReplacements">Replacements</string>
     <string name="regexRulesItemAuthor">Author</string>
     <string name="regexRulesDialogPositiveButton">OK</string>
+
+    <string name="redirectRulesEditDialogTitle">Edit a Redirect Rule</string>
+    <string name="redirectRulesAddDialogTitle">Add a Redirect Rule</string>
+    <string name="redirectRulesItemDescription">Description</string>
+    <string name="redirectRulesItemDomain">Domain</string>
+    <string name="redirectRulesItemAuthor">Author</string>
+    <string name="redirectRulesDialogPositiveButton">OK</string>
 
     <string name="extensionsTitle">Extensions</string>
     <string name="extensionsImportFab">Import</string>

@@ -43,6 +43,7 @@
     <string name="rulesTitle">ルール</string>
     <string name="rulesParametersTitle">パラメーター</string>
     <string name="rulesRegexesTitle">正規表現</string>
+    <string name="rulesRedirectsTitle">リダイレクト</string>
     <string name="rulesAddFab">追加</string>
     <string name="rulesPasteFailedToast">貼り付け失敗しました。リンクフォーマットを確認してください。</string>
 
@@ -64,6 +65,13 @@
     <string name="regexRulesItemReplacements">Regexes</string>
     <string name="regexRulesItemAuthor">作成者</string>
     <string name="regexRulesDialogPositiveButton">OK</string>
+
+    <string name="redirectRulesEditDialogTitle">リダイレクト ルールを編集する</string>
+    <string name="redirectRulesAddDialogTitle">リダイレクト ルールを追加する</string>
+    <string name="redirectRulesItemDescription">説明</string>
+    <string name="redirectRulesItemDomain">ドメイン</string>
+    <string name="redirectRulesItemAuthor">作成者</string>
+    <string name="redirectRulesDialogPositiveButton">OK</string>
 
     <string name="extensionsTitle">拡張機能</string>
     <string name="extensionsImportFab">インポート</string>
