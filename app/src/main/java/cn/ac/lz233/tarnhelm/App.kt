@@ -5,8 +5,6 @@ import android.app.NotificationManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
@@ -67,9 +65,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("App started")
-
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
         context = applicationContext
         sp = context.getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)

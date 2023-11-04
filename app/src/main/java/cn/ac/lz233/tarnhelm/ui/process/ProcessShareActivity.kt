@@ -10,6 +10,7 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class ProcessShareActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +21,19 @@ class ProcessShareActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
-                if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
-                    copyToClipboard()
-                else
-                    startChooser()
-                finish()
+                thread{
+                    if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
+                        copyToClipboard()
+                    else
+                        startChooser()
+                    finish()
+                }
             }
         } else {
-            startChooser()
-            finish()
+            thread{
+                startChooser()
+                finish()
+            }
         }
 
         //finish()
@@ -47,6 +52,8 @@ class ProcessShareActivity : BaseActivity() {
     }
 
     private fun copyToClipboard() {
-        App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms()))
+        launch{
+            App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms()))
+        }
     }
 }

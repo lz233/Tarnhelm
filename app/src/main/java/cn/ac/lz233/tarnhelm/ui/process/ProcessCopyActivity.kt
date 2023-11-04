@@ -6,13 +6,15 @@ import android.os.Bundle
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
+import kotlin.concurrent.thread
 
 class ProcessCopyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
-        App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text.doTarnhelms()))
-        finish()
+        thread {
+            val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
+            App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text.doTarnhelms()))
+            finish()
+        }
     }
 }
