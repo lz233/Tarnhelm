@@ -10,6 +10,8 @@ import android.os.StrictMode.ThreadPolicy
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.window.embedding.*
 import androidx.window.layout.WindowInfoTracker
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
@@ -33,6 +35,7 @@ class App : Application() {
         lateinit var spSettings: SharedPreferences
         var spXposed: SharedPreferences? = null
         var editorXposed: SharedPreferences.Editor? = null
+
         lateinit var db: AppDatabase
         lateinit var parameterRuleDao: ParameterRuleDao
         lateinit var regexRuleDao: RegexRuleDao
@@ -76,7 +79,16 @@ class App : Application() {
             editorXposed = spXposed?.edit()
         }
         editor = sp.edit()
-        db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
+
+        val migration34 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE `RedirectRule` (`id` INTEGER NOT NULL, `description` TEXT NOT NULL,`domain` TEXT NOT NULL, `author` TEXT NOT NULL, `sourceType` INTEGER NOT NULL, `enabled` INTEGER NOT NULL, PRIMARY KEY(`id`))"
+                )
+            }
+        }
+
+        db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().addMigrations(migration34).build()
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
         redirectRuleDao = db.redirectRuleDao()
