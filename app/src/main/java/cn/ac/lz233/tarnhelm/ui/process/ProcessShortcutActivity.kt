@@ -8,6 +8,7 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class ProcessShortcutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,12 +17,16 @@ class ProcessShortcutActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
+                thread{
+                    copyToClipboard()
+                    finish()
+                }
+            }
+        } else {
+            thread{
                 copyToClipboard()
                 finish()
             }
-        } else {
-            copyToClipboard()
-            finish()
         }
     }
 

@@ -7,6 +7,9 @@ import androidx.core.text.HtmlCompat
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONArray
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -34,15 +37,49 @@ fun String.toJSONArray() = JSONArray().apply {
     }
 }
 
+fun getRedirectUrl(url: String): String {
+    val client = OkHttpClient.Builder().followRedirects(false).build()
+    val request = Request.Builder().url(url).head().build()
+    var response: Response? = null
+
+    return try {
+        response = client.newCall(request).execute()
+        if (response.isRedirect) {
+            response.header("Location") ?: url
+        } else {
+            url
+        }
+    } catch (_: Exception) {
+        return url
+    } finally {
+        response?.close()
+    }
+}
+
 fun String.doTarnhelm(): CharSequence {
     LogUtil._d("Original URL: $this")
     var result = this
+    val redirectRules = App.redirectRuleDao.getAll()
     val parameterRules = App.parameterRuleDao.getAll()
     var httpUrl = result.toHttpUrlOrNull()
     LogUtil._d("HTTP URL: $httpUrl")
     if (httpUrl != null) {
+        for (rule in redirectRules) {
+            if (httpUrl == null) {
+                break
+            }
+            if ((rule.enabled) and (rule.domain == httpUrl.host)) {
+                result = getRedirectUrl(result)
+                httpUrl = result.toHttpUrlOrNull()
+            }
+        }
+        result = httpUrl.toString()//.decodeURL()
+        LogUtil._d("After Redirects: $result")
         for (rule in parameterRules) {
-            if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
+            if (httpUrl == null) {
+                break
+            }
+            if ((rule.enabled) and (rule.domain == httpUrl.host)) {
                 val ruleParameterNames = JSONArray(rule.parametersArray)
                 val urlParameterNames = httpUrl.queryParameterNames
                 val overlapParameterNames = mutableListOf<String>()
