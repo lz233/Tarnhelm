@@ -2,18 +2,30 @@ package cn.ac.lz233.tarnhelm
 
 import android.app.Application
 import android.app.NotificationManager
-import android.content.*
+import android.content.ClipboardManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.window.embedding.*
+import androidx.window.embedding.ActivityFilter
+import androidx.window.embedding.RuleController
+import androidx.window.embedding.SplitAttributes
+import androidx.window.embedding.SplitPairFilter
+import androidx.window.embedding.SplitPairRule
+import androidx.window.embedding.SplitPlaceholderRule
+import androidx.window.embedding.SplitRule
 import androidx.window.layout.WindowInfoTracker
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
-import cn.ac.lz233.tarnhelm.logic.dao.*
+import cn.ac.lz233.tarnhelm.logic.dao.ExtensionDao
+import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
+import cn.ac.lz233.tarnhelm.logic.dao.RedirectRuleDao
+import cn.ac.lz233.tarnhelm.logic.dao.RegexRuleDao
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
 import cn.ac.lz233.tarnhelm.ui.main.MainActivity
 import cn.ac.lz233.tarnhelm.ui.main.PlaceHolderActivity
@@ -75,15 +87,7 @@ class App : Application() {
         }
         editor = sp.edit()
 
-        val migration34 = object : Migration(3, 4) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    "CREATE TABLE `RedirectRule` (`id` INTEGER NOT NULL, `description` TEXT NOT NULL,`domain` TEXT NOT NULL, `author` TEXT NOT NULL, `sourceType` INTEGER NOT NULL, `enabled` INTEGER NOT NULL, PRIMARY KEY(`id`))"
-                )
-            }
-        }
-
-        db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().addMigrations(migration34).build()
+        db = Room.databaseBuilder(context, AppDatabase::class.java, "tarnhelm").allowMainThreadQueries().build()
         parameterRuleDao = db.parameterRuleDao()
         regexRuleDao = db.regexRuleDao()
         redirectRuleDao = db.redirectRuleDao()

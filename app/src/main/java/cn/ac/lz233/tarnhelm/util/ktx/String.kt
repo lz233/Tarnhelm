@@ -76,10 +76,8 @@ fun String.doTarnhelm(): CharSequence {
         result = httpUrl.toString()//.decodeURL()
         LogUtil._d("After Redirects: $result")
         for (rule in parameterRules) {
-            if (httpUrl == null) {
-                break
-            }
-            if ((rule.enabled) and (rule.domain == httpUrl.host)) {
+            if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
+                LogUtil._d("Target Parameter Rule: (${rule.id}) ${rule.description}")
                 val ruleParameterNames = JSONArray(rule.parametersArray)
                 val urlParameterNames = httpUrl.queryParameterNames
                 val overlapParameterNames = mutableListOf<String>()
@@ -106,19 +104,20 @@ fun String.doTarnhelm(): CharSequence {
         LogUtil._d("After Parameters: $result")
     }
     val regexRules = App.regexRuleDao.getAll()
-    var skipRuleID = -1
     for ((index, rule) in regexRules.withIndex()) {
         if (rule.enabled) {
             val regexArray = JSONArray(rule.regexArray)
             val replaceArray = JSONArray(rule.replaceArray)
             if (regexArray.length() != replaceArray.length()) throw Throwable("non-standard array")
             matchRule@ for (i in 0 until regexArray.length()) {
-                if (skipRuleID == index) break@matchRule
                 val regex = Regex(regexArray.getString(i))
-                if (regex.containsMatchIn(result) or (i != 0))
+                if (regex.containsMatchIn(result) or (i != 0)) {
+                    if (i == 0) LogUtil._d("Target Regex Rule: ${rule.id}@${rule.description}")
                     result = regex.replace(result, replaceArray.getString(i))
-                else
-                    skipRuleID = index
+                    LogUtil._d("[${rule.description}]($i): $result")
+                } else {
+                    break@matchRule
+                }
             }
         }
     }
@@ -129,7 +128,7 @@ fun String.doTarnhelm(): CharSequence {
 fun CharSequence.doTarnhelms(): String {
     var result = this.toString()
     result =
-        Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\u2E80-\u9FFF]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\u2E80-\u9FFF]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\u2E80-\u9FFF]{2,}|www\.[a-zA-Z0-9]+\.[^\s\u2E80-\u9FFF]{2,})""")
+        Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,})""")
             .replace(this) { it.value.doTarnhelm() }
     /*val notification = Notification.Builder(App.context, "234")
         .setContentTitle(R.string.process_result_success.getString())

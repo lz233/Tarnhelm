@@ -11,7 +11,11 @@ import cn.ac.lz233.tarnhelm.logic.module.meta.ParameterRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RedirectRule
 import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 
-@Database(entities = [RegexRule::class, ParameterRule::class, RedirectRule::class, Extension::class], version = 4, exportSchema = false)
+@Database(
+    entities = [RegexRule::class, ParameterRule::class, RedirectRule::class, Extension::class],
+    version = 4,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun regexRuleDao(): RegexRuleDao
     abstract fun parameterRuleDao(): ParameterRuleDao
