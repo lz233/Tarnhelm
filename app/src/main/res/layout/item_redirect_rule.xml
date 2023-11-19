@@ -67,13 +67,6 @@
                 android:textColor="?attr/colorOnTertiaryContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/redirectsContentTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?attr/colorOnTertiaryContainer" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/redirectRulesItemAuthor"

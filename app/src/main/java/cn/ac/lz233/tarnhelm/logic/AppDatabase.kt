@@ -1,5 +1,6 @@
 package cn.ac.lz233.tarnhelm.logic
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import cn.ac.lz233.tarnhelm.logic.dao.ExtensionDao
@@ -14,7 +15,10 @@ import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 @Database(
     entities = [RegexRule::class, ParameterRule::class, RedirectRule::class, Extension::class],
     version = 4,
-    exportSchema = false
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 3, to = 4)
+    ]
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun regexRuleDao(): RegexRuleDao

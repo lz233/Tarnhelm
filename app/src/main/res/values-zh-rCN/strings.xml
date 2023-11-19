@@ -9,7 +9,8 @@
     <string name="clipboard_service_channel_name">后台监听</string>
     <string name="process_result_channel_name">处理结果</string>
     <string name="clipboard_service_started">后台监听已开启</string>
-    <string name="process_result_success">🎉 处理成功</string>
+    <string name="process_result_processing">😇 处理进行中</string>
+    <string name="process_result_success">🥳 处理成功</string>
     <string name="process_result_failed">🥲 处理失败</string>
 
     <string name="mainStatusTitle">状态</string>
@@ -65,8 +66,8 @@
     <string name="regexRulesItemAuthor">作者</string>
     <string name="regexRulesDialogPositiveButton">确认</string>
 
-    <string name="redirectRulesEditDialogTitle">编辑一个重定向规则</string>
     <string name="redirectRulesAddDialogTitle">添加一个重定向规则</string>
+    <string name="redirectRulesEditDialogTitle">编辑一个重定向规则</string>
     <string name="redirectRulesItemDescription">描述</string>
     <string name="redirectRulesItemDomain">域名</string>
     <string name="redirectRulesItemAuthor">作者</string>
@@ -94,11 +95,15 @@
     <string name="settingsWorkModeXposedSummary">挂住系统框架以修改剪切板</string>
     <string name="settingsXposedRewriteClipboard">重写剪切板</string>
     <string name="settingsXposedOverrideClipboardOverlay">覆写剪切板悬浮窗</string>
+    <string name="settingsNotification">通知</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotification">始终发送处理通知</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotificationSummary">即使这不涉及到耗时操作</string>
+    <string name="settingsNotificationSystemNotificationSettings">更多设置</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">在导出的规则前添加「tarnhelm://」</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">关闭后可能会造成诸多不必要的麻烦</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>

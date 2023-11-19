@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -39,8 +40,10 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         val xposed: PreferenceCategory = findPreference("xposed")!!
         val rewriteClipboard: TwoStatePreference = findPreference("rewriteClipboard")!!
         val overrideClipboardOverlay: TwoStatePreference = findPreference("overrideClipboardOverlay")!!
-        val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
         val useForegroundServiceOnBackgroundMonitoring: TwoStatePreference = findPreference("useForegroundServiceOnBackgroundMonitoring")!!
+        val alwaysSendProcessingNotification: TwoStatePreference = findPreference("alwaysSendProcessingNotification")!!
+        val systemNotificationSettings: Preference = findPreference("systemNotificationSettings")!!
+        val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
         val analytics: TwoStatePreference = findPreference("analytics")!!
         val crashes: TwoStatePreference = findPreference("crashes")!!
         val website: Preference = findPreference("website")!!
@@ -159,6 +162,16 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
+        systemNotificationSettings.setOnPreferenceClickListener {
+            startActivity(
+                Intent().apply {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, BuildConfig.APPLICATION_ID)
+                }
+            )
+            true
+        }
+
         analytics.isVisible = BuildConfig.FLAVOR != "fdroid"
         analytics.setOnPreferenceChangeListener { preference, newValue ->
             AppCenterUtil.setAnalyticsEnabled(newValue as Boolean)
@@ -173,12 +186,12 @@ class SettingsFragment() : PreferenceFragmentCompat() {
 
         website.setOnPreferenceClickListener {
             "https://tarnhelm.project.ac.cn".openUrl()
-            false
+            true
         }
 
         telegramChannel.setOnPreferenceClickListener {
             "https://t.me/tarnhelm_app".openUrl()
-            false
+            true
         }
     }
 

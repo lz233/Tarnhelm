@@ -3,17 +3,18 @@ package cn.ac.lz233.tarnhelm.util.ktx
 import android.content.Intent
 import android.net.Uri
 import android.util.Base64
+import androidx.core.app.NotificationCompat
 import androidx.core.text.HtmlCompat
 import cn.ac.lz233.tarnhelm.App
+import cn.ac.lz233.tarnhelm.R
+import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import org.json.JSONArray
 import java.net.URLDecoder
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import kotlin.concurrent.thread
 
 fun String.openUrl() = App.context.startActivity(Intent(Intent.ACTION_VIEW).apply {
     data = Uri.parse(this@openUrl)
@@ -37,47 +38,39 @@ fun String.toJSONArray() = JSONArray().apply {
     }
 }
 
-fun getRedirectUrl(url: String): String {
-    val client = OkHttpClient.Builder().followRedirects(false).build()
-    val request = Request.Builder().url(url).head().build()
-    var response: Response? = null
-
-    return try {
-        response = client.newCall(request).execute()
-        if (response.isRedirect) {
-            response.header("Location") ?: url
-        } else {
-            url
-        }
-    } catch (_: Exception) {
-        return url
-    } finally {
-        response?.close()
-    }
-}
-
-fun String.doTarnhelm(): CharSequence {
+fun String.doTarnhelm(): Triple<CharSequence, Boolean, List<String>> {
     LogUtil._d("Original URL: $this")
     var result = this
-    val redirectRules = App.redirectRuleDao.getAll()
-    val parameterRules = App.parameterRuleDao.getAll()
+    var hasTimeConsumingOperation = false
+    val targetRules = mutableListOf<String>()
     var httpUrl = result.toHttpUrlOrNull()
     LogUtil._d("HTTP URL: $httpUrl")
     if (httpUrl != null) {
+        val redirectRules = App.redirectRuleDao.getAll()
         for (rule in redirectRules) {
-            if (httpUrl == null) {
-                break
-            }
-            if ((rule.enabled) and (rule.domain == httpUrl.host)) {
-                result = getRedirectUrl(result)
-                httpUrl = result.toHttpUrlOrNull()
+            if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
+                LogUtil._d("Target Redirect Rule: (${rule.id}) ${rule.description}")
+                hasTimeConsumingOperation = true
+                targetRules.add("[${R.string.rulesRedirectsTitle.getString()}]${rule.description.replace("\n", "↵")}")
+                val notification = NotificationCompat.Builder(App.context, "234")
+                    .setContentTitle(R.string.process_result_processing.getString())
+                    //.setContentText(methodResult)
+                    .setSmallIcon(R.drawable.ic_icon)
+                    .setShowWhen(false)
+                    .setOngoing(true)
+                    .setProgress(100, 0, true)
+                    .build()
+                App.notificationManager.notify(234, notification)
+                httpUrl = httpUrl.followRedirectOnce()
             }
         }
-        result = httpUrl.toString()//.decodeURL()
+        result = httpUrl.toString()
         LogUtil._d("After Redirects: $result")
+        val parameterRules = App.parameterRuleDao.getAll()
         for (rule in parameterRules) {
             if ((rule.enabled) and (rule.domain == httpUrl!!.host)) {
                 LogUtil._d("Target Parameter Rule: (${rule.id}) ${rule.description}")
+                targetRules.add("[${R.string.rulesParametersTitle.getString()}]${rule.description.replace("\n", "↵")}")
                 val ruleParameterNames = JSONArray(rule.parametersArray)
                 val urlParameterNames = httpUrl.queryParameterNames
                 val overlapParameterNames = mutableListOf<String>()
@@ -111,8 +104,11 @@ fun String.doTarnhelm(): CharSequence {
             if (regexArray.length() != replaceArray.length()) throw Throwable("non-standard array")
             matchRule@ for (i in 0 until regexArray.length()) {
                 val regex = Regex(regexArray.getString(i))
-                if (regex.containsMatchIn(result) or (i != 0)) {
-                    if (i == 0) LogUtil._d("Target Regex Rule: ${rule.id}@${rule.description}")
+                if (i != 0 || regex.containsMatchIn(result)) {
+                    if (i == 0) {
+                        LogUtil._d("Target Regex Rule: ${rule.id}@${rule.description}")
+                        targetRules.add("[${R.string.rulesRegexesTitle.getString()}]${rule.description.replace("\n", "↵")}")
+                    }
                     result = regex.replace(result, replaceArray.getString(i))
                     LogUtil._d("[${rule.description}]($i): $result")
                 } else {
@@ -122,21 +118,66 @@ fun String.doTarnhelm(): CharSequence {
         }
     }
     LogUtil._d("Result: $result")
-    return result
+    LogUtil._d("TargetRules: $targetRules")
+    return Triple(result, hasTimeConsumingOperation, targetRules)
 }
 
-fun CharSequence.doTarnhelms(): String {
-    var result = this.toString()
-    result =
+fun CharSequence.doTarnhelms(): Triple<CharSequence, Boolean, List<List<String>>> {
+    var methodResult = this
+    var hasTimeConsumingOperation = false
+    val targetRules = mutableListOf<List<String>>()
+    methodResult =
         Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,})""")
-            .replace(this) { it.value.doTarnhelm() }
-    /*val notification = Notification.Builder(App.context, "234")
-        .setContentTitle(R.string.process_result_success.getString())
-        .setContentText(result)
-        .setSmallIcon(R.drawable.ic_icon)
-        .setShowWhen(false)
-        .setTimeoutAfter(500)
-        .build()
-    App.notificationManager.notify(234, notification)*/
-    return result
+            .replace(this) {
+                val result = it.value.doTarnhelm()
+                if (result.second) hasTimeConsumingOperation = true
+                targetRules.add(result.third)
+                result.first
+            }
+    return Triple(methodResult, hasTimeConsumingOperation, targetRules)
+}
+
+fun CharSequence.doTarnhelms(join: Boolean = false, callback: (success: Boolean, result: String) -> Unit = { _, _ -> }): Pair<Boolean, String> {
+    var methodResult = this;
+    var hasTimeConsumingOperation = false
+    var targetRules = emptyList<List<String>>()
+    var success = false;
+    val thread = thread {
+        runCatching {
+            val result = this.doTarnhelms()
+            methodResult = result.first
+            hasTimeConsumingOperation = result.second
+            targetRules = result.third
+        }.onSuccess {
+            success = true
+            callback(true, methodResult.toString())
+            if (methodResult != this) {
+                if (SettingsDao.alwaysSendProcessingNotification or hasTimeConsumingOperation) {
+                    val notification = NotificationCompat.Builder(App.context, "234")
+                        .setContentTitle(R.string.process_result_success.getString())
+                        .setContentText(targetRules.toFlowString())
+                        .setSmallIcon(R.drawable.ic_icon)
+                        .setShowWhen(false)
+                        .setTimeoutAfter(500)
+                        .build()
+                    App.notificationManager.notify(234, notification)
+                }
+            }
+        }.onFailure { throwable ->
+            success = false
+            callback(false, methodResult.toString())
+            if (SettingsDao.alwaysSendProcessingNotification or hasTimeConsumingOperation) {
+                val notification = NotificationCompat.Builder(App.context, "234")
+                    .setContentTitle(R.string.process_result_failed.getString())
+                    .setContentText(throwable.localizedMessage)
+                    .setSmallIcon(R.drawable.ic_icon)
+                    .setShowWhen(false)
+                    .setTimeoutAfter(500)
+                    .build()
+                App.notificationManager.notify(234, notification)
+            }
+        }
+    }
+    if (join) thread.join()
+    return success to methodResult.toString()
 }

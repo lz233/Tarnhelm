@@ -30,11 +30,7 @@ class ClipboardService : Service() {
     private var text2: CharSequence = ""
     private var readerID = 0L
     private val primaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
-        if (Build.VERSION.SDK_INT < 29) {
-            thread {
-                doClipboard()
-            }
-        }
+        if (Build.VERSION.SDK_INT < 29) doClipboard()
     }
 
     override fun onCreate() {
@@ -95,13 +91,15 @@ class ClipboardService : Service() {
     }
 
     private fun doClipboard() {
-        thread{
-            LogUtil._d("doClipboard")
-            App.clipboardManager.primaryClip?.getItemAt(0)?.text?.let {
-                if (it != text1 && it != text2) {
-                    text1 = it
-                    text2 = it.doTarnhelms()
-                    App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
+        LogUtil._d("doClipboard")
+        App.clipboardManager.primaryClip?.getItemAt(0)?.text?.let {
+            if (it != text1 && it != text2) {
+                text1 = it
+                it.doTarnhelms { success, result ->
+                    if (success) {
+                        text2 = result
+                        App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
+                    }
                 }
             }
         }

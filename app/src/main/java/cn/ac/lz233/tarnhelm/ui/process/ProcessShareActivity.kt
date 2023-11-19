@@ -10,7 +10,6 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class ProcessShareActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,29 +20,24 @@ class ProcessShareActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
-                thread{
-                    if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
-                        copyToClipboard()
-                    else
-                        startChooser()
-                    finish()
-                }
+                if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
+                    copyToClipboard()
+                else
+                    startChooser()
             }
         } else {
-            thread{
-                startChooser()
-                finish()
-            }
+            startChooser()
         }
 
         //finish()
     }
 
     private fun startChooser() {
+        finish()
         startActivity(Intent.createChooser(Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_SUBJECT, (intent.getStringExtra(Intent.EXTRA_SUBJECT)?.doTarnhelms()))
-            putExtra(Intent.EXTRA_TEXT, (intent.getStringExtra(Intent.EXTRA_TEXT)?.doTarnhelms()))
+            putExtra(Intent.EXTRA_SUBJECT, (intent.getStringExtra(Intent.EXTRA_SUBJECT)?.doTarnhelms(true)?.second))
+            putExtra(Intent.EXTRA_TEXT, (intent.getStringExtra(Intent.EXTRA_TEXT)?.doTarnhelms(true)?.second))
             //putExtra(Intent.EXTRA_TITLE, (intent.getStringExtra(Intent.EXTRA_TITLE)?.doTarnhelms() ?: ""))
             type = intent.type
         }, null).apply {
@@ -52,8 +46,9 @@ class ProcessShareActivity : BaseActivity() {
     }
 
     private fun copyToClipboard() {
-        launch{
-            App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms()))
+        App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms { success, result ->
+            if (success) App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", result))
         }
+        finish()
     }
 }

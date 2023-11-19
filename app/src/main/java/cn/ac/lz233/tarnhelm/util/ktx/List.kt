@@ -25,3 +25,17 @@ fun List<String>.toString(insertList: List<String>) = StringBuilder().apply {
         append(insertList.getOrNull(insertListIndex++))
     }
 }.toString()
+
+fun List<List<String>>.toFlowString() = StringBuilder().apply {
+    this@toFlowString.forEach { innerList ->
+        append(" → ")
+        innerList.forEach {
+            append(it)
+            append(" → ")
+        }
+        deleteRange(length - 3, length)
+        append(" | ")
+        append('\n')
+    }
+    deleteCharAt(lastIndex)
+}.toString()

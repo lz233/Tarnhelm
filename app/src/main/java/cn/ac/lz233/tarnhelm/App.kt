@@ -51,8 +51,10 @@ class App : Application() {
         lateinit var regexRuleDao: RegexRuleDao
         lateinit var redirectRuleDao: RedirectRuleDao
         lateinit var extensionDao: ExtensionDao
+
         lateinit var clipboardManager: ClipboardManager
         lateinit var notificationManager: NotificationManager
+
         const val TAG = "Tarnhelm"
 
         @JvmStatic
@@ -95,6 +97,7 @@ class App : Application() {
 
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
 
         if (isXposedActive()) context.startService(
             Intent().apply {

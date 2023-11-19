@@ -44,17 +44,30 @@
             android:title="@string/settingsXposedOverrideClipboardOverlay" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settingsNotification">
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="useForegroundServiceOnBackgroundMonitoring"
+            android:summary="@string/settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary"
+            android:title="@string/settingsNotificationUseForegroundServiceOnBackgroundMonitoring" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:key="alwaysSendProcessingNotification"
+            android:summary="@string/settingsNotificationAlwaysSendProcessingNotificationSummary"
+            android:title="@string/settingsNotificationAlwaysSendProcessingNotification" />
+
+        <Preference
+            android:key="systemNotificationSettings"
+            android:title="@string/settingsNotificationSystemNotificationSettings"
+            android:widgetLayout="@layout/m3_icon_frame_open" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settingsBehavior">
         <rikka.material.preference.MaterialSwitchPreference
             android:key="exportRulesAsLink"
             android:summary="@string/settingsBehaviorExportRulesAsLinkSummary"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
-
-        <rikka.material.preference.MaterialSwitchPreference
-            android:defaultValue="true"
-            android:key="useForegroundServiceOnBackgroundMonitoring"
-            android:summary="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary"
-            android:title="@string/settingsBehaviorUseForegroundServiceOnBackgroundMonitoring" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
@@ -71,12 +84,14 @@
         <Preference
             android:key="website"
             android:summary="@string/settingsOthersWebsiteSummary"
-            android:title="@string/settingsOthersWebSite" />
+            android:title="@string/settingsOthersWebSite"
+            android:widgetLayout="@layout/m3_icon_frame_open" />
 
         <Preference
             android:key="telegramChannel"
             android:summary="@string/settingsOthersTelegramChannelSummary"
-            android:title="@string/settingsOthersTelegramChannel" />
+            android:title="@string/settingsOthersTelegramChannel"
+            android:widgetLayout="@layout/m3_icon_frame_open" />
 
         <Preference
             android:summary="@string/settingsOthersTranslatorSummary"

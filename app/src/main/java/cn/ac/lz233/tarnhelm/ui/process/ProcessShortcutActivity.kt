@@ -8,7 +8,6 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class ProcessShortcutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,20 +16,18 @@ class ProcessShortcutActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
-                thread{
-                    copyToClipboard()
-                    finish()
-                }
-            }
-        } else {
-            thread{
                 copyToClipboard()
                 finish()
             }
+        } else {
+            copyToClipboard()
+            finish()
         }
     }
 
     private fun copyToClipboard() {
-        App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms()))
+        App.clipboardManager.primaryClip?.getItemAt(0)?.text?.doTarnhelms { success, result ->
+            if (success) App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", result))
+        }
     }
 }

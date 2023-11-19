@@ -18,6 +18,9 @@ object SettingsDao {
     val useForegroundServiceOnBackgroundMonitoring
         get() = App.spSettings.getBoolean("useForegroundServiceOnBackgroundMonitoring", true)
 
+    val alwaysSendProcessingNotification
+        get() = App.spSettings.getBoolean("alwaysSendProcessingNotification", false)
+
     val exportRulesAsLink
         get() = App.spSettings.getBoolean("exportRulesAsLink", false)
 }

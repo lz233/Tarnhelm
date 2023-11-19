@@ -10,7 +10,8 @@
     <string name="clipboard_service_channel_name">バックグラウンドでモリタニング</string>
     <string name="process_result_channel_name">処理の結果</string>
     <string name="clipboard_service_started">バックグラウンドでモリタニングモードは有効にしました</string>
-    <string name="process_result_success">🎉 処理に成功しました</string>
+    <string name="process_result_processing">😇 処理中</string>
+    <string name="process_result_success">🥳 処理に成功しました</string>
     <string name="process_result_failed">🥲 処理に失敗しました</string>
 
     <string name="mainStatusTitle">スターテス</string>
@@ -66,8 +67,8 @@
     <string name="regexRulesItemAuthor">作成者</string>
     <string name="regexRulesDialogPositiveButton">OK</string>
 
-    <string name="redirectRulesEditDialogTitle">リダイレクト ルールを編集する</string>
     <string name="redirectRulesAddDialogTitle">リダイレクト ルールを追加する</string>
+    <string name="redirectRulesEditDialogTitle">リダイレクト ルールを編集する</string>
     <string name="redirectRulesItemDescription">説明</string>
     <string name="redirectRulesItemDomain">ドメイン</string>
     <string name="redirectRulesItemAuthor">作成者</string>
@@ -94,11 +95,11 @@
     <string name="settingsXposedTitle">Xposed</string>
     <string name="settingsXposedRewriteClipboard">クリップボード書き換え</string>
     <string name="settingsXposedOverrideClipboardOverlay">クリップボードオーバーレイを上書きする</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">Background Monitoring モードを有効にする時にフォアグラウンド サービスを使用する</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">オフにすると多くの非予期な問題が発生する可能性があります</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">エクスポートされたルールの真ん前に「tarnhelm://」を追加</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Background Monitoring モードを有効にする時にフォアグラウンド サービスを使用する</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">オフにすると多くの非予期な問題が発生する可能性があります</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">その他</string>

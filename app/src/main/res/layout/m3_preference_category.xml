@@ -26,7 +26,7 @@
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingRight="?android:attr/listPreferredItemPaddingRight">
 
-    <include layout="@layout/m3_icon_frame" />
+    <include layout="@layout/m3_icon_frame_open" />
 
     <RelativeLayout
         android:layout_width="0dp"

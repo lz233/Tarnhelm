@@ -9,7 +9,8 @@
     <string name="clipboard_service_channel_name">Background Monitoring</string>
     <string name="process_result_channel_name">Process Result</string>
     <string name="clipboard_service_started">Background Monitoring enabled</string>
-    <string name="process_result_success">🎉 Processed successfully</string>
+    <string name="process_result_processing">😇 Processing underway</string>
+    <string name="process_result_success">🥳 Processed successfully</string>
     <string name="process_result_failed">🥲 Processing failed</string>
 
     <string name="mainStatusTitle">Status</string>
@@ -65,8 +66,8 @@
     <string name="regexRulesItemAuthor">Author</string>
     <string name="regexRulesDialogPositiveButton">OK</string>
 
-    <string name="redirectRulesEditDialogTitle">Edit a Redirect Rule</string>
     <string name="redirectRulesAddDialogTitle">Add a Redirect Rule</string>
+    <string name="redirectRulesEditDialogTitle">Edit a Redirect Rule</string>
     <string name="redirectRulesItemDescription">Description</string>
     <string name="redirectRulesItemDomain">Domain</string>
     <string name="redirectRulesItemAuthor">Author</string>
@@ -98,11 +99,15 @@
     <string name="settingsXposedTitle">Xposed</string>
     <string name="settingsXposedRewriteClipboard">Rewrite clipboard</string>
     <string name="settingsXposedOverrideClipboardOverlay">Override clipboard overlay</string>
+    <string name="settingsNotification">Notification</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>
+    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">Turning off may cause a lot of unnecessary problems</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotification">Always send processing notifications</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotificationSummary">Even if no time-consuming operations involved</string>
+    <string name="settingsNotificationSystemNotificationSettings">More settings</string>
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">Add \"tarnhelm://\" on exported rules</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>
-    <string name="settingsBehaviorUseForegroundServiceOnBackgroundMonitoringSummary">Turning off may cause a lot of unnecessary problems</string>
     <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
     <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">Others</string>

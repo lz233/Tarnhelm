@@ -14,7 +14,11 @@ android {
         minSdk 27
         targetSdk 34
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.5.5"
+        versionName "1.6.0"
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
