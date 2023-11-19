@@ -166,16 +166,15 @@ fun CharSequence.doTarnhelms(join: Boolean = false, callback: (success: Boolean,
         }.onFailure { throwable ->
             success = false
             callback(false, methodResult.toString())
-            if (SettingsDao.alwaysSendProcessingNotification or hasTimeConsumingOperation) {
-                val notification = NotificationCompat.Builder(App.context, "234")
-                    .setContentTitle(R.string.process_result_failed.getString())
-                    .setContentText(throwable.localizedMessage)
-                    .setSmallIcon(R.drawable.ic_icon)
-                    .setShowWhen(false)
-                    .setTimeoutAfter(500)
-                    .build()
-                App.notificationManager.notify(234, notification)
-            }
+            LogUtil.e(throwable)
+            val notification = NotificationCompat.Builder(App.context, "234")
+                .setContentTitle(R.string.process_result_failed.getString())
+                .setContentText(throwable.localizedMessage)
+                .setSmallIcon(R.drawable.ic_icon)
+                .setShowWhen(false)
+                .setTimeoutAfter(1000)
+                .build()
+            App.notificationManager.notify(234, notification)
         }
     }
     if (join) thread.join()
