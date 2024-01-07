@@ -20,7 +20,7 @@ class ProcessShareActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             launch {
                 delay(50)
-                if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getStringExtra(Intent.EXTRA_TEXT))
+                if (App.clipboardManager.primaryClip?.getItemAt(0)?.text == intent.getCharSequenceExtra(Intent.EXTRA_TEXT))
                     copyToClipboard()
                 else
                     startChooser()

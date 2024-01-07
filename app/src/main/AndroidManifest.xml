@@ -14,11 +14,13 @@
 
     <application
         android:name=".App"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:localeConfig="@xml/locale_config"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tarnhelm">
+        android:theme="@style/Theme.Tarnhelm"
+        android:usesCleartextTraffic="true">
 
         <property
             android:name="android.window.PROPERTY_ACTIVITY_EMBEDDING_SPLITS_ENABLED"

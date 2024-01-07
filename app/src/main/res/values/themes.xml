@@ -6,18 +6,20 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- https://developer.android.com/reference/android/view/Window#isNavigationBarContrastEnforced() -->
+        <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?android:isLightTheme</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar">?android:isLightTheme</item>
         <item name="android:colorBackground">@color/md_theme_background</item>
         <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
         <item name="android:fontFamily">google-sans</item>
     </style>
 
     <style name="Theme.Tarnhelm" parent="Base.Tarnhelm">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_primary</item> -->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>

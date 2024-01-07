@@ -1,5 +1,6 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.util.Base64
@@ -58,10 +59,11 @@ fun String.doTarnhelm(): Triple<CharSequence, Boolean, List<String>> {
                     .setSmallIcon(R.drawable.ic_icon)
                     .setShowWhen(false)
                     .setOngoing(true)
+                    .setTimeoutAfter(10000)
                     .setProgress(100, 0, true)
                     .build()
                 App.notificationManager.notify(234, notification)
-                httpUrl = httpUrl.followRedirectOnce()
+                httpUrl = httpUrl.followRedirect()
             }
         }
         result = httpUrl.toString()
@@ -93,7 +95,7 @@ fun String.doTarnhelm(): Triple<CharSequence, Boolean, List<String>> {
                 }
             }
         }
-        result = httpUrl.toString()//.decodeURL()
+        result = httpUrl.toString().decodeURL()
         LogUtil._d("After Parameters: $result")
     }
     val regexRules = App.regexRuleDao.getAll()
@@ -122,12 +124,15 @@ fun String.doTarnhelm(): Triple<CharSequence, Boolean, List<String>> {
     return Triple(result, hasTimeConsumingOperation, targetRules)
 }
 
+@SuppressLint("RestrictedApi")
 fun CharSequence.doTarnhelms(): Triple<CharSequence, Boolean, List<List<String>>> {
     var methodResult = this
     var hasTimeConsumingOperation = false
     val targetRules = mutableListOf<List<String>>()
     methodResult =
         Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,})""")
+            // PatternsCompat.AUTOLINK_WEB_URL.toRegex() cannot recognize some irregular sharing texts
+            // 73 xx发布了一篇小红书笔记，快来看吧！ 😆 xxxxxxxxxxxxx 😆 http://xhslink.com/xxxxxx，复制本条信息，打开【小红书】App查看精彩内容！
             .replace(this) {
                 val result = it.value.doTarnhelm()
                 if (result.second) hasTimeConsumingOperation = true

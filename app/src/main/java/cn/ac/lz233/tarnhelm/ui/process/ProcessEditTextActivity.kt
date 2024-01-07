@@ -12,12 +12,14 @@ class ProcessEditTextActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
+        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
         val readOnly = intent.getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false)
         if (readOnly) {
             LogUtil.toast(R.string.read_only_toast.getString())
         } else {
-            setResult(RESULT_OK, Intent().apply { putExtra(Intent.EXTRA_PROCESS_TEXT, text.doTarnhelms(true).second) })
+            text?.let {
+                setResult(RESULT_OK, Intent().apply { putExtra(Intent.EXTRA_PROCESS_TEXT, it.doTarnhelms(true).second) })
+            }
         }
         finish()
     }

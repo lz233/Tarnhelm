@@ -11,8 +11,8 @@ class ProcessCopyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
-        text.doTarnhelms { success, result ->
+        val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
+        text?.doTarnhelms { success, result ->
             App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", result))
         }
         finish()
