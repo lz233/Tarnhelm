@@ -15,7 +15,7 @@
     android:id="@+id/icon_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="start|center_vertical"
+    android:gravity="end|center_vertical"
     android:minWidth="48dp"
     android:orientation="horizontal"
     android:paddingStart="0dp"
@@ -32,6 +32,7 @@
         app:maxHeight="48dp"
         app:maxWidth="48dp"
         app:srcCompat="@drawable/ic_open"
+        android:layout_gravity="end"
         app:tint="?android:attr/textColorSecondary" />
 
 </LinearLayout>
