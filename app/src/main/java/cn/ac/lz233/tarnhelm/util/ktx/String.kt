@@ -12,9 +12,6 @@ import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
-import java.net.URLDecoder
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import kotlin.concurrent.thread
 
 fun String.openUrl() = App.context.startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -28,9 +25,10 @@ fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Ba
 
 fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
 
-fun String.encodeURL(): String = URLEncoder.encode(this, StandardCharsets.UTF_8.name())
+fun String.encodeURL(): String = Uri.encode(this)
 
-fun String.decodeURL(): String = URLDecoder.decode(this, StandardCharsets.UTF_8.name())
+// DO NOT use java.net.URLDecoder since do not follow RFC3986
+fun String.decodeURL(): String = Uri.decode(this)
 
 fun String.toJSONArray() = JSONArray().apply {
     val stringList = split('\n')
