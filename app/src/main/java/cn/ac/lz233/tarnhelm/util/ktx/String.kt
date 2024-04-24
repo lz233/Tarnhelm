@@ -128,6 +128,7 @@ fun CharSequence.doTarnhelms(): Triple<CharSequence, Boolean, List<List<String>>
     var hasTimeConsumingOperation = false
     val targetRules = mutableListOf<List<String>>()
     methodResult =
+        //Regex("""((https|http)://)(\p{L}|\p{Nd})+\.\p{L}+(:\p{Nd})?(\p{Ll}|\p{Lu}|\p{Nd}|/|\?|\+|&|=|\.|-|_|#|%)*""")
         Regex("""(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,}|www\.[a-zA-Z0-9]+\.[^\s\uFF01-\uFF5E\u4e00-\u9fff\u3400-\u4DBF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3000-\u303F]{2,})""")
             // PatternsCompat.AUTOLINK_WEB_URL.toRegex() cannot recognize some irregular sharing texts
             // 73 xx发布了一篇小红书笔记，快来看吧！ 😆 xxxxxxxxxxxxx 😆 http://xhslink.com/xxxxxx，复制本条信息，打开【小红书】App查看精彩内容！

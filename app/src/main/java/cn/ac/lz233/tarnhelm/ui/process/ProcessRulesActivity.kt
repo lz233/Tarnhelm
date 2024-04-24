@@ -7,6 +7,7 @@ import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.insertToParameterRules
+import cn.ac.lz233.tarnhelm.util.ktx.insertToRedirectRules
 import cn.ac.lz233.tarnhelm.util.ktx.insertToRegexRules
 import org.json.JSONObject
 
@@ -17,16 +18,24 @@ class ProcessRulesActivity : BaseActivity() {
         val data = intent.data
         val parameterRuleString = data?.getQueryParameter("parameter")
         val regexRuleString = data?.getQueryParameter("regex")
+        val redirectRuleString = data?.getQueryParameter("redirect")
         LogUtil._d("parameterRuleString $parameterRuleString")
         LogUtil._d("regexRuleString $regexRuleString")
+        LogUtil._d("redirectRuleString $redirectRuleString")
         try {
             when {
                 parameterRuleString != null -> {
                     val item = JSONObject(parameterRuleString.decodeBase64()).insertToParameterRules()
                     LogUtil.toast(getString(R.string.rule_added_toast, item.description))
                 }
+
                 regexRuleString != null -> {
                     val item = JSONObject(regexRuleString.decodeBase64()).insertToRegexRules()
+                    LogUtil.toast(getString(R.string.rule_added_toast, item.description))
+                }
+
+                redirectRuleString != null -> {
+                    val item = JSONObject(redirectRuleString.decodeBase64()).insertToRedirectRules()
                     LogUtil.toast(getString(R.string.rule_added_toast, item.description))
                 }
             }
