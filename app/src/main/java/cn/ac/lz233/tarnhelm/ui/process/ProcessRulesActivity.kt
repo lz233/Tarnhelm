@@ -5,6 +5,7 @@ import cn.ac.lz233.tarnhelm.R
 import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.decodeBase64
+import cn.ac.lz233.tarnhelm.util.ktx.decodeURL
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.insertToParameterRules
 import cn.ac.lz233.tarnhelm.util.ktx.insertToRedirectRules
@@ -25,17 +26,17 @@ class ProcessRulesActivity : BaseActivity() {
         try {
             when {
                 parameterRuleString != null -> {
-                    val item = JSONObject(parameterRuleString.decodeBase64()).insertToParameterRules()
+                    val item = JSONObject(parameterRuleString.decodeURL().decodeBase64()).insertToParameterRules()
                     LogUtil.toast(getString(R.string.rule_added_toast, item.description))
                 }
 
                 regexRuleString != null -> {
-                    val item = JSONObject(regexRuleString.decodeBase64()).insertToRegexRules()
+                    val item = JSONObject(regexRuleString.decodeURL().decodeBase64()).insertToRegexRules()
                     LogUtil.toast(getString(R.string.rule_added_toast, item.description))
                 }
 
                 redirectRuleString != null -> {
-                    val item = JSONObject(redirectRuleString.decodeBase64()).insertToRedirectRules()
+                    val item = JSONObject(redirectRuleString.decodeURL().decodeBase64()).insertToRedirectRules()
                     LogUtil.toast(getString(R.string.rule_added_toast, item.description))
                 }
             }
