@@ -40,6 +40,7 @@ fun JSONObject.insertToRedirectRules(type: Int = 1, enabled: Boolean = true): Re
         App.redirectRuleDao.getMaxId() + 1,
         this.getString("a"),
         this.getString("e"),
+        this.getString("h"),
         this.getString("d"),
         type,
         enabled

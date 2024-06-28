@@ -70,6 +70,7 @@
     <string name="redirectRulesEditDialogTitle">Edit a Redirect Rule</string>
     <string name="redirectRulesItemDescription">Description</string>
     <string name="redirectRulesItemDomain">Domain</string>
+    <string name="redirectRulesItemUserAgent">User Agent</string>
     <string name="redirectRulesItemAuthor">Author</string>
     <string name="redirectRulesDialogPositiveButton">OK</string>
 

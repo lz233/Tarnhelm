@@ -29,6 +29,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
         val ruleEnableSwitch: MaterialSwitch = view.findViewById(R.id.ruleEnableSwitch)
         val descriptionContentTextView: AppCompatTextView = view.findViewById(R.id.descriptionContentTextView)
         val domainContentTextView: AppCompatTextView = view.findViewById(R.id.domainContentTextView)
+        val userAgentContentTextView: AppCompatTextView = view.findViewById(R.id.userAgentContentTextView)
         val authorContentTextView: AppCompatTextView = view.findViewById(R.id.authorContentTextView)
     }
 
@@ -44,6 +45,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
             val base64Text = (if (SettingsDao.exportRulesAsLink) "tarnhelm://rule?redirect=" else "") + rule.toJSONObject().toString().encodeBase64().encodeURL()
             dialogBinding.descriptionEditText.setText(rule.description)
             dialogBinding.domainEditText.setText(rule.domain)
+            dialogBinding.userAgentEditText.setText(rule.userAgent)
             dialogBinding.authorEditText.setText(rule.author)
             dialogBinding.authorEditText.isEnabled = (rule.sourceType == 0) or BuildConfig.DEBUG
             val dialog = MaterialAlertDialogBuilder(holder.itemView.context)
@@ -53,6 +55,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
                         rule.id,
                         dialogBinding.descriptionEditText.text.toString(),
                         dialogBinding.domainEditText.text.toString(),
+                        dialogBinding.userAgentEditText.text.toString(),
                         dialogBinding.authorEditText.text.toString(),
                         rule.sourceType,
                         rule.enabled
@@ -89,6 +92,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
                     rule.id,
                     rule.description,
                     rule.domain,
+                    rule.userAgent,
                     rule.author,
                     rule.sourceType,
                     b
@@ -99,6 +103,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
         }
         holder.descriptionContentTextView.text = rule.description
         holder.domainContentTextView.text = rule.domain
+        holder.userAgentContentTextView.text = rule.userAgent
         holder.authorContentTextView.text = rule.author
     }
 
@@ -112,6 +117,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
             toRule.id,
             fromRule.description,
             fromRule.domain,
+            fromRule.userAgent,
             fromRule.author,
             fromRule.sourceType,
             fromRule.enabled
@@ -120,6 +126,7 @@ class RedirectRulesAdapter(private val rulesList: MutableList<RedirectRule>) : R
             fromRule.id,
             toRule.description,
             toRule.domain,
+            toRule.userAgent,
             toRule.author,
             toRule.sourceType,
             toRule.enabled

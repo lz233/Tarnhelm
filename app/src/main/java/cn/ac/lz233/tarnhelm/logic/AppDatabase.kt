@@ -14,10 +14,11 @@ import cn.ac.lz233.tarnhelm.logic.module.meta.RegexRule
 
 @Database(
     entities = [RegexRule::class, ParameterRule::class, RedirectRule::class, Extension::class],
-    version = 4,
+    version = 5,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 3, to = 4),
+        AutoMigration(from = 4, to = 5)
     ]
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -8,6 +8,7 @@ data class RedirectRule(
     @PrimaryKey val id: Int,
     val description: String,
     val domain: String,
+    val userAgent: String?,
     val author: String,
     val sourceType: Int, // 0:manual 1:paste 2:??
     val enabled: Boolean,

@@ -93,6 +93,22 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/redirectRulesItemUserAgent"
+            app:endIconMode="clear_text">
+
+            <cn.ac.lz233.tarnhelm.view.EditText
+                android:id="@+id/userAgentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/redirectRulesItemAuthor"
             app:endIconMode="clear_text">
 

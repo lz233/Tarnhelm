@@ -24,5 +24,6 @@ fun RegexRule.toJSONObject() = JSONObject().apply {
 fun RedirectRule.toJSONObject() = JSONObject().apply {
     put("a", this@toJSONObject.description)
     put("e", this@toJSONObject.domain)
+    put("h", this@toJSONObject.userAgent)
     put("d", this@toJSONObject.author)
 }

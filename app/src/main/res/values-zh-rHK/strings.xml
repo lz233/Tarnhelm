@@ -70,6 +70,7 @@
     <string name="redirectRulesEditDialogTitle">編輯一個重定向規則</string>
     <string name="redirectRulesItemDescription">描述</string>
     <string name="redirectRulesItemDomain">域名</string>
+    <string name="redirectRulesItemUserAgent">用戶代理</string>
     <string name="redirectRulesItemAuthor">作者</string>
     <string name="redirectRulesDialogPositiveButton">確認</string>
 
