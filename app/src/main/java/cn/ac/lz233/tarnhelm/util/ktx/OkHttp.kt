@@ -1,7 +1,5 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
-import android.webkit.WebSettings
-import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.logic.Network
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -15,7 +13,9 @@ fun HttpUrl.followRedirect(userAgent: String?): HttpUrl {
         .newCall(
             Request.Builder()
                 .url(this)
-                .addHeader("User-Agent", if (userAgent.isNullOrEmpty()) WebSettings.getDefaultUserAgent(App.context) else userAgent)
+                .let {
+                    if (userAgent.isNullOrEmpty()) it else it.addHeader("User-Agent", userAgent)
+                }
                 .build()
         )
         .execute()
