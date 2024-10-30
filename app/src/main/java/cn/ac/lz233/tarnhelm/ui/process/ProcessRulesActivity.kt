@@ -20,9 +20,9 @@ class ProcessRulesActivity : BaseActivity() {
         val parameterRuleString = data?.getQueryParameter("parameter")
         val regexRuleString = data?.getQueryParameter("regex")
         val redirectRuleString = data?.getQueryParameter("redirect")
-        LogUtil._d("parameterRuleString $parameterRuleString")
-        LogUtil._d("regexRuleString $regexRuleString")
-        LogUtil._d("redirectRuleString $redirectRuleString")
+        LogUtil._d("parameterRuleString: $parameterRuleString")
+        LogUtil._d("regexRuleString: $regexRuleString")
+        LogUtil._d("redirectRuleString: $redirectRuleString")
         try {
             when {
                 parameterRuleString != null -> {
