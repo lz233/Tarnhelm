@@ -1,5 +1,6 @@
 package cn.ac.lz233.tarnhelm
 
+import android.app.ActivityManager
 import android.app.Application
 import android.app.NotificationManager
 import android.content.ClipboardManager
@@ -52,6 +53,7 @@ class App : Application() {
         lateinit var redirectRuleDao: RedirectRuleDao
         lateinit var extensionDao: ExtensionDao
 
+        lateinit var activityManager: ActivityManager
         lateinit var clipboardManager: ClipboardManager
         lateinit var notificationManager: NotificationManager
 
@@ -73,7 +75,7 @@ class App : Application() {
         fun isXposedActive(): Boolean = false
 
         fun checkClipboardPermission() =
-            (Build.VERSION.SDK_INT < 29) or (Settings.canDrawOverlays(context) && context.checkSelfPermission("android.permission.READ_LOGS") == PackageManager.PERMISSION_GRANTED)
+            (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) or (Settings.canDrawOverlays(context) && context.checkSelfPermission("android.permission.READ_LOGS") == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onCreate() {
@@ -95,6 +97,7 @@ class App : Application() {
         redirectRuleDao = db.redirectRuleDao()
         extensionDao = db.extensionDao()
 
+        activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
