@@ -5,9 +5,12 @@ import android.app.AppOpsManagerHidden
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.annotation.Keep
+import androidx.annotation.RequiresApi
 import cn.ac.lz233.tarnhelm.shizuku_service.BuildConfig
 import dev.rikka.tools.refine.Refine
+import org.lsposed.hiddenapibypass.HiddenApiBypass
 import kotlin.system.exitProcess
 
 @Keep
@@ -28,7 +31,9 @@ class ClipboardShizukuService(private val context: Context) : IClipboardShizukuS
         exitProcess(0)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun start() {
+        HiddenApiBypass.addHiddenApiExemptions("Landroid/app");
         // LogUtil._d("ClipboardShizukuService init")
         appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         packageManager = context.packageManager

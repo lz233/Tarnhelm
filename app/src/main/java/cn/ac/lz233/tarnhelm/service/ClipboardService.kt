@@ -23,7 +23,6 @@ import cn.ac.lz233.tarnhelm.ui.process.ProcessServiceActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import cn.ac.lz233.tarnhelm.util.ktx.getString
-import org.lsposed.hiddenapibypass.HiddenApiBypass
 import rikka.shizuku.Shizuku
 
 
@@ -74,7 +73,6 @@ class ClipboardService : Service() {
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            HiddenApiBypass.addHiddenApiExemptions("Landroid/app");
             Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
         } else {
             App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
