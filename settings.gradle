@@ -17,3 +17,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Tarnhelm"
 include ':app'
+include ':hidden-api'
+include ':shizuku-service'
+include ':base'

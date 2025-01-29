@@ -22,7 +22,6 @@ import cn.ac.lz233.tarnhelm.ui.BaseActivity
 import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
-import cn.ac.lz233.tarnhelm.util.AppCenterUtil
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
@@ -50,7 +49,6 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(toolbar)
 
-        AppCenterUtil.initAppCenter(application)
         init()
 
         binding.rulesCardView.setOnClickListener { RulesActivity.actionStart(this) }
@@ -157,7 +155,12 @@ class MainActivity : BaseActivity() {
 
     private fun initNotificationChannel() {
         App.notificationManager.createNotificationChannels(listOf(
-            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW),
+            NotificationChannel("233", R.string.clipboard_service_channel_name.getString(), NotificationManager.IMPORTANCE_LOW).apply {
+                setSound(null, null)
+                enableLights(false)
+                enableVibration(false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) setAllowBubbles(false)
+            },
             NotificationChannel("234", R.string.process_result_channel_name.getString(), NotificationManager.IMPORTANCE_HIGH).apply {
                 setSound(null, null)
                 enableLights(false)

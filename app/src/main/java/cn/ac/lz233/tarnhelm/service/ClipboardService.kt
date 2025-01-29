@@ -5,7 +5,10 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -20,24 +23,63 @@ import cn.ac.lz233.tarnhelm.ui.process.ProcessServiceActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.util.ktx.doTarnhelms
 import cn.ac.lz233.tarnhelm.util.ktx.getString
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import kotlin.concurrent.thread
+import org.lsposed.hiddenapibypass.HiddenApiBypass
+import rikka.shizuku.Shizuku
+
 
 class ClipboardService : Service() {
-
     private var text1: CharSequence = ""
     private var text2: CharSequence = ""
-    private var readerID = 0L
+    private val userServiceArgs = Shizuku.UserServiceArgs(ComponentName(BuildConfig.APPLICATION_ID, ClipboardShizukuService::class.java.name))
+        .daemon(false)
+        .processNameSuffix("clipboard-shizuku")
+        .debuggable(BuildConfig.DEBUG)
+        .version(BuildConfig.VERSION_CODE)
+    private val userServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
+            if (binder != null && binder.pingBinder()) {
+                val service = IClipboardShizukuService.Stub.asInterface(binder)
+                LogUtil._d("ClipboardShizukuService onServiceConnected: $name")
+                service.start()
+                service.addCallback(object : ShizukuCallback.Stub() {
+                    override fun onOpNoted(op: String, uid: Int, packageName: String, attributionTag: String?, flags: Int, result: Int) {
+                        if (op == "android:write_clipboard" && packageName != BuildConfig.APPLICATION_ID) {
+                            magic()
+                        }
+                    }
+                })
+            } else {
+                LogUtil._d("ClipboardShizukuService binder is null or dead")
+            }
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            LogUtil._d("ClipboardShizukuService onServiceDisconnected: $name")
+        }
+    }
+    private val binderReceivedListener: () -> Unit = {
+        LogUtil._d("binderReceivedListener")
+        if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+            Shizuku.bindUserService(userServiceArgs, userServiceConnection)
+        } else {
+            LogUtil.toast(R.string.clipboard_service_permission_needed.getString())
+        }
+    }
     private val primaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
-        if (Build.VERSION.SDK_INT < 29) doClipboard()
+        doClipboard()
     }
 
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
-        App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
-        if (Build.VERSION.SDK_INT >= 29 && App.checkClipboardPermission()) magic()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            HiddenApiBypass.addHiddenApiExemptions("Landroid/app");
+            Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
+        } else {
+            App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
+        }
+
         if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
             createNotification()
         } else {
@@ -48,52 +90,37 @@ class ClipboardService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         LogUtil._d("ClipboardService onDestroy")
-        App.clipboardManager.removePrimaryClipChangedListener(primaryClipChangedListener)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Shizuku.removeBinderReceivedListener(binderReceivedListener)
+            Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
+        } else {
+            App.clipboardManager.removePrimaryClipChangedListener(primaryClipChangedListener)
+        }
         App.context.startActivity(Intent(App.context, ProcessServiceActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         })
     }
 
-    // From Android 10, Google limited the access to clipboard data in background
-    // https://developer.android.com/about/versions/10/privacy/changes#clipboard-data
     private fun magic() {
-        val nanoTime = System.nanoTime()
-        val handler = Handler(this.mainLooper)
-        readerID = nanoTime
-        thread {
-            try {
-                Runtime.getRuntime().exec("logcat -c").waitFor()
-                val exec = Runtime.getRuntime().exec("""logcat ClipboardService:E *:S -T 1""")
-                val bufferedReader = BufferedReader(InputStreamReader(exec.inputStream))
-                while (readerID == nanoTime) {
-                    val readLine = bufferedReader.readLine()
-                    if (readLine != null && readLine.contains("Denying clipboard access to ${BuildConfig.APPLICATION_ID}")) {
-                        handler.post {
-                            val windowManager = getSystemService(WindowManager::class.java) as WindowManager
-                            val view = View(applicationContext)
-                            windowManager.addView(view, WindowManager.LayoutParams(-2, -2, 2038, 32, -3).apply {
-                                x = 0
-                                y = 0
-                                width = 0
-                                height = 0
-                            })
-                            doClipboard()
-                            windowManager.removeView(view)
-                        }
-                    }
-                }
-                exec.destroy()
-                bufferedReader.close()
-            } catch (th: Throwable) {
-                LogUtil.e(th)
-            }
+        val handler = Handler(mainLooper)
+        handler.post {
+            val windowManager = getSystemService(WindowManager::class.java) as WindowManager
+            val view = View(applicationContext)
+            windowManager.addView(view, WindowManager.LayoutParams(-2, -2, 2038, 32, -3).apply {
+                x = 0
+                y = 0
+                width = 0
+                height = 0
+            })
+            doClipboard()
+            windowManager.removeView(view)
         }
     }
 
     private fun doClipboard() {
-        LogUtil._d("doClipboard")
         App.clipboardManager.primaryClip?.getItemAt(0)?.text?.let {
             if (it != text1 && it != text2) {
+                LogUtil._d("ClipboardService doClipboard")
                 text1 = it
                 it.doTarnhelms { success, result ->
                     if (success) {
@@ -112,6 +139,7 @@ class ClipboardService : Service() {
             .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
             })
+            .setShowWhen(false)
             .build()
         startForeground(233, notification)
     }

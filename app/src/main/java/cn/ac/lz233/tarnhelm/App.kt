@@ -8,9 +8,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.os.Build
-import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import androidx.window.embedding.ActivityFilter
@@ -73,9 +70,6 @@ class App : Application() {
 
         @JvmStatic
         fun isXposedActive(): Boolean = false
-
-        fun checkClipboardPermission() =
-            (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) or (Settings.canDrawOverlays(context) && context.checkSelfPermission("android.permission.READ_LOGS") == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onCreate() {

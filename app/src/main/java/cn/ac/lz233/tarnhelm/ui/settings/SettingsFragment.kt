@@ -23,12 +23,23 @@ import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.process.ProcessCopyActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessEditTextActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessShareActivity
-import cn.ac.lz233.tarnhelm.util.AppCenterUtil
 import cn.ac.lz233.tarnhelm.util.ktx.openUrl
 import com.google.android.material.snackbar.Snackbar
+import rikka.shizuku.Shizuku
 
 class SettingsFragment() : PreferenceFragmentCompat() {
     private lateinit var rootView: View
+
+    private val shizukuPermissionCallback: (Int, Int) -> Unit = { requestCode, grantResult ->
+        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+            val workModeBackgroundMonitoring: TwoStatePreference = findPreference("workModeBackgroundMonitoring")!!
+            workModeBackgroundMonitoring.isChecked = true
+            activateClipboardService()
+        } else {
+            Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
@@ -44,8 +55,6 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         val alwaysSendProcessingNotification: TwoStatePreference = findPreference("alwaysSendProcessingNotification")!!
         val systemNotificationSettings: Preference = findPreference("systemNotificationSettings")!!
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
-        val analytics: TwoStatePreference = findPreference("analytics")!!
-        val crashes: TwoStatePreference = findPreference("crashes")!!
         val website: Preference = findPreference("website")!!
         val telegramChannel: Preference = findPreference("telegramChannel")!!
 
@@ -100,39 +109,27 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
+        if (!checkClipboardPrivilege()) {
+            workModeBackgroundMonitoring.isChecked = false
+            deactivateClipboardService()
+        }
         workModeBackgroundMonitoring.setOnPreferenceChangeListener { preference, newValue ->
-            if (App.checkClipboardPermission()) {
-                if (newValue as Boolean) {
-                    App.context.packageManager.setComponentEnabledSetting(
-                        ComponentName(App.context, ClipboardService::class.java),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                    App.context.startService(Intent(App.context, ClipboardService::class.java))
-                    if (workModeXposed.isChecked)
-                        Snackbar.make(rootView, R.string.settingsWorkModeRecommendationToast, Toast.LENGTH_SHORT).show()
+            if (newValue as Boolean) {
+                if (checkClipboardPrivilege(true)) {
+                    activateClipboardService()
+                    true
                 } else {
-                    App.context.packageManager.setComponentEnabledSetting(
-                        ComponentName(App.context, ClipboardService::class.java),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP
-                    )
-                    App.context.stopService(Intent(App.context, ClipboardService::class.java))
+                    false
                 }
-                true
             } else {
-                Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT)
-                    .setAction(R.string.settingsWorkModeBackgroundMonitoringToastAction) {
-                        "https://tarnhelm.project.ac.cn/introduction.html#%E5%90%8E%E5%8F%B0%E7%9B%91%E5%90%AC%E6%A8%A1%E5%BC%8F".openUrl()
-                    }.show()
-                false
+                deactivateClipboardService()
+                true
             }
         }
 
         workModeXposed.isChecked = App.isXposedActive()
         workModeXposed.setOnPreferenceChangeListener { preference, newValue ->
-            if (!workModeXposed.isChecked)
-                Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
+            if (!workModeXposed.isChecked) Snackbar.make(rootView, R.string.settingsWorkModeOpenLSPosedToast, Toast.LENGTH_SHORT).show()
             false
         }
 
@@ -143,7 +140,8 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
-        overrideClipboardOverlay.isVisible = Build.VERSION.SDK_INT >= 33
+        // Clipboard overlay is a feature introduced in Android 13
+        overrideClipboardOverlay.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
         overrideClipboardOverlay.setOnPreferenceChangeListener { preference, newValue ->
             App.editorXposed?.putBoolean("overrideClipboardOverlay", newValue as Boolean)?.apply()
             true
@@ -172,18 +170,6 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
-        analytics.isVisible = BuildConfig.FLAVOR != "fdroid"
-        analytics.setOnPreferenceChangeListener { preference, newValue ->
-            AppCenterUtil.setAnalyticsEnabled(newValue as Boolean)
-            true
-        }
-
-        crashes.isVisible = BuildConfig.FLAVOR != "fdroid"
-        crashes.setOnPreferenceChangeListener { preference, newValue ->
-            AppCenterUtil.setCrashesEnabled(newValue as Boolean)
-            true
-        }
-
         website.setOnPreferenceClickListener {
             "https://tarnhelm.project.ac.cn".openUrl()
             true
@@ -197,11 +183,61 @@ class SettingsFragment() : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // get the root view of this fragment
+        // get the root of this fragment and update its padding for more AOSP like appearance
         (((this.requireView() as LinearLayout).getChildAt(0) as FrameLayout).getChildAt(0) as RecyclerView).apply {
             updatePadding(top = resources.getDimensionPixelSize(R.dimen.collapsingToolbarLayoutContentPaddingTop))
             clipToPadding = false
         }
+        Shizuku.addRequestPermissionResultListener(shizukuPermissionCallback);
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Shizuku.removeRequestPermissionResultListener(shizukuPermissionCallback);
+    }
+
+    private fun activateClipboardService() {
+        App.context.packageManager.setComponentEnabledSetting(
+            ComponentName(App.context, ClipboardService::class.java),
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+        App.context.startService(Intent(App.context, ClipboardService::class.java))
+        val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
+        if (workModeXposed.isChecked)
+            Snackbar.make(rootView, R.string.settingsWorkModeRecommendationToast, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deactivateClipboardService() {
+        App.context.packageManager.setComponentEnabledSetting(
+            ComponentName(App.context, ClipboardService::class.java),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
+        App.context.stopService(Intent(App.context, ClipboardService::class.java))
+    }
+
+    private fun checkClipboardPrivilege(request: Boolean = false): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        checkShizukuPermission(request)
+    } else {
+        true
+    }
+
+    private fun checkShizukuPermission(request: Boolean = false): Boolean = if (!Shizuku.pingBinder()) {
+        Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT).show()
+        false
+    } else if (Shizuku.isPreV11()) {
+        false
+    } else if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+        true
+    } else if (Shizuku.shouldShowRequestPermissionRationale()) {
+        Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT).show()
+        false
+    } else if (request) {
+        Shizuku.requestPermission(233)
+        false
+    } else {
+        false
     }
 
     constructor(rootView: View) : this() {

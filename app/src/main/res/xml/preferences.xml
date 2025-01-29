@@ -69,15 +69,6 @@
             android:summary="@string/settingsBehaviorExportRulesAsLinkSummary"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
 
-        <rikka.material.preference.MaterialSwitchPreference
-            android:defaultValue="true"
-            android:key="analytics"
-            android:title="@string/settingsBehaviorAnalytics" />
-
-        <rikka.material.preference.MaterialSwitchPreference
-            android:defaultValue="true"
-            android:key="crashes"
-            android:title="@string/settingsBehaviorCrashes" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">

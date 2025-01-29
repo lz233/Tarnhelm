@@ -14,7 +14,7 @@ android {
         minSdk 27
         targetSdk 35
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.6.6"
+        versionName "1.7.0"
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -73,8 +73,9 @@ configurations.configureEach {
 }
 
 dependencies {
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    compileOnly project(":hidden-api")
+    implementation project(":shizuku-service")
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core-ktx:1.15.0'
@@ -89,12 +90,13 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
 
-    githubImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
-    githubImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
-    googleImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
-    googleImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
-    coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
-    coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
+    // Visual Studio App Center Retirement: https://learn.microsoft.com/en-us/appcenter/retirement
+    // githubImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
+    // githubImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
+    // googleImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
+    // googleImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
+    // coolapkImplementation 'com.microsoft.appcenter:appcenter-analytics:5.0.5'
+    // coolapkImplementation 'com.microsoft.appcenter:appcenter-crashes:5.0.5'
 
     implementation 'com.google.android.material:material:1.12.0'
     implementation "dev.rikka.rikkax.material:material-preference:2.0.0"
@@ -106,6 +108,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
 
     compileOnly 'de.robv.android.xposed:api:82'
+
+    def shizukuVersion = "13.1.5"
+    implementation "dev.rikka.shizuku:api:$shizukuVersion"
+    implementation "dev.rikka.shizuku:provider:$shizukuVersion"
 
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 

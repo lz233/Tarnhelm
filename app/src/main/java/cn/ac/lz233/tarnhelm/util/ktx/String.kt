@@ -163,7 +163,7 @@ fun CharSequence.doTarnhelms(join: Boolean = false, callback: (success: Boolean,
                         .setContentText(targetRules.toFlowString())
                         .setSmallIcon(R.drawable.ic_icon)
                         .setShowWhen(false)
-                        .setTimeoutAfter(500)
+                        .setTimeoutAfter(1000)
                         .build()
                     App.notificationManager.notify(234, notification)
                 }

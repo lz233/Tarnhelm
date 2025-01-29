@@ -9,6 +9,7 @@
     <string name="clipboard_service_channel_name">后台监听</string>
     <string name="process_result_channel_name">处理结果</string>
     <string name="clipboard_service_started">后台监听已开启</string>
+    <string name="clipboard_service_permission_needed">后台监听需要 Shizuku 权限</string>
     <string name="process_result_processing">😇 处理进行中</string>
     <string name="process_result_success">🥳 处理成功</string>
     <string name="process_result_failed">🥲 处理失败</string>
@@ -84,8 +85,7 @@
     <string name="settingsWorkModeShareSummary">在分享对话框中选择「Tarnhelm」</string>
     <string name="settingsWorkModeBackgroundMonitoring">后台监听</string>
     <string name="settingsWorkModeBackgroundMonitoringSummary">在后台实时处理剪切板内容</string>
-    <string name="settingsWorkModeBackgroundMonitoringToast">阅读文档了解如何开启</string>
-    <string name="settingsWorkModeBackgroundMonitoringToastAction">打开</string>
+    <string name="settingsWorkModeBackgroundMonitoringToast">后台监听需要 Shizuku 权限</string>
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosedToast">在 LSPosed 中激活并重启来修改</string>
     <string name="settingsWorkModeRecommendationToast">推荐只打开「后台监听」或「Xposed」的其中一个</string>
@@ -102,8 +102,6 @@
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">在导出的规则前添加「tarnhelm://」</string>
-    <string name="settingsBehaviorAnalytics">AppCenter Analytics</string>
-    <string name="settingsBehaviorCrashes">AppCenter Crashes</string>
     <string name="settingsOthersTitle">其他</string>
     <string name="settingsOthersWebSite">网站</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
