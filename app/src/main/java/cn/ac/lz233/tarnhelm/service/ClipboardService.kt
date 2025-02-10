@@ -77,13 +77,6 @@ class ClipboardService : Service() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
-            Shizuku.addBinderDeadListener(binderDeadListener)
-        } else {
-            App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
-        }
-
         if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
             // In initial stage, both ReceivedListener and DeadListener will not be called.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -93,6 +86,13 @@ class ClipboardService : Service() {
             }
         } else {
             LogUtil.toast(R.string.clipboard_service_started.getString())
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
+            Shizuku.addBinderDeadListener(binderDeadListener)
+        } else {
+            App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
         }
     }
 
