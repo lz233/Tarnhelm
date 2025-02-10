@@ -25,6 +25,7 @@ import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
 import cn.ac.lz233.tarnhelm.util.ktx.getString
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
+import cn.ac.lz233.tarnhelm.util.ktx.useFlymeChooser
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
@@ -66,7 +67,9 @@ class MainActivity : BaseActivity() {
                     }
                 )
                 type = "text/plain"
-            }, R.string.app_name.getString()))
+            }, R.string.app_name.getString()).apply {
+                useFlymeChooser(false)
+            })
         }
         binding.aboutCardView.setOnClickListener {
             val dialogBinding = DialogAboutBinding.inflate(layoutInflater)

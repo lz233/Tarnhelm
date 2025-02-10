@@ -2,7 +2,6 @@ package cn.ac.lz233.tarnhelm.service
 
 import android.app.AppOpsManager
 import android.app.AppOpsManagerHidden
-
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -18,7 +17,6 @@ class ClipboardShizukuService(private val context: Context) : IClipboardShizukuS
     private lateinit var appOpsManager: AppOpsManager
     private lateinit var packageManager: PackageManager
     private lateinit var shizukuCallback: ShizukuCallback
-    @Keep
     private lateinit var opNotedListener: AppOpsManagerHidden.OnOpNotedListener
 
     override fun exit() {

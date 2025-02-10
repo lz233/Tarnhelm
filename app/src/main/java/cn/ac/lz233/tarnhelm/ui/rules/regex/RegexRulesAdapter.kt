@@ -20,6 +20,7 @@ import cn.ac.lz233.tarnhelm.util.ktx.encodeURL
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONArray
 import cn.ac.lz233.tarnhelm.util.ktx.toJSONObject
 import cn.ac.lz233.tarnhelm.util.ktx.toMultiString
+import cn.ac.lz233.tarnhelm.util.ktx.useFlymeChooser
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -77,7 +78,10 @@ class RegexRulesAdapter(private val rulesList: MutableList<RegexRule>) : Recycle
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, base64Text)
                     type = "text/plain"
-                }, null).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
+                }, null).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    useFlymeChooser(false)
+                })
                 dialog.dismiss()
             }
             dialogBinding.deleteImageView.setOnClickListener {
