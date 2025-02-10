@@ -60,9 +60,14 @@ class ClipboardService : Service() {
         LogUtil._d("binderReceivedListener")
         if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
             Shizuku.bindUserService(userServiceArgs, userServiceConnection)
+            createNotification()
         } else {
             LogUtil.toast(R.string.clipboard_service_permission_needed.getString())
+            createNotification(content = R.string.clipboard_service_permission_needed.getString())
         }
+    }
+    private val binderDeadListener: () -> Unit = {
+        createNotification(content = R.string.clipboard_service_permission_needed.getString())
     }
     private val primaryClipChangedListener = ClipboardManager.OnPrimaryClipChangedListener {
         doClipboard()
@@ -74,12 +79,18 @@ class ClipboardService : Service() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
+            Shizuku.addBinderDeadListener(binderDeadListener)
         } else {
             App.clipboardManager.addPrimaryClipChangedListener(primaryClipChangedListener)
         }
 
         if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
-            createNotification()
+            // In initial stage, both ReceivedListener and DeadListener will not be called.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                createNotification(content = R.string.clipboard_service_permission_needed.getString())
+            } else {
+                createNotification()
+            }
         } else {
             LogUtil.toast(R.string.clipboard_service_started.getString())
         }
@@ -90,6 +101,7 @@ class ClipboardService : Service() {
         LogUtil._d("ClipboardService onDestroy")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Shizuku.removeBinderReceivedListener(binderReceivedListener)
+            Shizuku.removeBinderDeadListener(binderDeadListener)
             Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
         } else {
             App.clipboardManager.removePrimaryClipChangedListener(primaryClipChangedListener)
@@ -130,9 +142,10 @@ class ClipboardService : Service() {
         }
     }
 
-    private fun createNotification() {
+    private fun createNotification(title: String = R.string.clipboard_service_started.getString(), content: String = "") {
         val notification = Notification.Builder(this, "233")
-            .setContentTitle(R.string.clipboard_service_started.getString())
+            .setContentTitle(title)
+            .setContentText(content)
             .setSmallIcon(R.drawable.ic_icon)
             .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)

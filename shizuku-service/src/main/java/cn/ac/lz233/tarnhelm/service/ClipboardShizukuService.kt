@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import cn.ac.lz233.tarnhelm.shizuku_service.BuildConfig
 import dev.rikka.tools.refine.Refine
 import org.lsposed.hiddenapibypass.HiddenApiBypass
-import kotlin.system.exitProcess
 
 @Keep
 class ClipboardShizukuService(private val context: Context) : IClipboardShizukuService.Stub() {
@@ -26,7 +25,6 @@ class ClipboardShizukuService(private val context: Context) : IClipboardShizukuS
     override fun destroy() {
         // LogUtil._d("ClipboardShizukuService destroy")
         Refine.unsafeCast<AppOpsManagerHidden>(appOpsManager).stopWatchingNoted(opNotedListener)
-        exitProcess(0)
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
