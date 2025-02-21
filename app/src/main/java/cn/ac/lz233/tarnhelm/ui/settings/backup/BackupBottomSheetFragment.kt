@@ -49,7 +49,7 @@ class BackupBottomSheetFragment : BottomSheetDialogFragment(), CoroutineScope by
     }
     private val backupFiles by lazy { backupDir.listFilesRecursively() }
     private val outputDir by lazy { File(requireContext().cacheDir, "backup") }
-    private val outputFile by lazy { File(outputDir, "tarnhelm-backup-${System.currentTimeMillis()}.zip") }
+    private val outputFile by lazy { File(outputDir, "tarnhelm-backup-${BuildConfig.VERSION_NAME}-${System.currentTimeMillis()}.zip") }
     private val shareOutputFileIntent by lazy {
         Intent().apply {
             action = Intent.ACTION_SEND
@@ -96,6 +96,7 @@ class BackupBottomSheetFragment : BottomSheetDialogFragment(), CoroutineScope by
         if (result.resultCode == Activity.RESULT_OK) {
             val fileUri = result.data?.data ?: return@registerForActivityResult
             launch {
+                binding.progressIndicator.visibility = View.VISIBLE
                 backupDir.forEach { it.deleteRecursively() }
                 requireContext().contentResolver.openInputStream(fileUri)?.unzip(requireContext().dataDir)
                 exitProcess(0)
@@ -137,9 +138,11 @@ class BackupBottomSheetFragment : BottomSheetDialogFragment(), CoroutineScope by
 
     private fun startBackup() {
         launch {
+            binding.progressIndicator.visibility = View.VISIBLE
             backupFiles.zip(requireContext().dataDir, outputFile)
+            binding.progressIndicator.visibility = View.INVISIBLE
             startActivity(Intent.createChooser(
-                shareOutputFileIntent, R.string.app_name.getString(), PendingIntent.getBroadcast(
+                shareOutputFileIntent, R.string.backupTitle.getString(), PendingIntent.getBroadcast(
                     requireContext(),
                     233,
                     Intent("${BuildConfig.APPLICATION_ID}.backup.shareCallback").apply {
