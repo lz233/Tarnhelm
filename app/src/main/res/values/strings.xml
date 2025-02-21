@@ -102,8 +102,6 @@
     <string name="settingsXposedRewriteClipboard">Rewrite clipboard</string>
     <string name="settingsXposedOverrideClipboardOverlay">Override clipboard overlay</string>
     <string name="settingsNotification">Notification</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">Use foreground service on Background Monitoring</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">Turning off may cause a lot of unnecessary problems</string>
     <string name="settingsNotificationAlwaysSendProcessingNotification">Always send processing notifications</string>
     <string name="settingsNotificationAlwaysSendProcessingNotificationSummary">Even if no time-consuming operations involved</string>
     <string name="settingsNotificationSystemNotificationSettings">More settings</string>

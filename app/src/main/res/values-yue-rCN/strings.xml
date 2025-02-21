@@ -83,8 +83,6 @@
     <string name="settingsWorkModeXposed">Xposed</string>
     <string name="settingsWorkModeOpenLSPosedToast">喺 LSPosed 入面激活然后重启嚟切换开关</string>
     <string name="settingsWorkModeRecommendationToast">推荐净喺係打开「后台监听」或「Xposed」嘅其中一个</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">后台监听时使用前台服务</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">关闭可能会有好鬼多麻烦嘢</string>
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsOthersTitle">其他</string>

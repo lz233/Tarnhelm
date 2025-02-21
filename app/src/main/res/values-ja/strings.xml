@@ -93,8 +93,6 @@
     <string name="settingsXposedTitle">Xposed</string>
     <string name="settingsXposedRewriteClipboard">クリップボード書き換え</string>
     <string name="settingsXposedOverrideClipboardOverlay">クリップボードオーバーレイを上書きする</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">Background Monitoring モードを有効にする時にフォアグラウンド サービスを使用する</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">オフにすると多くの非予期な問題が発生する可能性があります</string>
     <string name="settingsBehavior">動作設定</string>
     <string name="settingsBehaviorExportRulesAsLink">ルールをリンクとしてエクスポート</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">エクスポートされたルールの真ん前に「tarnhelm://」を追加</string>

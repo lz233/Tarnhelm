@@ -9,6 +9,7 @@
     <string name="clipboard_service_channel_name">後台監聽</string>
     <string name="process_result_channel_name">處理結果</string>
     <string name="clipboard_service_started">後台監聽已開啟</string>
+    <string name="clipboard_service_summary">輕觸獲取更多資訊</string>
     <string name="clipboard_service_permission_needed">後台監聽需要 Shizuku 權限</string>
     <string name="process_result_processing">😇 處理進行中</string>
     <string name="process_result_success">🥳 處理成功</string>
@@ -97,8 +98,6 @@
     <string name="settingsXposedRewriteClipboard">重寫剪切板</string>
     <string name="settingsXposedOverrideClipboardOverlay">覆寫剪切板懸浮窗</string>
     <string name="settingsNotification">通知</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoring">後台監聽時使用前台服務</string>
-    <string name="settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary">關閉後可能會造成諸多不必要的麻煩</string>
     <string name="settingsNotificationAlwaysSendProcessingNotification">始終發送處理通知</string>
     <string name="settingsNotificationAlwaysSendProcessingNotificationSummary">即使這不涉及到耗時操作</string>
     <string name="settingsNotificationSystemNotificationSettings">更多設定</string>
@@ -106,10 +105,19 @@
     <string name="settingsBehaviorExportRulesAsLink">以鏈接形式導出規則</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">在導出的規則前添加「tarnhelm://」</string>
     <string name="settingsOthersTitle">其他</string>
+    <string name="settingsOthersBackupAndRestore">備份與恢復</string>
     <string name="settingsOthersWebSite">網站</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
     <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslator">譯者</string>
     <string name="settingsOthersTranslatorSummary">lz233, ous50</string>
+
+    <string name="backupTitle">備份與恢復</string>
+    <string name="backupSummary">Tarnhelm 的數據可以被 Android 正確處理。在大多數情況下，這可以通過 Google Cloud Backup 或 ADB 來完成。\n如果您仍想手動備份或恢復數據，請在下方繼續。</string>
+    <string name="backupWarning">這是一個硬備份，不保證數據恢復，也不對備份文件執行任何檢查，請謹慎使用。</string>
+    <string name="backupBackupButton">備份</string>
+    <string name="backupRestoreButton">恢復</string>
+    <string name="backupRequestPermissionFailedToast">你需要授予此權限來繼續</string>
+    <string name="backupSaveViaSAFTitle">保存至儲存</string>
 </resources>
