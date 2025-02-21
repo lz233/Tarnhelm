@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import com.google.android.material.textfield.TextInputEditText
 
 class EditText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : TextInputEditText(context, attrs) {
-    var canTouch = true
+    private var canTouch = true
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return if (canTouch) {

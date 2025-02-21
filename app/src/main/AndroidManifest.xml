@@ -8,10 +8,15 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".App"
+        android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
+        android:fullBackupOnly="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:localeConfig="@xml/locale_config"
@@ -135,6 +140,20 @@
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Tarnhelm.NoDisplay" />
 
+        <activity
+            android:name=".ui.settings.backup.SaveViaSAFActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/backupSaveViaSAFTitle"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.Tarnhelm.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/zip" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name=".receiver.BootBroadcast"
             android:enabled="true"
@@ -167,6 +186,16 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Process clipboard context in background real-time." />
         </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="cn.ac.lz233.tarnhelm.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <provider
             android:name="rikka.shizuku.ShizukuProvider"

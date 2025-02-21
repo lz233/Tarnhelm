@@ -23,6 +23,7 @@ import cn.ac.lz233.tarnhelm.service.ClipboardService
 import cn.ac.lz233.tarnhelm.ui.process.ProcessCopyActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessEditTextActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessShareActivity
+import cn.ac.lz233.tarnhelm.ui.settings.backup.BackupBottomSheetFragment
 import cn.ac.lz233.tarnhelm.util.ktx.openUrl
 import com.google.android.material.snackbar.Snackbar
 import rikka.shizuku.Shizuku
@@ -51,10 +52,10 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         val xposed: PreferenceCategory = findPreference("xposed")!!
         val rewriteClipboard: TwoStatePreference = findPreference("rewriteClipboard")!!
         val overrideClipboardOverlay: TwoStatePreference = findPreference("overrideClipboardOverlay")!!
-        val useForegroundServiceOnBackgroundMonitoring: TwoStatePreference = findPreference("useForegroundServiceOnBackgroundMonitoring")!!
         val alwaysSendProcessingNotification: TwoStatePreference = findPreference("alwaysSendProcessingNotification")!!
         val systemNotificationSettings: Preference = findPreference("systemNotificationSettings")!!
         val exportRulesAsLink: TwoStatePreference = findPreference("exportRulesAsLink")!!
+        val backupAndRestore: Preference = findPreference("backupAndRestore")!!
         val website: Preference = findPreference("website")!!
         val telegramChannel: Preference = findPreference("telegramChannel")!!
 
@@ -147,19 +148,6 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
-        useForegroundServiceOnBackgroundMonitoring.setOnPreferenceChangeListener { preference, newValue ->
-            if (workModeBackgroundMonitoring.isChecked) {
-                if (newValue as Boolean) {
-                    App.context.stopService(Intent(App.context, ClipboardService::class.java))
-                    App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
-                } else {
-                    App.context.stopService(Intent(App.context, ClipboardService::class.java))
-                    App.context.startService(Intent(App.context, ClipboardService::class.java))
-                }
-            }
-            true
-        }
-
         systemNotificationSettings.setOnPreferenceClickListener {
             startActivity(
                 Intent().apply {
@@ -167,6 +155,11 @@ class SettingsFragment() : PreferenceFragmentCompat() {
                     putExtra(Settings.EXTRA_APP_PACKAGE, BuildConfig.APPLICATION_ID)
                 }
             )
+            true
+        }
+
+        backupAndRestore.setOnPreferenceClickListener {
+            BackupBottomSheetFragment().show(childFragmentManager, "BackupBottomSheetFragment")
             true
         }
 
@@ -202,7 +195,7 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )
-        App.context.startService(Intent(App.context, ClipboardService::class.java))
+        App.context.startForegroundService(Intent(App.context, ClipboardService::class.java))
         val workModeXposed: TwoStatePreference = findPreference("workModeXposed")!!
         if (workModeXposed.isChecked)
             Snackbar.make(rootView, R.string.settingsWorkModeRecommendationToast, Toast.LENGTH_SHORT).show()

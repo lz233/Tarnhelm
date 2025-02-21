@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Tarnhelm.DayNight" parent="Base.Tarnhelm">
+        <!-- android:isLightTheme was added in API 29, before that, it returns false -->
+        <item name="android:windowLightStatusBar">?android:isLightTheme</item>
+        <item name="android:windowLightNavigationBar">?android:isLightTheme</item>
+    </style>
+</resources>

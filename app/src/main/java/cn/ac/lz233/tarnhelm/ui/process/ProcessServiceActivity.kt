@@ -11,12 +11,7 @@ class ProcessServiceActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (SettingsDao.workModeBackgroundMonitoring) {
-            if (SettingsDao.useForegroundServiceOnBackgroundMonitoring)
-                startForegroundService(Intent(App.context, ClipboardService::class.java))
-            else
-                startService(Intent(App.context, ClipboardService::class.java))
-        }
+        if (SettingsDao.workModeBackgroundMonitoring) startForegroundService(Intent(App.context, ClipboardService::class.java))
         finish()
     }
 }

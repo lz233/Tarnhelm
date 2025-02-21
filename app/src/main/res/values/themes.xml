@@ -11,15 +11,18 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">?android:isLightTheme</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar">?android:isLightTheme</item>
         <item name="android:colorBackground">@color/md_theme_background</item>
         <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
         <item name="android:fontFamily">google-sans</item>
     </style>
 
-    <style name="Theme.Tarnhelm" parent="Base.Tarnhelm">
+    <style name="Base.Tarnhelm.DayNight" parent="Base.Tarnhelm">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="Theme.Tarnhelm" parent="Base.Tarnhelm.DayNight">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -47,7 +50,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
     </style>
 
-    <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm">
+    <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

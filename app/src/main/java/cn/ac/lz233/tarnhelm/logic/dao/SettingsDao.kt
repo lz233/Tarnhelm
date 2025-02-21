@@ -15,9 +15,6 @@ object SettingsDao {
     val workModeBackgroundMonitoring
         get() = App.spSettings.getBoolean("workModeBackgroundMonitoring", false)
 
-    val useForegroundServiceOnBackgroundMonitoring
-        get() = App.spSettings.getBoolean("useForegroundServiceOnBackgroundMonitoring", true)
-
     val alwaysSendProcessingNotification
         get() = App.spSettings.getBoolean("alwaysSendProcessingNotification", false)
 

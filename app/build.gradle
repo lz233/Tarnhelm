@@ -14,7 +14,7 @@ android {
         minSdk 27
         targetSdk 35
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.7.1"
+        versionName "1.8.0"
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -74,7 +74,6 @@ configurations.configureEach {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    compileOnly project(":hidden-api")
     implementation project(":shizuku-service")
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
@@ -113,7 +112,7 @@ dependencies {
     implementation "dev.rikka.shizuku:api:$shizukuVersion"
     implementation "dev.rikka.shizuku:provider:$shizukuVersion"
 
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:5.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'

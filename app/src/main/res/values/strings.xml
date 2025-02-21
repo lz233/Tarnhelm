@@ -9,6 +9,7 @@
     <string name="clipboard_service_channel_name">Background Monitoring</string>
     <string name="process_result_channel_name">Process Result</string>
     <string name="clipboard_service_started">Background Monitoring enabled</string>
+    <string name="clipboard_service_summary">Tap for more information</string>
     <string name="clipboard_service_permission_needed">Shizuku permission is needed</string>
     <string name="process_result_processing">😇 Processing underway</string>
     <string name="process_result_success">🥳 Processed successfully</string>
@@ -110,10 +111,19 @@
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">Add \"tarnhelm://\" on exported rules</string>
     <string name="settingsOthersTitle">Others</string>
+    <string name="settingsOthersBackupAndRestore">Backup &amp; restore</string>
     <string name="settingsOthersWebSite">Website</string>
     <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
     <string name="settingsOthersTelegramChannel">Telegram Channel</string>
     <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
     <string name="settingsOthersTranslator">Translator</string>
     <string name="settingsOthersTranslatorSummary">lz233</string>
+
+    <string name="backupTitle">Backup &amp; Restore</string>
+    <string name="backupSummary">Tarnhelm\'s data can be correctly handled by Android system. In most cases, this can be done using Google Cloud Backup or ADB.\nIf you still want to backup or restore your data manually, please continue below.</string>
+    <string name="backupWarning">This is a hard backup and does not guarantee data restored, nor does it perform any checks on the backup file, use it with caution.</string>
+    <string name="backupBackupButton">Backup</string>
+    <string name="backupRestoreButton">Restore</string>
+    <string name="backupRequestPermissionFailedToast">You should grant this permission to continue</string>
+    <string name="backupSaveViaSAFTitle">Save to storage</string>
 </resources>

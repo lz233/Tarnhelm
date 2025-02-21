@@ -1,6 +1,5 @@
 package cn.ac.lz233.tarnhelm.service
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ClipData
@@ -14,10 +13,10 @@ import android.os.Handler
 import android.os.IBinder
 import android.view.View
 import android.view.WindowManager
+import androidx.core.app.NotificationCompat
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.R
-import cn.ac.lz233.tarnhelm.logic.dao.SettingsDao
 import cn.ac.lz233.tarnhelm.ui.main.MainActivity
 import cn.ac.lz233.tarnhelm.ui.process.ProcessServiceActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
@@ -76,16 +75,11 @@ class ClipboardService : Service() {
     override fun onCreate() {
         super.onCreate()
         LogUtil._d("ClipboardService onCreate SDK_INT=${Build.VERSION.SDK_INT}")
-
-        if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
-            // In initial stage, both ReceivedListener and DeadListener will not be called.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                createNotification(content = R.string.clipboard_service_permission_needed.getString())
-            } else {
-                createNotification()
-            }
+        // In initial stage, both ReceivedListener and DeadListener will not be called.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            createNotification(content = R.string.clipboard_service_permission_needed.getString())
         } else {
-            LogUtil.toast(R.string.clipboard_service_started.getString())
+            createNotification()
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -102,7 +96,7 @@ class ClipboardService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Shizuku.removeBinderReceivedListener(binderReceivedListener)
             Shizuku.removeBinderDeadListener(binderDeadListener)
-            Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
+            if (Shizuku.pingBinder()) Shizuku.unbindUserService(userServiceArgs, userServiceConnection, true)
         } else {
             App.clipboardManager.removePrimaryClipChangedListener(primaryClipChangedListener)
         }
@@ -142,11 +136,12 @@ class ClipboardService : Service() {
         }
     }
 
-    private fun createNotification(title: String = R.string.clipboard_service_started.getString(), content: String = "") {
-        val notification = Notification.Builder(this, "233")
+    private fun createNotification(title: String = R.string.clipboard_service_started.getString(), content: String = R.string.clipboard_service_summary.getString()) {
+        val notification = NotificationCompat.Builder(this, "233")
             .setContentTitle(title)
             .setContentText(content)
             .setSmallIcon(R.drawable.ic_icon)
+            .setColor(getColor(R.color.ic_launcher_background))
             .setContentIntent(Intent(this, MainActivity::class.java).let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
             })

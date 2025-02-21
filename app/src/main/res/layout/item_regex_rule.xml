@@ -14,7 +14,7 @@
         android:layout_marginTop="7.5dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="7.5dp"
-        app:cardBackgroundColor="?attr/colorSecondaryContainer"
+        app:cardBackgroundColor="?attr/colorSurfaceBright"
         app:cardCornerRadius="28dp"
         app:cardElevation="0dp"
         app:cardMaxElevation="0dp">
@@ -43,56 +43,56 @@
                 android:layout_weight="1"
                 android:text="@string/regexRulesItemDescription"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="?attr/colorOnSecondaryContainer" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/descriptionContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?attr/colorOnTertiaryContainer" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/regexRulesItemRegexes"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="?attr/colorOnSecondaryContainer" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/regexesContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?attr/colorOnTertiaryContainer" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/regexRulesItemReplacements"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="?attr/colorOnSecondaryContainer" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/replacementsContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?attr/colorOnTertiaryContainer" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/regexRulesItemAuthor"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="?attr/colorOnSecondaryContainer" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/authorContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?attr/colorOnTertiaryContainer" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

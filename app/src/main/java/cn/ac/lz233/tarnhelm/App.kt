@@ -108,10 +108,10 @@ class App : Application() {
         DynamicColors.applyToActivitiesIfAvailable(
             this,
             DynamicColorsOptions.Builder()
-                .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
                 .setPrecondition { activity, theme ->
-                    !activity.localClassName.startsWith("ui.process")
+                    !(activity.localClassName.startsWith("ui.process") or activity.localClassName.startsWith("ui.settings.backup"))
                 }
+                .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
                 .build()
         )
     }

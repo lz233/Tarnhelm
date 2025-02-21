@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -23,6 +22,7 @@ import cn.ac.lz233.tarnhelm.ui.extensions.ExtensionsActivity
 import cn.ac.lz233.tarnhelm.ui.rules.RulesActivity
 import cn.ac.lz233.tarnhelm.ui.settings.SettingsActivity
 import cn.ac.lz233.tarnhelm.util.ktx.getString
+import cn.ac.lz233.tarnhelm.util.ktx.openUrl
 import cn.ac.lz233.tarnhelm.util.ktx.toHtml
 import cn.ac.lz233.tarnhelm.util.ktx.toString
 import cn.ac.lz233.tarnhelm.util.ktx.useFlymeChooser
@@ -58,6 +58,7 @@ class MainActivity : BaseActivity() {
         binding.shareCardView.setOnClickListener {
             startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
+                type = "text/plain"
                 putExtra(Intent.EXTRA_SUBJECT, R.string.app_name.getString())
                 putExtra(
                     Intent.EXTRA_TEXT, when (BuildConfig.FLAVOR) {
@@ -66,7 +67,6 @@ class MainActivity : BaseActivity() {
                         else -> "https://github.com/lz233/Tarnhelm"
                     }
                 )
-                type = "text/plain"
             }, R.string.app_name.getString()).apply {
                 useFlymeChooser(false)
             })
@@ -96,13 +96,7 @@ class MainActivity : BaseActivity() {
             }
             binding.rulesSummaryTextView.text = getString(R.string.mainRulesSummary, (App.regexRuleDao.getCount() + App.parameterRuleDao.getCount() + App.redirectRuleDao.getCount()).toString())
         }
-        if (SettingsDao.workModeBackgroundMonitoring) {
-            if (SettingsDao.useForegroundServiceOnBackgroundMonitoring) {
-                startForegroundService(Intent(App.context, ClipboardService::class.java))
-            } else {
-                startService(Intent(App.context, ClipboardService::class.java))
-            }
-        }
+        if (SettingsDao.workModeBackgroundMonitoring) startForegroundService(Intent(App.context, ClipboardService::class.java))
     }
 
     private fun init() {
@@ -112,14 +106,12 @@ class MainActivity : BaseActivity() {
 
     private fun showRankDialog() {
         ConfigDao.openTimes++
-        //if (true){
+//        if (true){
         if ((ConfigDao.openTimes >= 10) and (!ConfigDao.ranked) and ((0..100).random() >= 50)) {
             ConfigDao.ranked = true
             Snackbar.make(binding.root, R.string.mainRankToast, Toast.LENGTH_SHORT)
                 .setAction(R.string.mainRankToastAction) {
-                    startActivity(Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
-                    })
+                    "market://details?id=${BuildConfig.APPLICATION_ID}".openUrl()
                 }.show()
         }
     }
@@ -145,10 +137,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkPermissions() {
+        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) listOf(Manifest.permission.POST_NOTIFICATIONS) else listOf()
         PermissionX.init(this)
-            .permissions(Manifest.permission.POST_NOTIFICATIONS)
+            .permissions(permissions)
             .request { allGranted, grantedList, deniedList ->
-                if (allGranted or (Build.VERSION.SDK_INT < 33)) {
+                if (allGranted) {
                     initNotificationChannel()
                 } else {
                     Snackbar.make(binding.root, R.string.mainRequestPermissionFailedToast, Toast.LENGTH_SHORT).show()

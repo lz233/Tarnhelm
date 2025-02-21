@@ -34,6 +34,7 @@
     <PreferenceCategory
         android:key="xposed"
         android:title="@string/settingsXposedTitle">
+
         <rikka.material.preference.MaterialSwitchPreference
             android:defaultValue="true"
             android:key="rewriteClipboard"
@@ -45,11 +46,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsNotification">
-        <rikka.material.preference.MaterialSwitchPreference
-            android:defaultValue="true"
-            android:key="useForegroundServiceOnBackgroundMonitoring"
-            android:summary="@string/settingsNotificationUseForegroundServiceOnBackgroundMonitoringSummary"
-            android:title="@string/settingsNotificationUseForegroundServiceOnBackgroundMonitoring" />
 
         <rikka.material.preference.MaterialSwitchPreference
             android:key="alwaysSendProcessingNotification"
@@ -60,18 +56,22 @@
             android:key="systemNotificationSettings"
             android:title="@string/settingsNotificationSystemNotificationSettings"
             android:widgetLayout="@layout/m3_icon_frame_open" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsBehavior">
-        <rikka.material.preference.MaterialSwitchPreference
+
+    <rikka.material.preference.MaterialSwitchPreference
             android:key="exportRulesAsLink"
             android:summary="@string/settingsBehaviorExportRulesAsLinkSummary"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">
+
+        <Preference
+            android:key="backupAndRestore"
+            android:title="@string/settingsOthersBackupAndRestore" />
+
         <Preference
             android:key="website"
             android:summary="@string/settingsOthersWebsiteSummary"

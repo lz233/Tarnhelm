@@ -93,7 +93,7 @@
                         android:layout_marginTop="5dp"
                         android:text="@string/mainStatusErrorSummary"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="@color/md_theme_onErrorContainer" />
+                        android:textColor="?android:attr/textColorSecondary" />
 
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -147,7 +147,7 @@
                         android:layout_marginTop="5dp"
                         android:maxLines="3"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="@color/md_theme_onPassContainer" />
+                        android:textColor="?android:attr/textColorSecondary" />
 
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -161,7 +161,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:cardBackgroundColor="?attr/colorSurfaceBright"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:cardMaxElevation="0dp">
@@ -180,7 +180,7 @@
                         android:layout_height="38dp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_rule_folder"
-                        app:tint="?attr/colorOnPrimaryContainer" />
+                        app:tint="?attr/colorOnSurface" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/rulesTitleTextView"
@@ -190,7 +190,7 @@
                         android:layout_toEndOf="@id/rulesIconView"
                         android:text="@string/mainRulesTitle"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
+                        android:textColor="?attr/colorOnSurface" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/rulesSummaryTextView"
@@ -200,7 +200,7 @@
                         android:layout_alignStart="@id/rulesTitleTextView"
                         android:layout_marginTop="5dp"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -214,7 +214,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:cardBackgroundColor="?attr/colorSurfaceBright"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:cardMaxElevation="0dp">
@@ -233,7 +233,7 @@
                         android:layout_height="38dp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_extension"
-                        app:tint="?attr/colorOnPrimaryContainer" />
+                        app:tint="?attr/colorOnSurface" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/extensionsTitleTextView"
@@ -243,7 +243,7 @@
                         android:layout_toEndOf="@id/extensionsIconView"
                         android:text="@string/mainExtensionsTitle"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
+                        android:textColor="?attr/colorOnSurface" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/extensionsSummaryTextView"
@@ -253,7 +253,7 @@
                         android:layout_alignStart="@id/extensionsTitleTextView"
                         android:layout_marginTop="5dp"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="?attr/colorOnPrimaryContainer" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
