@@ -18,6 +18,7 @@ import androidx.window.embedding.SplitPairRule
 import androidx.window.embedding.SplitPlaceholderRule
 import androidx.window.embedding.SplitRule
 import androidx.window.layout.WindowInfoTracker
+import cn.ac.lz233.tarnhelm.extension.ExtensionManager
 import cn.ac.lz233.tarnhelm.logic.AppDatabase
 import cn.ac.lz233.tarnhelm.logic.dao.ExtensionDao
 import cn.ac.lz233.tarnhelm.logic.dao.ParameterRuleDao
@@ -114,6 +115,8 @@ class App : Application() {
                 .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
                 .build()
         )
+
+        ExtensionManager.init()
     }
 
     private fun createSplitConfig() {

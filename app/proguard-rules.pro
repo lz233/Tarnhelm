@@ -34,4 +34,8 @@
  *;
 }
 
+-keep class cn.ac.lz233.tarnhelm.extension.api.** {
+ *;
+}
+
 -dontwarn android.app.AppOpsManager$OnOpNotedListener
