@@ -110,9 +110,8 @@ class SettingsFragment() : PreferenceFragmentCompat() {
             true
         }
 
-        if (!checkClipboardPrivilege()) {
-            workModeBackgroundMonitoring.isChecked = false
-            deactivateClipboardService()
+        if (!checkClipboardPrivilege() && workModeBackgroundMonitoring.isChecked) {
+            Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT).show()
         }
         workModeBackgroundMonitoring.setOnPreferenceChangeListener { preference, newValue ->
             if (newValue as Boolean) {
@@ -217,7 +216,6 @@ class SettingsFragment() : PreferenceFragmentCompat() {
     }
 
     private fun checkShizukuPermission(request: Boolean = false): Boolean = if (!Shizuku.pingBinder()) {
-        Snackbar.make(rootView, R.string.settingsWorkModeBackgroundMonitoringToast, Toast.LENGTH_SHORT).show()
         false
     } else if (Shizuku.isPreV11()) {
         false

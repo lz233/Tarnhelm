@@ -46,13 +46,16 @@ class ClipboardService : Service() {
                         }
                     }
                 })
+                createNotification()
             } else {
                 LogUtil._d("ClipboardShizukuService binder is null or dead")
+                createNotification(content = R.string.clipboard_service_permission_needed.getString())
             }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
             LogUtil._d("ClipboardShizukuService onServiceDisconnected: $name")
+            createNotification(content = R.string.clipboard_service_permission_needed.getString())
         }
     }
     private val binderReceivedListener: () -> Unit = {

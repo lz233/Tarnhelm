@@ -1,6 +1,5 @@
 package cn.ac.lz233.tarnhelm.util.ktx
 
-import cn.ac.lz233.tarnhelm.util.LogUtil
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -62,7 +61,6 @@ fun InputStream.unzip(outputDir: File) {
     val zipInputStream = ZipInputStream(BufferedInputStream(this))
     while (true) {
         val zipEntry = zipInputStream.nextEntry ?: break
-        LogUtil._d(zipEntry.name)
         val outputStream = BufferedOutputStream(FileOutputStream(File(outputDir, zipEntry.name).ensure()))
         zipInputStream.copyTo(outputStream)
         zipInputStream.closeEntry()
