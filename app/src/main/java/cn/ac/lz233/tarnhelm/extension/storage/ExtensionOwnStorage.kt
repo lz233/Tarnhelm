@@ -1,4 +1,4 @@
-package cn.ac.lz233.tarnhelm.extension
+package cn.ac.lz233.tarnhelm.extension.storage
 
 import cn.ac.lz233.tarnhelm.extension.api.ExtSharedPreferences
 import io.fastkv.FastKV

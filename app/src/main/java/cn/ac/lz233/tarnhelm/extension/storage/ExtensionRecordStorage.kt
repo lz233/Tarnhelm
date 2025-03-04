@@ -1,6 +1,8 @@
-package cn.ac.lz233.tarnhelm.extension
+package cn.ac.lz233.tarnhelm.extension.storage
 
 import android.content.Context
+import cn.ac.lz233.tarnhelm.extension.ExtensionRecord
+import cn.ac.lz233.tarnhelm.extension.ExtensionRecordAdapter
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt.ExtInfo
 import io.fastkv.FastKV
 import io.fastkv.interfaces.FastEncoder

@@ -8,7 +8,8 @@ class ExtensionClassLoader: ClassLoader(sBootClassLoader) {
         private val sBootClassLoader = Context::class.java.classLoader
         private val sHostClassLoader = ExtensionClassLoader::class.java.classLoader
         private val whitelist = arrayOf(
-            "cn.ac.lz233.tarnhelm.extension.api."
+            "cn.ac.lz233.tarnhelm.extension.api.",
+            "cn.ac.lz233.tarnhelm.extension.storage.ExtensionOwnStorage"
         )
     }
 

@@ -10,6 +10,8 @@ import cn.ac.lz233.tarnhelm.extension.api.ExtService
 import cn.ac.lz233.tarnhelm.extension.api.ExtSharedPreferences
 import cn.ac.lz233.tarnhelm.extension.api.IExtConfigurationPanel
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt
+import cn.ac.lz233.tarnhelm.extension.storage.ExtensionOwnStorage
+import cn.ac.lz233.tarnhelm.extension.storage.ExtensionRecordStorage
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
 import java.nio.file.Files
 import kotlin.io.path.Path
