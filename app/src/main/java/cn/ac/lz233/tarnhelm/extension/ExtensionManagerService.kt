@@ -10,10 +10,15 @@ import cn.ac.lz233.tarnhelm.extension.api.ExtService
 import cn.ac.lz233.tarnhelm.extension.api.ExtSharedPreferences
 import cn.ac.lz233.tarnhelm.extension.api.IExtConfigurationPanel
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt
+import cn.ac.lz233.tarnhelm.extension.exception.ConfigurationPanelException
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionOwnStorage
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionRecordStorage
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
 import java.nio.file.Files
+import kotlin.concurrent.thread
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 import kotlin.io.path.Path
 
 class ExtensionManagerService(private val context: Context) {
@@ -37,6 +42,7 @@ class ExtensionManagerService(private val context: Context) {
 
     private fun startEnabledExtensions() {
         extensionRecordStorage.getAll().filter { it.enabled }.forEach { ext ->
+            Log.d("ExtensionManager", "Starting enabled extension (id:${ext.id})")
             runCatching { startExtension(ext) }
                 .onFailure { throw RuntimeException("Failed to start extension (id=${ext.id})", it) }
         }
@@ -53,7 +59,7 @@ class ExtensionManagerService(private val context: Context) {
     }
 
     fun registerExtension(extensionRecord: ExtensionRecord) {
-        if (extensionRecordStorage.getAll().any { it.id == extensionRecord.id }) {
+        if (extensionRecordStorage.get(extensionRecord.id) != null) {
             stopExtension(extensionRecord)
             extensionRecordStorage.remove(extensionRecord.id)
         }
@@ -61,7 +67,7 @@ class ExtensionManagerService(private val context: Context) {
         Log.d("ExtensionManager", "Extension (id:${extensionRecord.id}) registered")
         Log.d("ExtensionManager", "Current installed extension: ${extensionRecordStorage.getAll().size}")
         val service = createExtensionService(extensionRecord)
-        service.onExtInstall()
+        thread { runCatching { service.onExtInstall() } }
     }
 
     private fun loadExtension(extensionRecord: ExtensionRecord) = MemoryDexLoader.createClassLoaderWithDex(Files.readAllBytes(Path(extensionRecord.getExtPath(context) + "ext.dex")), extensionClassLoaderParent)
@@ -77,17 +83,23 @@ class ExtensionManagerService(private val context: Context) {
         }) as ExtService
     }
 
-    fun startExtensionConfigurationPanel(extensionId: String, activity: Activity) {
-        val extensionRecord = extensionRecordStorage.get(extensionId) ?: return
-        if (!extensionRecord.hasConfigurationPanel) {
-            throw RuntimeException("Extension (id=${extensionRecord.id}) has no configuration panel as mentioned")
+    @Throws(ConfigurationPanelException::class)
+    fun startExtensionConfigurationPanel(extRecord: ExtensionRecord, activity: Activity) {
+        if (!extRecord.hasConfigurationPanel) {
+            throw RuntimeException("Extension (id=${extRecord.id}) has no configuration panel as mentioned")
         }
-        val extService = runningExtMap[extensionRecord] ?: createExtensionService(extensionRecord)
-        val panelImpl = extService as IExtConfigurationPanel
-        val view = panelImpl.onRequestConfigurationPanel(createRestrictedAppContext(), ExtensionOwnStorage(extensionRecord.getExtPath(context)))
-        AlertDialog.Builder(activity)
-            .setView(view)
-            .show()
+        val extService = runningExtMap[extRecord] ?: createExtensionService(extRecord)
+        try {
+            val panelImpl = extService as IExtConfigurationPanel
+            val view = panelImpl.onRequestConfigurationPanel(createRestrictedAppContext(), ExtensionOwnStorage(extRecord.getExtPath(context)))
+            AlertDialog.Builder(activity)
+                .setView(view)
+                .show()
+        } catch (e: ClassCastException) {
+            throw ConfigurationPanelException("Extension (id=${extRecord.id}) does not implement IExtConfigurationPanel", e)
+        } catch (e: Exception) {
+            throw ConfigurationPanelException("Unknown error occurred", e)
+        }
     }
 
     private fun createRestrictedAppContext(): Context {
@@ -102,18 +114,19 @@ class ExtensionManagerService(private val context: Context) {
         return runningExtMap.keys.toList()
     }
 
-    fun uninstallExtension(extId: String) {
-        Log.d("ExtensionManager", "Uninstalling extension (id:$extId)")
-        val ext = extensionRecordStorage.getAll().find { it.id == extId } ?: return
-        Log.d("ExtensionManager", "Extension (id:$extId) found")
-        val extService = if (runningExtMap.any { it.key.id == extId }) {
-            runningExtMap.filter { it.key.id == extId }.values.first()
+    @Throws(RuntimeException::class)
+    fun uninstallExtension(extRecord: ExtensionRecord) {
+        Log.d("ExtensionManager", "Uninstalling extension (id:${extRecord.id})")
+        val ext = extensionRecordStorage.get(extRecord.id) ?: throw RuntimeException("???")
+        Log.d("ExtensionManager", "Extension (id:$extRecord.id) found")
+        val extService = if (runningExtMap.any { it.key.id == extRecord.id }) {
+            runningExtMap.filter { it.key.id == extRecord.id }.values.first()
         } else {
-            createExtensionService(extensionRecordStorage.get(extId)!!)
+            createExtensionService(extensionRecordStorage.get(extRecord.id)!!)
         }
         extService.onExtUninstall()
         stopExtension(ext)
-        Log.d("ExtensionManager", "Extension (id:$extId) stopped")
+        Log.d("ExtensionManager", "Extension (id:$extRecord.id) stopped")
         // delete extension dir and all files
         Files.walk(Path(ext.getExtPath(context)))
             .sorted(Comparator.reverseOrder())
@@ -121,23 +134,46 @@ class ExtensionManagerService(private val context: Context) {
                 Files.delete(it)
                 Log.d("ExtensionManager", "Deleted file: $it")
             }
-        extensionRecordStorage.remove(extId)
+        extensionRecordStorage.remove(extRecord.id)
     }
 
-    fun enableExtension(extId: String) {
-        val ext = extensionRecordStorage.getAll().find { it.id == extId } ?: return
+    @Throws(RuntimeException::class)
+    fun enableExtension(extRecord: ExtensionRecord) {
+        val ext = extensionRecordStorage.get(extRecord.id) ?: throw RuntimeException("???")
         if (ext.enabled) return
         ext.enabled = true
-        extensionRecordStorage.modify(extId, ext)
+        extensionRecordStorage.modify(extRecord.id, ext)
         startExtension(ext)
     }
 
-    fun disableExtension(extId: String) {
-        val ext = extensionRecordStorage.getAll().find { it.id == extId } ?: return
+    @Throws(RuntimeException::class)
+    fun disableExtension(extRecord: ExtensionRecord) {
+        val ext = extensionRecordStorage.get(extRecord.id) ?: throw RuntimeException("???")
         if (!ext.enabled) return
         ext.enabled = false
-        extensionRecordStorage.modify(extId, ext)
+        extensionRecordStorage.modify(extRecord.id, ext)
         stopExtension(ext)
+    }
+
+    @Throws(RuntimeException::class)
+    suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence) = suspendCoroutine<String> {
+        val service = runningExtMap.getOrDefault(extRecord, null)
+        if (service == null) {
+            it.resumeWithException(RuntimeException("Extension (id=${extRecord.id}) is not running"))
+        }
+        runCatching { service!!.handleLoadString(charSequence) }
+            .onFailure { e -> it.resumeWithException(e) }
+            .onSuccess { result -> it.resume(result) }
+    }
+
+    suspend fun requestCheckUpdate(extRecord: ExtensionRecord) = suspendCoroutine<String> {
+        val service = runningExtMap.getOrDefault(extRecord, null)
+        if (service == null) {
+            it.resumeWithException(RuntimeException("Extension (id=${extRecord.id}) is not running"))
+        }
+        runCatching { service!!.checkUpdate() }
+            .onFailure { e -> it.resumeWithException(e) }
+            .onSuccess { result -> it.resume(result) }
     }
 
 }

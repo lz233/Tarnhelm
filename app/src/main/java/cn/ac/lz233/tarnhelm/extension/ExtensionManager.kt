@@ -4,6 +4,7 @@ import android.app.Activity
 import android.util.Log
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt
+import cn.ac.lz233.tarnhelm.extension.exception.ConfigurationPanelException
 import cn.ac.lz233.tarnhelm.extension.exception.InvalidExtensionException
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
 import kotlinx.coroutines.Dispatchers
@@ -11,10 +12,8 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.InputStream
 import java.math.BigInteger
-import java.nio.file.Files
 import java.security.MessageDigest
-import java.util.UUID
-import kotlin.io.path.Path
+import kotlin.jvm.Throws
 
 object ExtensionManager {
 
@@ -25,10 +24,11 @@ object ExtensionManager {
         Log.d("ExtensionManager", "Total installed extension: ${mExtensionManagerService.getInstalledExtensions().size}")
     }
 
-    fun getExtensionEnabledList(): Set<String> {
-        return mExtensionManagerService.getRunningExtensions().map { it.id }.toSet()
-    }
+    fun getInstalledExtensions() = mExtensionManagerService.getInstalledExtensions()
 
+    fun getRunningExtensions() = mExtensionManagerService.getRunningExtensions()
+
+    @Throws(InvalidExtensionException::class)
     suspend fun installExtension(stream: InputStream) = withContext(Dispatchers.IO) {
         // load dex in memory
         val byteArrays = stream.readBytes()
@@ -56,7 +56,6 @@ object ExtensionManager {
         extPath.parentFile?.mkdirs()
         extPath.writeBytes(byteArrays)
 
-        // TODO: Call Ext.onInstall
         mExtensionManagerService.registerExtension(ExtensionRecord.fromExtInfo(extInfo, getExtensionEntry(classLoader)))
         Log.d("ExtensionManager", "Extension (id:$extId) installed successfully")
     }
@@ -87,20 +86,32 @@ object ExtensionManager {
         }
     }
 
-    fun uninstallExtension(extId: String) {
-        mExtensionManagerService.uninstallExtension(extId)
+    @Throws(RuntimeException::class)
+    fun uninstallExtension(extRecord: ExtensionRecord) {
+        mExtensionManagerService.uninstallExtension(extRecord)
     }
 
-    fun enableExtension(extId: String) {
-        mExtensionManagerService.enableExtension(extId)
+    @Throws(RuntimeException::class)
+    fun enableExtension(extRecord: ExtensionRecord) {
+        mExtensionManagerService.enableExtension(extRecord)
     }
 
-    fun disableExtension(extId: String) {
-        mExtensionManagerService.disableExtension(extId)
+    @Throws(RuntimeException::class)
+    fun disableExtension(extRecord: ExtensionRecord) {
+        mExtensionManagerService.disableExtension(extRecord)
     }
 
-    fun startExtensionConfigurationPanel(extId: String, activity: Activity) {
-        mExtensionManagerService.startExtensionConfigurationPanel(extId, activity)
+    @Throws(ConfigurationPanelException::class)
+    fun startExtensionConfigurationPanel(extRecord: ExtensionRecord, activity: Activity) {
+        mExtensionManagerService.startExtensionConfigurationPanel(extRecord, activity)
+    }
+
+    suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence) = withContext(Dispatchers.IO) {
+        return@withContext mExtensionManagerService.requestHandleString(extRecord, charSequence)
+    }
+
+    suspend fun requestCheckUpdate(extRecord: ExtensionRecord) = withContext(Dispatchers.IO) {
+        return@withContext mExtensionManagerService.requestCheckUpdate(extRecord)
     }
 
 }
