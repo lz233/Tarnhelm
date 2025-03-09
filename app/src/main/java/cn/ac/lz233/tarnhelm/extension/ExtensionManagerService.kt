@@ -14,11 +14,10 @@ import cn.ac.lz233.tarnhelm.extension.exception.ConfigurationPanelException
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionOwnStorage
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionRecordStorage
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.nio.file.Files
 import kotlin.concurrent.thread
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 import kotlin.io.path.Path
 
 class ExtensionManagerService(private val context: Context) {
@@ -155,25 +154,22 @@ class ExtensionManagerService(private val context: Context) {
         stopExtension(ext)
     }
 
-    @Throws(RuntimeException::class)
-    suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence) = suspendCoroutine<String> {
-        val service = runningExtMap.getOrDefault(extRecord, null)
-        if (service == null) {
-            it.resumeWithException(RuntimeException("Extension (id=${extRecord.id}) is not running"))
-        }
-        runCatching { service!!.handleLoadString(charSequence) }
-            .onFailure { e -> it.resumeWithException(e) }
-            .onSuccess { result -> it.resume(result) }
+    @Throws(Throwable::class)
+    suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence): String = withContext(Dispatchers.IO) {
+        val service = runningExtMap.getOrDefault(extRecord, null) ?: throw RuntimeException("Extension (id=${extRecord.id}) is not running")
+        runCatching { service.handleLoadString(charSequence) }
+            .onFailure { e -> throw e }
+            .onSuccess { result -> return@withContext result }
+        throw RuntimeException("???")
     }
 
-    suspend fun requestCheckUpdate(extRecord: ExtensionRecord) = suspendCoroutine<String> {
-        val service = runningExtMap.getOrDefault(extRecord, null)
-        if (service == null) {
-            it.resumeWithException(RuntimeException("Extension (id=${extRecord.id}) is not running"))
-        }
-        runCatching { service!!.checkUpdate() }
-            .onFailure { e -> it.resumeWithException(e) }
-            .onSuccess { result -> it.resume(result) }
+    @Throws(Throwable::class)
+    suspend fun requestCheckUpdate(extRecord: ExtensionRecord): String = withContext(Dispatchers.IO) {
+        val service = runningExtMap.getOrDefault(extRecord, null) ?: throw RuntimeException("Extension (id=${extRecord.id}) is not running")
+        runCatching { service.checkUpdate() }
+            .onFailure { e -> throw e }
+            .onSuccess { result -> return@withContext result }
+        throw RuntimeException("???")
     }
 
 }
