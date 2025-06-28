@@ -22,7 +22,11 @@
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 
-    <style name="Theme.Tarnhelm" parent="Base.Tarnhelm.DayNight">
+    <style name="Base.Tarnhelm.DayNight.DynamicColors" parent="Base.Tarnhelm.DayNight">
+
+    </style>
+
+    <style name="Theme.Tarnhelm" parent="Base.Tarnhelm.DayNight.DynamicColors">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -50,7 +54,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
     </style>
 
-    <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm.DayNight">
+    <style name="Theme.Tarnhelm.NoDisplay" parent="Base.Tarnhelm.DayNight.DynamicColors">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

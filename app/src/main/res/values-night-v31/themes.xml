@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Base.Tarnhelm.DayNight.DynamicColors" parent="Base.Tarnhelm.DayNight">
+        <!-- Fix title bar color on ChromeOS. On devices that support dynamic colors, the app bar will not change color when scrolling, so it is safe to fix . -->
+        <item name="android:statusBarColor">@android:color/system_neutral1_900</item>
+        <item name="android:colorBackground">@android:color/system_neutral1_900</item>
+        <item name="android:windowBackground">@android:color/system_neutral1_900</item>
+    </style>
+
+    <style name="ThemeOverlay.Tarnhelm.DynamicColors" parent="Theme.Tarnhelm">
+        <item name="colorSurface">@android:color/system_neutral1_900</item>
+    </style>
+</resources>

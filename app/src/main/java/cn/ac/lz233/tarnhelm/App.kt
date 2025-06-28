@@ -114,7 +114,7 @@ class App : Application() {
                 .setPrecondition { activity, theme ->
                     !(activity.localClassName.startsWith("ui.process") or activity.localClassName.startsWith("ui.settings.backup"))
                 }
-                .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
+                .setThemeOverlay(R.style.ThemeOverlay_Tarnhelm_DynamicColors)
                 .build()
         )
     }
