@@ -27,7 +27,7 @@ fun String.decodeBase64() = String(Base64.decode(this, Base64.DEFAULT))
 
 fun String.encodeURL(): String = Uri.encode(this)
 
-// DO NOT use java.net.URLDecoder since do not follow RFC3986
+// DO NOT use java.net.URLDecoder since it do not follow RFC3986
 fun String.decodeURL(): String = Uri.decode(this)
 
 fun String.toJSONArray() = JSONArray().apply {

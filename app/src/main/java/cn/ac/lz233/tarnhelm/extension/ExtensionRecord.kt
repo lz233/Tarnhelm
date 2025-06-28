@@ -4,7 +4,7 @@ import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt.ExtInfo
 
 data class ExtensionRecord(
     var enabled: Boolean = false,
-    val entryClassName: String,
+    val entryClassName: String = ENTRY_CLASS_NAME,
     val id: String,
     val author: String?,
     val name: String,
@@ -30,16 +30,16 @@ data class ExtensionRecord(
             override fun hasConfigurationPanel(): Boolean = hasConfigurationPanel
             override fun minTarnhelmSdkVersion(): Int = minTarnhelmSdkVersion
             override fun minAndroidSdkVersion(): Int = minAndroidSdkVersion
-            override fun regexes(): Array<String> = regexes.toTypedArray()
+            override fun regexes() = regexes.toTypedArray<String>()
         }
     }
 
     companion object {
+        const val ENTRY_CLASS_NAME = "TarnhelmExt"
 
-        fun fromExtInfo(extInfo: ExtInfo, entryClassName: String): ExtensionRecord {
+        fun fromExtInfo(extInfo: ExtInfo): ExtensionRecord {
             return ExtensionRecord(
                 id = extInfo.id(),
-                entryClassName = entryClassName,
                 author = extInfo.author(),
                 name = extInfo.name(),
                 description = extInfo.description(),

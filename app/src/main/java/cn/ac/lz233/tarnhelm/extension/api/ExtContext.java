@@ -10,6 +10,11 @@ public interface ExtContext {
         return Build.VERSION.SDK_INT;
     }
 
+    /**
+     * Get the preferences storage of the extension.
+     *
+     * @return ExtSharedPreferences is nearly the same as the shared preferences in Android SDK.
+     */
     ExtSharedPreferences getSharedPreferences();
 
 }

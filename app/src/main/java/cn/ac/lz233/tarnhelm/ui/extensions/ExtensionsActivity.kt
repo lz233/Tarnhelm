@@ -1,10 +1,8 @@
 package cn.ac.lz233.tarnhelm.ui.extensions
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,14 +13,10 @@ import cn.ac.lz233.tarnhelm.databinding.ActivityExtensionsBinding
 import cn.ac.lz233.tarnhelm.extension.ExtensionManager
 import cn.ac.lz233.tarnhelm.ui.SecondaryBaseActivity
 import cn.ac.lz233.tarnhelm.util.LogUtil
-import cn.ac.lz233.tarnhelm.util.ktx.unzip
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import java.io.BufferedInputStream
-import java.io.BufferedOutputStream
-import kotlin.system.exitProcess
 
 class ExtensionsActivity : SecondaryBaseActivity() {
 
@@ -36,12 +30,7 @@ class ExtensionsActivity : SecondaryBaseActivity() {
     private val selectFileCallback = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val fileUri = result.data?.data ?: return@registerForActivityResult
-
-            // check the file extension is .dex
-            if (fileUri.path?.endsWith(".dex") == false) {
-//                    Snackbar.make(binding.root, R.string.extensionNotSupported, Snackbar.LENGTH_SHORT).show() // TODO
-                return@registerForActivityResult
-            }
+            LogUtil._d(fileUri.path)
 
             contentResolver.openInputStream(fileUri)?.let {
                 launch(onExtInstallExceptionHandler) {
@@ -60,14 +49,21 @@ class ExtensionsActivity : SecondaryBaseActivity() {
 
 
         binding.openWebImageView.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tarnhelm.project.ac.cn/rules.html")))
+//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tarnhelm.project.ac.cn/rules.html")))
+            launch {
+                LogUtil._d(ExtensionManager.getInstalledExtensions())
+                ExtensionManager.getInstalledExtensions().forEach {
+                    ExtensionManager.enableExtension(it)
+                    LogUtil._d(ExtensionManager.requestHandleString(it, "https://www.bilibili.com/video/BV1eC411575m/"))
+                }
+            }
         }
 
         binding.importFab.setOnClickListener {
             startImport()
         }
 
-        ExtensionManager.startExtensionConfigurationPanel("cn.ac.lz233.tarnhelm.ext.example", this)
+//        ExtensionManager.startExtensionConfigurationPanel("cn.ac.lz233.tarnhelm.ext.example", this)
     }
 
     private fun startImport() {

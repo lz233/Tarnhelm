@@ -33,13 +33,12 @@ class ExtensionRecordStorage(context: Context) {
 
     private val theList = arrayListOf<ExtensionRecord>()
 
-    private val kv: FastKV
+    private val kv: FastKV = FastKV
+        .Builder("${context.filesDir.absolutePath}/extensions", "config.fastkv")
+        .encoder(arrayOf(extensionRecordListEncoder))
+        .build()
 
     init {
-        kv = FastKV
-            .Builder("${context.filesDir.absolutePath}/extensions", "config.fastkv")
-            .encoder(arrayOf(extensionRecordListEncoder))
-            .build()
         val data : List<ExtensionRecord> = kv.getObject(KEY) ?: emptyList()
         theList.addAll(data)
     }
@@ -60,7 +59,7 @@ class ExtensionRecordStorage(context: Context) {
 
     fun add(extInfo: ExtInfo, entryClassName: String) {
         synchronized(theList) {
-            theList.add(ExtensionRecord.fromExtInfo(extInfo, entryClassName))
+            theList.add(ExtensionRecord.fromExtInfo(extInfo))
             kv.putObject(KEY, theList, extensionRecordListEncoder)
         }
     }

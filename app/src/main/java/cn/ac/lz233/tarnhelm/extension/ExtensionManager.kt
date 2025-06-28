@@ -1,10 +1,8 @@
 package cn.ac.lz233.tarnhelm.extension
 
-import android.app.Activity
 import android.util.Log
 import cn.ac.lz233.tarnhelm.App
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt
-import cn.ac.lz233.tarnhelm.extension.exception.ConfigurationPanelException
 import cn.ac.lz233.tarnhelm.extension.exception.InvalidExtensionException
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +11,6 @@ import java.io.File
 import java.io.InputStream
 import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.jvm.Throws
 
 object ExtensionManager {
 
@@ -56,7 +53,7 @@ object ExtensionManager {
         extPath.parentFile?.mkdirs()
         extPath.writeBytes(byteArrays)
 
-        mExtensionManagerService.registerExtension(ExtensionRecord.fromExtInfo(extInfo, getExtensionEntry(classLoader)))
+        mExtensionManagerService.registerExtension(ExtensionRecord.fromExtInfo(extInfo))
         Log.d("ExtensionManager", "Extension (id:$extId) installed successfully")
     }
 
@@ -67,22 +64,10 @@ object ExtensionManager {
 
     private fun findExtensionInfo(classLoader: ClassLoader): ITarnhelmExt.ExtInfo? {
         try {
-            val realEntry = classLoader.loadClass(getExtensionEntry(classLoader)).newInstance()
+            val realEntry = classLoader.loadClass(ExtensionRecord.ENTRY_CLASS_NAME).newInstance()
             return (realEntry as ITarnhelmExt).extensionInfo()
         } catch (e: Exception) {
             throw InvalidExtensionException("Loading invalid extension", e)
-        }
-    }
-
-    private fun getExtensionEntry(classLoader: ClassLoader): String {
-        try {
-            val entryClazz = classLoader.loadClass("TarnhelmExtEntry")
-            val field = entryClazz.getDeclaredField("entryClassName")
-            return field.get(null) as String
-        } catch (e: ClassNotFoundException) {
-            throw RuntimeException("Invalid extension, no entry class found")
-        } catch (e: Exception) {
-            throw RuntimeException("Invalid extension, ${e.message}")
         }
     }
 
@@ -101,10 +86,11 @@ object ExtensionManager {
         mExtensionManagerService.disableExtension(extRecord)
     }
 
-    @Throws(ConfigurationPanelException::class)
+    // TODO
+    /*@Throws(ConfigurationPanelException::class)
     fun startExtensionConfigurationPanel(extRecord: ExtensionRecord, activity: Activity) {
         mExtensionManagerService.startExtensionConfigurationPanel(extRecord, activity)
-    }
+    }*/
 
     suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence) = withContext(Dispatchers.IO) {
         return@withContext mExtensionManagerService.requestHandleString(extRecord, charSequence)

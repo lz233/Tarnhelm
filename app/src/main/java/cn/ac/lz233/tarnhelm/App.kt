@@ -13,6 +13,7 @@ import androidx.room.Room
 import androidx.window.embedding.ActivityFilter
 import androidx.window.embedding.RuleController
 import androidx.window.embedding.SplitAttributes
+import androidx.window.embedding.SplitController
 import androidx.window.embedding.SplitPairFilter
 import androidx.window.embedding.SplitPairRule
 import androidx.window.embedding.SplitPlaceholderRule
@@ -91,6 +92,7 @@ class App : Application() {
         regexRuleDao = db.regexRuleDao()
         redirectRuleDao = db.redirectRuleDao()
         extensionDao = db.extensionDao()
+        ExtensionManager.init()
 
         activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -115,11 +117,10 @@ class App : Application() {
                 .setThemeOverlay(R.style.Theme_Tarnhelm_DynamicColors)
                 .build()
         )
-
-        ExtensionManager.init()
     }
 
     private fun createSplitConfig() {
+        LogUtil._d(SplitController.getInstance(this).splitSupportStatus)
         WindowInfoTracker.getOrCreate(this)
             .windowLayoutInfo(this)
         val filterSet = setOf(
@@ -146,9 +147,9 @@ class App : Application() {
             .build()
         val splitPairRule = SplitPairRule.Builder(filterSet)
             .setDefaultSplitAttributes(splitAttributes)
-            //.setMinWidthDp(84)
-            //.setMinSmallestWidthDp(600)
-            //.setMaxAspectRatioInPortrait(EmbeddingAspectRatio.ALWAYS_ALLOW)
+//            .setMinWidthDp(0)
+//            .setMinSmallestWidthDp(0)
+//            .setMaxAspectRatioInPortrait(EmbeddingAspectRatio.ALWAYS_ALLOW)
             .setFinishPrimaryWithSecondary(SplitRule.FinishBehavior.ADJACENT)
             .setFinishSecondaryWithPrimary(SplitRule.FinishBehavior.ALWAYS)
             .setClearTop(true)
@@ -162,6 +163,8 @@ class App : Application() {
         )
         val splitPlaceholderRule = SplitPlaceholderRule.Builder(placeholderActivityFilterSet, Intent(context, PlaceHolderActivity::class.java))
             .setDefaultSplitAttributes(splitAttributes)
+//            .setMinWidthDp(0)
+//            .setMinSmallestWidthDp(0)
             .setFinishPrimaryWithPlaceholder(SplitRule.FinishBehavior.ALWAYS)
             .setSticky(false)
             .build()

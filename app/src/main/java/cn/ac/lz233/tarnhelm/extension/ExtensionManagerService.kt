@@ -1,16 +1,12 @@
 package cn.ac.lz233.tarnhelm.extension
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.extension.api.ExtContext
 import cn.ac.lz233.tarnhelm.extension.api.ExtService
 import cn.ac.lz233.tarnhelm.extension.api.ExtSharedPreferences
-import cn.ac.lz233.tarnhelm.extension.api.IExtConfigurationPanel
 import cn.ac.lz233.tarnhelm.extension.api.ITarnhelmExt
-import cn.ac.lz233.tarnhelm.extension.exception.ConfigurationPanelException
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionOwnStorage
 import cn.ac.lz233.tarnhelm.extension.storage.ExtensionRecordStorage
 import cn.ac.lz233.tarnhelm.util.ktx.getExtPath
@@ -82,7 +78,8 @@ class ExtensionManagerService(private val context: Context) {
         }) as ExtService
     }
 
-    @Throws(ConfigurationPanelException::class)
+    // TODO
+    /*@Throws(ConfigurationPanelException::class)
     fun startExtensionConfigurationPanel(extRecord: ExtensionRecord, activity: Activity) {
         if (!extRecord.hasConfigurationPanel) {
             throw RuntimeException("Extension (id=${extRecord.id}) has no configuration panel as mentioned")
@@ -99,7 +96,7 @@ class ExtensionManagerService(private val context: Context) {
         } catch (e: Exception) {
             throw ConfigurationPanelException("Unknown error occurred", e)
         }
-    }
+    }*/
 
     private fun createRestrictedAppContext(): Context {
         return context.createPackageContext(BuildConfig.APPLICATION_ID, Context.CONTEXT_RESTRICTED)
@@ -157,7 +154,7 @@ class ExtensionManagerService(private val context: Context) {
     @Throws(Throwable::class)
     suspend fun requestHandleString(extRecord: ExtensionRecord, charSequence: CharSequence): String = withContext(Dispatchers.IO) {
         val service = runningExtMap.getOrDefault(extRecord, null) ?: throw RuntimeException("Extension (id=${extRecord.id}) is not running")
-        runCatching { service.handleLoadString(charSequence) }
+        runCatching { service.onHandleString(charSequence) }
             .onFailure { e -> throw e }
             .onSuccess { result -> return@withContext result }
         throw RuntimeException("???")
@@ -166,7 +163,7 @@ class ExtensionManagerService(private val context: Context) {
     @Throws(Throwable::class)
     suspend fun requestCheckUpdate(extRecord: ExtensionRecord): String = withContext(Dispatchers.IO) {
         val service = runningExtMap.getOrDefault(extRecord, null) ?: throw RuntimeException("Extension (id=${extRecord.id}) is not running")
-        runCatching { service.checkUpdate() }
+        runCatching { service.onCheckUpdate() }
             .onFailure { e -> throw e }
             .onSuccess { result -> return@withContext result }
         throw RuntimeException("???")
