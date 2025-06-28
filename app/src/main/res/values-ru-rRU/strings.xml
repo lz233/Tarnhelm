@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Tarnhelm</string>
+    <string name="app_description">Магия очистки ссылок для обмена.</string>
+    <string name="tarnhelm_shortcuts">Обработка буфера обмена</string>
+    <string name="copy_label">Копировать Tarnhelm</string>
+    <string name="read_only_toast">Текст только для чтения</string>
+    <string name="rule_added_toast">«%s» добавлен</string>
+    <string name="rule_added_failed_toast">Добавить не удалось. Неправильный формат?</string>
+    <string name="clipboard_service_channel_name">Фоновый мониторинг</string>
+    <string name="process_result_channel_name">Результат процесса</string>
+    <string name="clipboard_service_started">Фоновый мониторинг включен</string>
+    <string name="clipboard_service_summary">Нажмите для получения дополнительной информации</string>
+    <string name="clipboard_service_permission_needed">Требуется разрешение Shizuku</string>
+    <string name="process_result_processing">😇 Выполняется обработка</string>
+    <string name="process_result_success">🥳 Успешно обработано</string>
+    <string name="process_result_failed">🥲 Обработка не удалась</string>
+
+    <string name="mainStatusTitle">Состояние</string>
+    <string name="mainStatusErrorSummary">Нет включённого режима работы</string>
+    <string name="mainStatusPassSummary">Работает в режиме %s</string>
+    <string name="mainStatusPunctuation">,\u0020</string>
+    <string name="mainStatusPunctuationLast">\u0020and\u0020</string>
+    <string name="mainStatusWorkModeEditTextMenu">Меню редактирования текста</string>
+    <string name="mainStatusWorkModeCopyMenu">Меню копирования</string>
+    <string name="mainStatusWorkModeShare">Диалоговое окно общего доступа</string>
+    <string name="mainStatusBackgroundMonitoring">Фоновый мониторинг</string>
+    <string name="mainStatusWorkModeXposed">Xposed</string>
+    <string name="mainRulesTitle">Правила</string>
+    <string name="mainRulesSummary">%s правил записано</string>
+    <string name="mainExtensionsTitle">Расширения</string>
+    <string name="mainExtensionsSummary">%s расширений записано</string>
+    <string name="mainSettingsTitle">Настройки</string>
+    <string name="mainShareTitle">Поделиться</string>
+    <string name="mainAboutTitle">О приложение</string>
+    <string name="mainRankToast">Понравилось приложение? Пожалуйста, оцените нас в магазине приложений!</string>
+    <string name="mainRankToastAction">Рейтинг</string>
+    <string name="mainRequestPermissionFailedToast">Вам нужно предоставить это разрешение для продолжения</string>
+    <string name="mainPrivacyPolicyDialogTitle">Политика конфиденциальности</string>
+    <string name="mainPrivacyPolicyDialogContent">В соответствии с требованиями китайского рынка приложений, пожалуйста, прочтите <a href="https://tarnhelm.project.ac.cn/privacy.html">Политику конфиденциальности</a> и примите её перед началом.</string>
+    <string name="mainPrivacyPolicyDialogPositiveButton">Принимаю</string>
+    <string name="mainPrivacyPolicyDialogNegativeButton">Не принимаю</string>
+
+    <string name="aboutViewSourceCode"><![CDATA[Посмотреть исходный код в %s]]></string>
+
+    <string name="rulesTitle">Правила</string>
+    <string name="rulesParametersTitle">Параметры</string>
+    <string name="rulesRegexesTitle">Регулярные выражения</string>
+    <string name="rulesRedirectsTitle">Перенаправления</string>
+    <string name="rulesAddFab">Добавить</string>
+    <string name="rulesPasteFailedToast">Вставка не удалась. Неправильный формат?</string>
+
+    <string name="parameterRulesAddDialogTitle">Добавить правило параметра</string>
+    <string name="parameterRulesEditDialogTitle">Изменить правило параметра</string>
+    <string name="parameterRulesItemMode">Режим</string>
+    <string name="parameterRulesItemWhiteListMode">Белый список</string>
+    <string name="parameterRulesItemBlackListMode">Чёрный список</string>
+    <string name="parameterRulesItemDescription">Описание</string>
+    <string name="parameterRulesItemDomain">Домен</string>
+    <string name="parameterRulesItemParameters">Параметры</string>
+    <string name="parameterRulesItemAuthor">Автор</string>
+    <string name="parameterRulesDialogPositiveButton">Хорошо</string>
+
+    <string name="regexRulesAddDialogTitle">Добавить правило регулярного выражения</string>
+    <string name="regexRulesEditDialogTitle">Изменить правило регулярного выражения</string>
+    <string name="regexRulesItemDescription">Описание</string>
+    <string name="regexRulesItemRegexes">Регулярные выражения</string>
+    <string name="regexRulesItemReplacements">Замены</string>
+    <string name="regexRulesItemAuthor">Автор</string>
+    <string name="regexRulesDialogPositiveButton">Хорошо</string>
+
+    <string name="redirectRulesAddDialogTitle">Добавить правило перенаправления</string>
+    <string name="redirectRulesEditDialogTitle">Изменить правило перенаправления</string>
+    <string name="redirectRulesItemDescription">Описание</string>
+    <string name="redirectRulesItemDomain">Домен</string>
+    <string name="redirectRulesItemUserAgent">Агент пользователя</string>
+    <string name="redirectRulesItemAuthor">Автор</string>
+    <string name="redirectRulesDialogPositiveButton">Хорошо</string>
+
+    <string name="extensionsTitle">Расширения</string>
+    <string name="extensionsImportFab">Импорт</string>
+    <string name="extensionsItemName">Название</string>
+    <string name="extensionsItemDescription">Описание</string>
+    <string name="extensionsItemRegexes">Регулярные выражения</string>
+    <string name="extensionsItemAuthor">Автор</string>
+
+    <string name="settingsTitle">Настройки</string>
+    <string name="settingsWorkModeTitle">Режим работы</string>
+    <string name="settingsWorkModeEditTextMenu">Меню редактирования текста</string>
+    <string name="settingsWorkModeEditTextMenuSummary">Нажмите «Tarnhelm» в редактируемом EditText</string>
+    <string name="settingsWorkModeCopyMenu">Меню копирования</string>
+    <string name="settingsWorkModeCopyMenuSummary">Нажмите «Tarnhelm Копировать» после выбора</string>
+    <string name="settingsWorkModeShare">Диалог общего доступа</string>
+    <string name="settingsWorkModeShareSummary">Отметьте «Tarnhelm» в диалоге общего доступа</string>
+    <string name="settingsWorkModeBackgroundMonitoring">Фоновый мониторинг</string>
+    <string name="settingsWorkModeBackgroundMonitoringSummary">Обрабатывать содержимое в фоновом режиме в реальном времени</string>
+    <string name="settingsWorkModeBackgroundMonitoringToast">Требуется разрешение Shizuku</string>
+    <string name="settingsWorkModeXposed">Xposed</string>
+    <string name="settingsWorkModeXposedSummary">Фреймворк для изменения буфера обмена</string>
+    <string name="settingsWorkModeOpenLSPosedToast">Активировать в LSPosed и перезагрузить для изменения</string>
+    <string name="settingsWorkModeRecommendationToast">Рекомендуется включить только один фонового мониторинга или Xposed</string>
+    <string name="settingsXposedTitle">Xposed</string>
+    <string name="settingsXposedRewriteClipboard">Перезаписать буфер обмена</string>
+    <string name="settingsXposedOverrideClipboardOverlay">Переопределить наложение буфера обмена</string>
+    <string name="settingsNotification">Уведомление</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotification">Всегда отправлять уведомления об обработке</string>
+    <string name="settingsNotificationAlwaysSendProcessingNotificationSummary">Даже если не задействованы длительные по времени операции</string>
+    <string name="settingsNotificationSystemNotificationSettings">Дополнительные настройки</string>
+    <string name="settingsBehavior">Поведение</string>
+    <string name="settingsBehaviorExportRulesAsLink">Экспортировать правила как ссылку</string>
+    <string name="settingsBehaviorExportRulesAsLinkSummary">Добавить «tarnhelm://» в экспортированные правила</string>
+    <string name="settingsOthersTitle">Другие</string>
+    <string name="settingsOthersBackupAndRestore">Резервное копирование и восстановление</string>
+    <string name="settingsOthersWebSite">Сайт</string>
+    <string name="settingsOthersWebsiteSummary">tarnhelm.project.ac.cn</string>
+    <string name="settingsOthersTelegramChannel">Канал в Telegram</string>
+    <string name="settingsOthersTelegramChannelSummary">\@tarnhelm_app</string>
+    <string name="settingsOthersTranslator">Переводчик</string>
+    <string name="settingsOthersTranslatorSummary"></string>
+
+    <string name="backupTitle">Резервное копирование и восстановление</string>
+    <string name="backupSummary">Данные от Tarnhelm могут быть правильно обработаны системой Android. В большинстве случаев это можно сделать с помощью Google Cloud Backup или ADB.\nЕсли вы все равно хотите вручную выполнить резервное копирование или восстановить данные, пожалуйста, продолжайте ниже.</string>
+    <string name="backupWarning">Это жесткое резервное копирование, которое не гарантирует восстановления данных и не выполняет никаких проверок файла резервной копии, используйте его с осторожностью.</string>
+    <string name="backupBackupButton">Резервное копирование</string>
+    <string name="backupRestoreButton">Восстановление</string>
+    <string name="backupRequestPermissionFailedToast">Вам следует предоставить это разрешение для продолжения</string>
+    <string name="backupSaveViaSAFTitle">Сохранить в хранилище</string>
+</resources>
