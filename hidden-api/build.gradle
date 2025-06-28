@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'cn.ac.lz233.tarnhelm.hidden_api'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         minSdk 27

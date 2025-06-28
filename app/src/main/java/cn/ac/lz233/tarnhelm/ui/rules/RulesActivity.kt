@@ -172,8 +172,6 @@ class RulesActivity : SecondaryBaseActivity() {
     }
 
     companion object {
-        fun actionStart(context: Context) = context.startActivity(
-            Intent(context, RulesActivity::class.java)
-        )
+        fun actionStart(context: Context) = context.startActivity(Intent(context, RulesActivity::class.java))
     }
 }

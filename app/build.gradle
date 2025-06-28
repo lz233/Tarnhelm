@@ -6,15 +6,15 @@ plugins {
 
 android {
     namespace 'cn.ac.lz233.tarnhelm'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         Date date = new Date()
         applicationId "cn.ac.lz233.tarnhelm"
         minSdk 27
-        targetSdk 35
+        targetSdk 36
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName "1.8.0"
+        versionName "1.8.1"
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -76,16 +76,16 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":shizuku-service")
 
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.core:core-ktx:1.15.0'
-    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.room:room-runtime:2.7.2'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-    implementation 'androidx.window:window:1.3.0'
-    ksp 'androidx.room:room-compiler:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.3.0'
+    implementation 'androidx.window:window:1.4.0'
+    ksp 'androidx.room:room-compiler:2.7.2'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
 
