@@ -64,6 +64,17 @@
             android:key="exportRulesAsLink"
             android:summary="@string/settingsBehaviorExportRulesAsLinkSummary"
             android:title="@string/settingsBehaviorExportRulesAsLink" />
+
+    <rikka.material.preference.MaterialSwitchPreference
+        android:key="enableDefaultUA"
+        android:summary="@string/settingsBehaviorEnableDefaultUASummary"
+        android:title="@string/settingsBehaviorEnableDefaultUA" />
+
+        <EditTextPreference
+            android:key="overrideUA"
+            android:title="@string/settingsBehaviorOverrideUA"
+            android:summary="@string/settingsBehaviorOverrideUASummary"
+            android:defaultValue="" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settingsOthersTitle">

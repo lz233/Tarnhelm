@@ -103,6 +103,10 @@
     <string name="settingsBehavior">行为</string>
     <string name="settingsBehaviorExportRulesAsLink">以链接形式导出规则</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">在导出的规则前添加「tarnhelm://」</string>
+    <string name="settingsBehaviorEnableDefaultUA">使用默认 UA</string>
+    <string name="settingsBehaviorEnableDefaultUASummary">当规则未指定 UA 时，在 HTTP 请求中使用系统 WebView 的 UA</string>
+    <string name="settingsBehaviorOverrideUA">覆盖 UA</string>
+    <string name="settingsBehaviorOverrideUASummary">指定 UA 以覆盖其他现有设置，留空以禁用</string>
     <string name="settingsOthersTitle">其他</string>
     <string name="settingsOthersBackupAndRestore">备份与恢复</string>
     <string name="settingsOthersWebSite">网站</string>

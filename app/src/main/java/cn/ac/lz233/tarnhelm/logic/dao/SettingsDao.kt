@@ -20,4 +20,12 @@ object SettingsDao {
 
     val exportRulesAsLink
         get() = App.spSettings.getBoolean("exportRulesAsLink", false)
+
+    val enableDefaultUA
+        get() = App.spSettings.getBoolean("enableDefaultUA", true)
+
+    val defaultUA
+        get() = App.webSettings.userAgentString
+    val overrideUA
+        get() = App.spSettings.getString("overrideUA", "")
 }

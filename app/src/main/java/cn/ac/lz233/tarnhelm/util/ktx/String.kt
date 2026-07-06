@@ -61,7 +61,16 @@ fun String.doTarnhelm(): Triple<CharSequence, Boolean, List<String>> {
                     .setProgress(100, 0, true)
                     .build()
                 App.notificationManager.notify(234, notification)
-                httpUrl = httpUrl.followRedirect(rule.userAgent)
+                LogUtil._d("defaultUA: ${SettingsDao.defaultUA}, enableDefaultUA: ${SettingsDao.enableDefaultUA}, " +
+                        "rule.userAgent: ${rule.userAgent}, SettingsDao.overrideUA: ${SettingsDao.overrideUA}")
+                httpUrl = httpUrl.followRedirect(
+                    if (!SettingsDao.overrideUA.isNullOrEmpty())
+                        SettingsDao.overrideUA
+                    else if (SettingsDao.enableDefaultUA && rule.userAgent.isNullOrEmpty())
+                        SettingsDao.defaultUA
+                    else
+                        rule.userAgent
+                )
             }
         }
         result = httpUrl.toString()

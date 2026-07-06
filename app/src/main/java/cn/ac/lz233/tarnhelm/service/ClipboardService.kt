@@ -130,9 +130,11 @@ class ClipboardService : Service() {
                 LogUtil._d("ClipboardService doClipboard")
                 text1 = it
                 it.doTarnhelms { success, result ->
-                    if (success) {
+                    if (success && (result != text1)) {
                         text2 = result
                         App.clipboardManager.setPrimaryClip(ClipData.newPlainText("Tarnhelm", text2))
+                    } else {
+                        LogUtil._d("ClipboardService neither doTarnhelms failed or result equals to original clipboard, result not set")
                     }
                 }
             }

@@ -108,6 +108,10 @@
     <string name="settingsBehavior">Behavior</string>
     <string name="settingsBehaviorExportRulesAsLink">Export rules as link</string>
     <string name="settingsBehaviorExportRulesAsLinkSummary">Add \"tarnhelm://\" on exported rules</string>
+    <string name="settingsBehaviorEnableDefaultUA">Use Default UA</string>
+    <string name="settingsBehaviorEnableDefaultUASummary">Use System WebView UA in HTTP Request if the rule not specified an UA</string>
+    <string name="settingsBehaviorOverrideUA">Override UA</string>
+    <string name="settingsBehaviorOverrideUASummary">Specify an UA to override any existing UA (leave empty to disable)</string>
     <string name="settingsOthersTitle">Others</string>
     <string name="settingsOthersBackupAndRestore">Backup &amp; restore</string>
     <string name="settingsOthersWebSite">Website</string>

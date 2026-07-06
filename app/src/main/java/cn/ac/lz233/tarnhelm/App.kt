@@ -8,6 +8,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.webkit.WebSettings
+import android.webkit.WebView
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import androidx.window.embedding.ActivityFilter
@@ -43,6 +45,7 @@ class App : Application() {
         lateinit var sp: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
         lateinit var spSettings: SharedPreferences
+        lateinit var webSettings: WebSettings
         var spXposed: SharedPreferences? = null
         var editorXposed: SharedPreferences.Editor? = null
 
@@ -81,6 +84,7 @@ class App : Application() {
         context = applicationContext
         sp = context.getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE)
         spSettings = PreferenceManager.getDefaultSharedPreferences(context)
+        webSettings = WebView(this).getSettings()
         runCatching {
             spXposed = context.getSharedPreferences("${BuildConfig.APPLICATION_ID}_xposed", MODE_WORLD_READABLE)
             editorXposed = spXposed?.edit()
