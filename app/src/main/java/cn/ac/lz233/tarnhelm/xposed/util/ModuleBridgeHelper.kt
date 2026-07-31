@@ -29,7 +29,7 @@ object ModuleBridgeHelper {
             bridge = null
             isBridgeAvailable = false
             unbindBridgeService(mContext)
-            Android.startModuleAppProcess()
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.BAKLAVA) Android.startModuleAppProcess()
             bindBridgeService()
         }
     }
@@ -81,7 +81,7 @@ object ModuleBridgeHelper {
 
     fun doTarnhelms(string: String): String {
         if (!(isBridgeAvailable && isBridgeActive())) {
-            Android.startModuleAppProcess()
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.BAKLAVA) Android.startModuleAppProcess()
             bindBridgeService()
         }
         bridge?.let {
