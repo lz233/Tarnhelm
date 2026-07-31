@@ -2,6 +2,7 @@ package cn.ac.lz233.tarnhelm.xposed.module
 
 import android.annotation.SuppressLint
 import android.content.*
+import android.os.Build
 import cn.ac.lz233.tarnhelm.BuildConfig
 import cn.ac.lz233.tarnhelm.util.LogUtil
 import cn.ac.lz233.tarnhelm.xposed.Config
@@ -19,7 +20,7 @@ object Android {
             thread {
                 runCatching {
                     Thread.sleep(1000)
-                    startModuleAppProcess()
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.BAKLAVA) startModuleAppProcess()
                     ModuleBridgeHelper.bindBridgeService()
                     mContext?.unregisterReceiver(this)
                 }.onFailure { LogUtil.xpe(it) }
@@ -115,35 +116,30 @@ object Android {
     }
 
     private fun disableBackgroundCheck() {
-        runCatching {
-            "com.android.server.am.UidRecord".hookBeforeMethod("isIdle") { param ->
-                runCatching {
-                    val ams = param.thisObject.getObjectField("mService") ?: throw Exception("AMS is null")
-                    val context = ams.getObjectField("mContext") as Context
-                    val uid = param.thisObject.getIntField("mUid")
-                    context.packageManager.getPackagesForUid(uid)?.let {
-                        if (it.contains(Config.packageName)) {
-                            LogUtil.xpe("isIdle hooked, set result to false")
-                            param.result = false
-                        }
+        listOf("isIdle", "isSetIdle").forEach { methodName ->
+            runCatching {
+                var clazz: Class<*>? = "com.android.server.am.UidRecord".findClass()
+                var method: java.lang.reflect.Method? = null
+                while (clazz != null && method == null) {
+                    method = clazz.declaredMethods.firstOrNull {
+                        it.name == methodName && it.parameterCount == 0
                     }
-                }.onFailure { LogUtil.xpe(it) }
-            }
-        }.onFailure { LogUtil.xpe(it) }
-        runCatching {
-            "com.android.server.am.UidRecord".hookBeforeMethod("isSetIdle") { param ->
-                runCatching {
-                    val ams = param.thisObject.getObjectField("mService") ?: throw Exception("AMS is null")
-                    val context = ams.getObjectField("mContext") as Context
-                    val uid = param.thisObject.getIntField("mUid")
-                    context.packageManager.getPackagesForUid(uid)?.let {
-                        if (it.contains(Config.packageName)) {
-                            LogUtil.xpe("isSetIdle hooked, set result to false")
-                            param.result = false
+                    clazz = clazz.superclass
+                }
+                requireNotNull(method) { "UidRecord#$methodName not found" }.hookBeforeMethod { param ->
+                    runCatching {
+                        val ams = param.thisObject.getObjectField("mService") ?: throw Exception("AMS is null")
+                        val context = ams.getObjectField("mContext") as Context
+                        val uid = param.thisObject.getIntField("mUid")
+                        context.packageManager.getPackagesForUid(uid)?.let {
+                            if (it.contains(Config.packageName)) {
+                                LogUtil.xp("$methodName hooked, set result to false")
+                                param.result = false
+                            }
                         }
-                    }
-                }.onFailure { LogUtil.xpe(it) }
-            }
+                    }.onFailure { LogUtil.xpe(it) }
+                }
+            }.onFailure { LogUtil.xpe(it) }
         }
     }
 

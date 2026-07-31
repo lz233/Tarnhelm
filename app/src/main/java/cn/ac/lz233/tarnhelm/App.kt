@@ -8,6 +8,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.preference.PreferenceManager
@@ -103,10 +104,10 @@ class App : Application() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-        if (isXposedActive()) context.startService(
+        if (isXposedActive() && Build.VERSION.SDK_INT <= Build.VERSION_CODES.BAKLAVA) context.startService(
             Intent().apply {
                 `package` = Config.packageName
-                action = "cn.ac.lz233.tarnhelm.bridge"
+                action = Config.bridgeAction
             }
         )
 

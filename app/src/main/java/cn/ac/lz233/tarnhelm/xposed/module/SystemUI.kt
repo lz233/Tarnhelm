@@ -63,35 +63,61 @@ object SystemUI {
                 }
             } else {
                 // >=TQ2A
-                "com.android.systemui.clipboardoverlay.ClipboardOverlayView".hookAfterMethod(
-                    "resetActionChips"
-                ) {
-                    if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
-                    LogUtil.xpd("setClipData >=TQ2A")
+                val overlayViewClass = "com.android.systemui.clipboardoverlay.ClipboardOverlayView".findClass()
+                val resetActionChips = overlayViewClass.declaredMethods.firstOrNull {
+                    it.name == "resetActionChips" && it.parameterCount == 0
+                }
+                if (resetActionChips != null) {
+                    resetActionChips.hookAfterMethod {
+                        if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
+                        val clipboardOverlayView = it.thisObject as View
+                        clipboardOverlayView.callMethod(
+                            "setActionChip",
+                            createAction(clipboardOverlayView.context),
+                            object : Runnable { override fun run() = Unit }
+                        )
+                    }
+                } else {
+                    "com.android.systemui.clipboardoverlay.ClipboardOverlayController".hookAfterMethod(
+                        "setExpandedView",
+                        Runnable::class.java
+                    ) {
+                        if (!Config.sp.getBoolean("overrideClipboardOverlay", false)) return@hookAfterMethod
+                        val clipboardOverlayView = it.thisObject.getObjectField("mView") as View
+                        val actionChips = clipboardOverlayView.getObjectField("mActionChips") as? List<*>
+                        if (actionChips?.filterIsInstance<View>()?.any { view -> view.contentDescription == "Tarnhelm" } == true) return@hookAfterMethod
 
-                    val clipboardOverlayView = it.thisObject as View
-                    clipboardOverlayView.callMethod(
-                        "setActionChip",
-                        RemoteAction(
-                            Icon.createWithResource(BuildConfig.APPLICATION_ID, R.drawable.ic_icon),
-                            "",
-                            "Tarnhelm",
-                            PendingIntent.getActivity(
-                                clipboardOverlayView.context,
-                                1,
-                                Intent().setClassName(BuildConfig.APPLICATION_ID, ProcessOverlayActivity::class.java.name),
-                                PendingIntent.FLAG_IMMUTABLE
-                            )
-                        ),
-                        object : Runnable {
-                            override fun run() {
-                                //clipboardOverlayController.callMethod("animateOut")
-                            }
+                        val callbackClass = "com.android.systemui.clipboardoverlay.ClipboardOverlayController\$\$ExternalSyntheticLambda1".findClass()
+                        val callback = callbackClass.getDeclaredConstructor(Int::class.javaPrimitiveType).apply {
+                            isAccessible = true
+                        }.newInstance(2).apply {
+                            setObjectField("f\$0", it.thisObject)
                         }
-                    )
+                        clipboardOverlayView.callMethod(
+                            "setActionChip",
+                            createAction(clipboardOverlayView.context),
+                            callback
+                        )
+                        (clipboardOverlayView.getObjectField("mActionChips") as? List<*>)
+                            ?.lastOrNull()
+                            ?.let { view -> view as? View }
+                            ?.contentDescription = "Tarnhelm"
+                    }
                 }
             }
         }.onFailure { LogUtil.xpe(it) }
     }
+
+    private fun createAction(context: Context) = RemoteAction(
+        Icon.createWithResource(BuildConfig.APPLICATION_ID, R.drawable.ic_icon),
+        "",
+        "Tarnhelm",
+        PendingIntent.getActivity(
+            context,
+            1,
+            Intent().setClassName(BuildConfig.APPLICATION_ID, ProcessOverlayActivity::class.java.name),
+            PendingIntent.FLAG_IMMUTABLE
+        )
+    )
 
 }
