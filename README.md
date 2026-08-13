@@ -17,4 +17,4 @@
 
 从 LSPosed Repository 获取：https://github.com/Xposed-Modules-Repo/cn.ac.lz233.tarnhelm
 
-[![Star History Chart](https://api.star-history.com/svg?repos=lz233/Tarnhelm&type=Date)](https://star-history.com/#lz233/Tarnhelm&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=lz233/Tarnhelm&type=Date)](https://star-history.dera.page/#lz233/Tarnhelm&Date)
